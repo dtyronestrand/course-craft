@@ -14,23 +14,24 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Course::class)->constrained()->onDelete('cascade');
             $table->string('title');
-            $table->foreignIdFor(CourseObjective::class)->nullable()->constrained()->onDelete('set null');
             $table->jsonb('module_objectives')->nullable();
             $table->integer('order_index');
             $table->timestamps();
         });
-
+        Schema::create('module_objectives', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('module_id')->constrained('course_modules')->onDelete('cascade');
+            $table->string('number');
+            $table->text('objective');
+            $table->timestamps();
+        });
         // Assessments linked to modules
         Schema::create('course_assessments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('module_id')->nullable()->constrained('course_modules')->onDelete('cascade');
             $table->string('title');
             $table->string('type');
-            $table->jsonb('aligned_module_objectives');
-            $table->text('purpose')->nullable();
-            $table->text('criteria')->nullable();
-            $table->integer('point_value')->nullable();
-            $table->string('time_limit')->nullable();
+           $table->foreignId('module_objective_id')->nullable()->constrained('module_objectives')->onDelete('set null');
             $table->timestamps();
         });
 
@@ -38,6 +39,7 @@ return new class extends Migration
         Schema::create('course_instruction', function (Blueprint $table) {
             $table->id();
             $table->foreignId('module_id')->nullable()->constrained('course_modules')->onDelete('cascade');
+            $table->foreignId('module_objective_id')->nullable()->constrained('module_objectives')->onDelete('set null');
             $table->string('title');
             $table->string('type');
             $table->text('content')->nullable();
@@ -49,6 +51,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Course::class)->constrained()->onDelete('cascade');
             $table->foreignId('module_id')->nullable()->constrained('course_modules')->onDelete('cascade');
+            $table->foreignId('module_objective_id')->nullable()->constrained('module_objectives')->onDelete('set null');
             $table->string('title');
             $table->string('type');
             $table->string('url')->nullable();

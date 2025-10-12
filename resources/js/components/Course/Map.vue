@@ -1,7 +1,9 @@
 <template>
-    <div>
+    <div class="flex flex-col gap-8">
+    {{ props.course }}
+    <h2 class="text-5xl font-bold mb-8 pl-4">Course Map</h2>
         <div v-if="props.course.modules?.length" >
-<table>
+<table class="min-w-[350px] w-full max-w-[1200px]  border-4 border-secondary bg-base-300 rounded-xl overflow-hidden shadow-[4px 4px 8px var(--color-base-300)] border-collapse">
 <thead>
 <tr>
 <th>Module</th>
@@ -16,8 +18,16 @@
 <tbody>
 <tr v-for="module in props.course.modules" :key="module.id">
 <td>{{ module.title }}</td>
-<td>{{ module.aligned_course_objectives }}</td>
-<td>{{ module.learning_objectives }}</td>
+<td>
+<div v-for="objective in module.course_objectives" :key="objective.id">
+{{ objective.number }}: {{ objective.objective }}
+</div>
+</td>
+<td>
+<div v-for="(objective, index) in JSON.parse(module.module_objectives)" :key="index">
+{{ objective.number }}: {{ objective.objective }}
+</div>
+</td>
 <td>{{ module.course_assessments }}</td>
 <td>{{ module.course_instructions }}</td>
 <td>{{ module.course_materials }}</td>
@@ -51,5 +61,31 @@ const addModule = () => {
 </script>
 
 <style scoped>
+th, td{
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 2px solid rgba(from var(--color-neutral) R G B /0.8);
+}
 
+th{
+    text-align:center;
+}
+
+thead{
+    background: rgba(from var(--color-secondary) R G B /0.4);
+    font-weight: bold;
+    color: var(--color-secondary-content);
+}
+
+tbody tr:nth-child(even){
+    background: rgba(from var(--color-base-300) R G B /0.1);
+}
+
+td{
+    word-break: break-word;
+}
+
+tr td:first-child{
+    word-break: keep-all;
+}
 </style>

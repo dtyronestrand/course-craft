@@ -21,13 +21,20 @@ class CourseModuleController extends Controller
             'mediaLibraryNeeds' => 'nullable|array',
         ]);
 
-        $module = CourseModule::create([
-            'course_id' => $request->course_id,
+        $course = \App\Models\Course::findOrFail($request->course_id);
+        $module = $course->modules()->create([
             'title' => $request->moduleName,
             'order_index' => $request->moduleNumber,
-            'learning_objectives' => json_encode($request->moduleObjectives ?? []),
-            'aligned_course_objectives' => json_encode($request->alignedCourseObjectives ?? []),
+            'module_objectives' => json_encode($request->moduleObjectives ?? []),
         ]);
+
+        // Attach aligned course objectives to pivot table
+        if ($request->alignedCourseObjectives) {
+            $objectiveIds = \App\Models\CourseObjective::whereIn('number', $request->alignedCourseObjectives)
+                ->where('course_id', $request->course_id)
+                ->pluck('id');
+            $module->courseObjectives()->attach($objectiveIds);
+        }
 
         // Create assessments
         if ($request->course_assessments) {

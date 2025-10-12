@@ -26,7 +26,7 @@
                     <label for="objectives" class="block text-sm font-medium text-primary-content">Course Objectives</label>
                 <div v-for="(objective, index) in courseData.objectives" :key="index" class="mb-2 flex items-center gap-2">
                     <p class="mb-0">{{objective.number}}.</p>
-                    <input v-model="objective.text" type="text" :id="'objective-' + index" class="mt-1 block w-full border border-base-200 rounded-md shadow-sm p-2" />
+                    <input v-model="objective.objective" type="text" :id="'objective-' + index" class="mt-1 block w-full border border-base-200 rounded-md shadow-sm p-2" />
                     <button type="button" @click="courseData.objectives.splice(index, 1)" class="text-error hover:text-error/70">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -78,7 +78,7 @@ interface User {
 
 interface Objective {
     number: string;
-    text: string;
+    objective: string;
 }
 
 interface CourseData {
@@ -92,7 +92,7 @@ const handleCreateCourse = () => {
     if (courseData.value.prefix && courseData.value.number && courseData.value.title) {
         // Emit the create-course event with the course data
         // Ensure objectives without text are filtered out
-        const filteredObjectives = courseData.value.objectives.filter(obj => obj.text.trim() !== '');
+        const filteredObjectives = courseData.value.objectives.filter(obj => obj.objective.trim() !== '');
         const courseToCreate = {
             ...courseData.value,
             objectives: filteredObjectives
@@ -170,7 +170,7 @@ const updateUsers = () => {
 const createObjective = () => {
     courseData.value.objectives.push({ 
         number: toRoman(courseData.value.objectives.length + 1),
-        text: '' 
+        objective: '' 
     });
 };
 

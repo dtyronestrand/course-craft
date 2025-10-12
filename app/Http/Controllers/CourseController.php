@@ -46,6 +46,15 @@ return Inertia::render('Dashboard', [
         'title' => $request->title,
     
     ]);
+
+    if ($request->objectives) {
+        foreach ($request->objectives as $objective) {
+            $course->objectives()->create([
+                'number' => $objective['number'],
+                'objective' => $objective['objective'],
+            ]);
+        }
+    }
     
     if ($request->users) {
         foreach ($request->users as $user) {
@@ -62,7 +71,7 @@ return Inertia::render('Dashboard', [
      */
     public function show(Course $course)
     {
-        $course->load(['modules', 'users']);
+        $course->load(['modules.courseObjectives', 'users', 'objectives']);
         $numberOfModules = $course->modules()->count();
         return Inertia::render('courses/Show', [
             'course' => $course,

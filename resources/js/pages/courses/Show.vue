@@ -16,7 +16,7 @@
  </div>
  <h3 class="text-3xl my-4">Learning Objectives:</h3>
  <div v-for="(objective,index) in page.props.course.objectives" :key="index">
- <p class="text-lg">{{ objective.number }}. {{ objective.text }}</p>
+ <p class="text-lg">{{ objective.number }}. {{ objective.objective }}</p>
     </div>
     </div>
     </div>
@@ -36,7 +36,7 @@ interface Course {
     prefix: string;
     number: string | number;
     title: string;
-    objectives: { number: string; text: string; }[];
+    objectives: { number: string; objective: string; }[];
     users: { id: number; first_name: string; last_name: string; pivot: { role: string; } }[];
     course_modules: any[];
 }

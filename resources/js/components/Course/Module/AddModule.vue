@@ -1,6 +1,6 @@
 <template>
     <div class="mx-32 flex  border p-8 bg-base-300  gap-4 ">
-        <form v-if="props.parent==='map'" @submit.prevent="form.post('/modules')">
+        <form v-if="props.parent==='map'" @submit.prevent="handleSubmit" class="w-full">
            <div class="mb-4 flex flex-row gap-4">
            <label class="label text-2xl" for="moduleNumber">Module {{ form.moduleNumber }}:</label>
      
@@ -141,6 +141,16 @@ const form = useForm({
 
 })
 
+const handleSubmit = () => {
+    form.post('/course_modules', {
+        onSuccess: () => {
+            emit('close');
+        },
+        onError: (errors) => {
+            console.error(errors);
+        }
+    });
+};
 </script>
 
 <style scoped>
