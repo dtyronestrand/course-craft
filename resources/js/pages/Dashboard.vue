@@ -13,7 +13,7 @@ const isCreateCourseModalOpen = ref(false);
 const saveCourse = (courseData: any) => {
     // Handle course creation logic here
     router.post('/courses', courseData, {
-        onSuccess: () => {
+        onFinish: () => {
            router.reload();
         },
     });

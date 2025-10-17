@@ -12,21 +12,21 @@
             <form @submit.prevent="$emit('create-course', courseData)">
                 <div class="mb-4">
                     <label for="prefix" class="block text-sm font-medium text-primary-content">Course Prefix</label>
-                    <input v-model="courseData.prefix" type="text" id="prefix" class="mt-1 block w-full border-b border-base-200 shadow-sm p-2" required />
+                    <input v-model="courseData.prefix" type="text" id="prefix" class="mt-1 block w-full border-b border-secondary shadow-sm p-2" required />
                 </div>
                 <div class="mb-4">
                     <label for="number" class="block text-sm font-medium text-primary-content">Course Number</label>
-                    <input v-model="courseData.number" type="text" id="number" class="mt-1 block w-full border-b border-base-200 rounded- shadow-sm p-2" required />
+                    <input v-model="courseData.number" type="text" id="number" class="mt-1 block w-full border-b border-secondary rounded- shadow-sm p-2" required />
                 </div>
                 <div class="mb-4">
                     <label for="title" class="block text-sm font-medium text-primary-content">Course Title</label>
-                    <input v-model="courseData.title" type="text" id="title" class="mt-1 block w-full border-b border-base-200 shadow-sm p-2" required />
+                    <input v-model="courseData.title" type="text" id="title" class="mt-1 block w-full border-b border-secondary shadow-sm p-2" required />
                 </div>
                 <div class="mb-4">
                     <label for="objectives" class="block text-sm font-medium text-primary-content">Course Objectives</label>
                 <div v-for="(objective, index) in courseData.objectives" :key="index" class="mb-2 flex items-center gap-2">
                     <p class="mb-0">{{objective.number}}.</p>
-                    <input v-model="objective.objective" type="text" :id="'objective-' + index" class="mt-1 block w-full border border-base-200 rounded-md shadow-sm p-2" />
+                    <input v-model="objective.objective" type="text" :id="'objective-' + index" class="mt-1 block w-full border border-secondary rounded-md shadow-sm p-2" />
                     <button type="button" @click="courseData.objectives.splice(index, 1)" class="text-error hover:text-error/70">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -40,7 +40,7 @@
                     <label for="users" class="block text-sm font-medium text-primary-content"> Users</label>
                     <div v-for="user in courseData.users" :key="user.id" class="text-primary-content">
                         {{user.first_name}} {{user.last_name }}
-                        <select v-model="user.role" class="ml-2 border border-base-200 rounded-md shadow-sm p-1">
+                        <select v-model="user.role" class="ml-2 border border-secondary rounded-md shadow-sm p-1">
                             <option value="designer">Designer</option>
                             <option value="sme">Subject Matter Expert</option>
                             <option value="manager">Manager</option>
@@ -48,7 +48,7 @@
                         </select>
                     </div>
                     <button type="button" @click ="addUser" class="bg-info text-info-content px-4 py-2 rounded-md hover:bg-success/70 mt-2">Add User</button>
-                    <select v-if="addingUser" @change="updateUsers" v-model="selectedUserId" id="users" class="mt-1 block w-full border border-base-200 rounded-md shadow-sm p-2" >
+                    <select v-if="addingUser" @change="updateUsers" v-model="selectedUserId" id="users" class="mt-1 block w-full border border-secondary rounded-md shadow-sm p-2" >
                         <option v-for="user in users" :key="user.id" :value="user.id">
                             {{ user.first_name }} {{ user.last_name }}
                         </option>

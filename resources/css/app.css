@@ -105,4 +105,8 @@ html{
   background-color: var(--color-base-300);
 }
 
+body {
+  overscroll-behavior: none;
+  scroll-behavior: smooth;
+}
 

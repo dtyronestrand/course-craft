@@ -17,7 +17,7 @@ export interface NavItem {
     icon?: LucideIcon;
     isActive?: boolean;
 }
-export interface ModuleObjective  {
+export interface ModuleObjective {
     number: string;
     objective: string;
 }
@@ -45,21 +45,36 @@ export interface Course {
     title: string;
     prefix: string;
     number: string;
-    objectives: [{
-        number: string;
-        text: string;
-    }];
+    objectives: [
+        {
+            number: string;
+            text: string;
+        },
+    ];
     created_at: string;
     updated_at: string;
     modules: Module[];
 }
 
-export interface Course_Assessment{
+export interface Course_Assessment {
     assesment_type: string;
-    aligned_module_objectives: string[];
     title: string;
-  
+    aligned_module_objectives: string[];
 }
 
-
+export interface CourseModule {
+    id: number;
+    order_index: number;
+    number: number;
+    title: string;
+    module_objectives: ModuleObjective[];
+    course_objectives: {
+        number: string;
+        objective: string;
+    }[];
+    assessments: Course_Assessment[];
+    instructions: string[];
+    materials: string[];
+    needs: string[];
+}
 export type BreadcrumbItemType = BreadcrumbItem;

@@ -71,7 +71,7 @@ return Inertia::render('Dashboard', [
      */
     public function show(Course $course)
     {
-        $course->load(['modules.courseObjectives', 'users', 'objectives']);
+        $course->load(['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions', 'modules.materials', 'modules.needs','users', 'objectives']);
         $numberOfModules = $course->modules()->count();
         return Inertia::render('courses/Show', [
             'course' => $course,
@@ -92,7 +92,38 @@ return Inertia::render('Dashboard', [
      */
     public function update(Request $request, Course $course)
     {
-        //
+        $request->validate([
+            'prefix' => 'required|string|max:10',
+            'number' => 'required|string|max:10',
+            'title' => 'required|string|max:255',
+            'objectives' => 'nullable|array',
+            'users' => 'nullable|array',
+        ]);
+
+        $course->update([
+            'prefix' => $request->prefix,
+            'number' => $request->number,
+            'title' => $request->title,
+        ]);
+
+        if ($request->objectives) {
+            $course->objectives()->delete();
+            foreach ($request->objectives as $objective) {
+                $course->objectives()->create([
+                    'number' => $objective['number'],
+                    'objective' => $objective['objective'],
+                ]);
+            }
+        }
+        
+        if ($request->users) {
+            $course->users()->detach();
+            foreach ($request->users as $user) {
+                $course->users()->attach($user['id'], ['role' => $user['role']]);
+            }
+        }
+        
+        return to_route('dashboard');
     }
 
     /**

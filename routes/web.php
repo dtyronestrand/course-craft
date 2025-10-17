@@ -27,5 +27,7 @@ Route::get('courses/{course}/delete', [\App\Http\Controllers\CourseController::c
 Route::get('courses/{course}', [\App\Http\Controllers\CourseController::class, 'show'])->name('courses.show');
 Route::post('/courses', [\App\Http\Controllers\CourseController::class, 'store'])->name('courses.store');
 Route::post('/course_modules', [\App\Http\Controllers\CourseModuleController::class, 'store'])->name('course_modules.store');
+Route::put('/course_modules/{courseModule}', [\App\Http\Controllers\CourseModuleController::class, 'update'])->name('course_modules.update');
+Route::delete('/course_modules/{courseModule}', [\App\Http\Controllers\CourseModuleController::class, 'destroy'])->name('course_modules.destroy');
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

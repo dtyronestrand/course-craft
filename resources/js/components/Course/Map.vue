@@ -1,9 +1,9 @@
 <template>
-    <div class="flex flex-col gap-8">
-    {{ props.course }}
+    <div class="flex flex-col p-4 gap-8">
     <h2 class="text-5xl font-bold mb-8 pl-4">Course Map</h2>
         <div v-if="props.course.modules?.length" >
-<table class="min-w-[350px] w-full max-w-[1200px]  border-4 border-secondary bg-base-300 rounded-xl overflow-hidden shadow-[4px 4px 8px var(--color-base-300)] border-collapse">
+<table class="min-w-[350px] w-full border-4 border-secondary bg-base-300 rounded-xl overflow-hidden shadow-[4px 4px 8px var(--color-base-300)] border-collapse">
+
 <thead>
 <tr>
 <th>Module</th>
@@ -13,40 +13,53 @@
 <th>Instructional Activities</th>
 <th>Instructional Materials</th>
 <th>Media/Library Needs</th>
+<th> </th>
 </tr>
 </thead>
 <tbody>
-<tr v-for="module in props.course.modules" :key="module.id">
-<td>{{ module.title }}</td>
+
+<tr class="glass" v-for="module in props.course.modules" :key="module.id">
+<td>{{module.order_index}}: &nbsp; {{ module.title }}</td>
 <td>
 <div v-for="objective in module.course_objectives" :key="objective.id">
-{{ objective.number }}: {{ objective.objective }}
+{{ objective.number }}
 </div>
 </td>
 <td>
-<div v-for="(objective, index) in JSON.parse(module.module_objectives)" :key="index">
+<div v-for="(objective, index) in module.module_objectives" :key="index">
 {{ objective.number }}: {{ objective.objective }}
 </div>
 </td>
-<td>{{ module.course_assessments }}</td>
+<td><ul v-for="(assessment,index) in module.assessments" :key="index">
+<li >{{ assessment.title}}</li> <li v-for="objective in assessment.objectives" :key="objective.id">{{ module.order_index }}.{{ objective.number }} </li>
+</ul>
+</td>
 <td>{{ module.course_instructions }}</td>
 <td>{{ module.course_materials }}</td>
 <td>{{ module.course_media_library_needs }}</td>
+<td class="flex flex-col"><button @click="editModule(module)" class="btn btn-sm btn-info ">Edit</button><button @click="deleteModule(module)" class="btn btn-sm btn-error">Delete</button></td>
 </tr>
 </tbody>
 </table>
             </div>
             <div>
-            <button class="btn btn-info text-info-content" @click="addModule">Add Module</button>
+            <button
+                :style="{ display: addModuleModalOpen ? 'none' : '' }"
+                class="btn btn-info text-info-content"
+                @click="addModule"
+            >Add Module</button>
             </div>
     </div>
     <AddModule v-if="addModuleModalOpen" :numberOfModules="props.numberOfModules" :course="props.course" :parent="'map'" @close="addModuleModalOpen = false" />
+    <EditModule v-if="isEditing" :module="moduleToEdit" :course="props.course" :parent="'map'" :numberOfModules="props.numberOfModules" @close="() => isEditing = false" />
 </template>
 
 <script setup lang="ts">
 import {ref} from "vue";
 import AddModule from "@/components/Course/Module/AddModule.vue";
-import { Course } from "@/types";
+import EditModule from "@/components/Course/Module/EditModule.vue";
+import { Course, CourseModule } from "@/types";
+import { router } from "@inertiajs/vue3";
 
 interface Props {
     course: Course;
@@ -56,6 +69,18 @@ const props = defineProps<Props>();
 const addModuleModalOpen = ref(false);
 const addModule = () => {
     addModuleModalOpen.value = true;
+}
+
+const isEditing = ref(false);
+const moduleToEdit = ref<CourseModule | null>(null);
+const editModule = (module: CourseModule) => {
+    isEditing.value = true;
+    moduleToEdit.value = module;
+}
+const deleteModule = (module: CourseModule) => {
+    if (confirm('Are you sure you want to delete this module?')) {
+        router.delete(`/course_modules/${module.id}`);
+    }
 }
 
 </script>
@@ -72,7 +97,7 @@ th{
 }
 
 thead{
-    background: rgba(from var(--color-secondary) R G B /0.4);
+    background: var(--color-primary);
     font-weight: bold;
     color: var(--color-secondary-content);
 }
