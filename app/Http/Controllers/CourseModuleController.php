@@ -201,7 +201,7 @@ class CourseModuleController extends Controller
         }
 
         // Sync media/library needs
-        $courseModule->course_media_library_needs()->delete();
+        $courseModule->needs()->delete();
         if ($request->course_media_library_needs) {
             foreach ($request->course_media_library_needs as $need) {
                $createdNeed = $courseModule->course_media_library_needs()->create(['name' => $need]);

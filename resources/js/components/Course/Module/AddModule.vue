@@ -121,14 +121,14 @@
             >
                 Add Assessment
             </button>
-            <div class="mt-4 mb-4">
+            <div class="flex flex-col">
                 <label class="label text-2xl">
                     <span class="label-text">Instructional Activities:</span>
                 </label>
                 <div
                     v-for="(activity, index) in form.course_instructions"
                     :key="index"
-                    class="mb-2"
+                    class="mb-2 flex flex-col gap-4 border p-8"
                 >
                     <input
                         v-model="form.course_instructions[index]"
@@ -160,7 +160,7 @@
                 </div>
                 <button
                     type="button"
-                    class="btn mb-4 text-info-content btn-sm btn-info"
+                    class="btn mb-4 w-max text-info-content btn-sm btn-info"
                     @click="form.course_instructions.push({
                          title: '',
                          aligned_module_objectives: [],
