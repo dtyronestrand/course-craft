@@ -61,6 +61,11 @@ export interface Course_Assessment {
     title: string;
     aligned_module_objectives: string[];
 }
+export interface ModuleItem {
+    id: number;
+    type: string;
+    title: string;
+}
 
 export interface CourseModule {
     id: number;
@@ -76,5 +81,6 @@ export interface CourseModule {
     instructions: string[];
     materials: string[];
     needs: string[];
+    items: ModuleItem[];
 }
 export type BreadcrumbItemType = BreadcrumbItem;

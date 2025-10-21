@@ -1,6 +1,8 @@
 @import 'tailwindcss';
+@plugin "@tailwindcss/typography";
 @source '../js/**/*.*';
 @import 'tw-animate-css';
+
 @plugin "daisyui";
 
 @plugin "daisyui/theme" {
@@ -86,7 +88,7 @@
                 /* 3. BORDER: A subtle border helps define the edges of the glass.
                   We're using the base content color with 10% opacity.
                 */
-                border: 1px solid oklch(from var(--color-base-content) l c h / 0.1);
+           
 
                 /* 4. SHADOW: A soft shadow lifts the element, giving it depth.
                 */

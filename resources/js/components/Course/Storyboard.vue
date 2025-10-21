@@ -3,11 +3,10 @@
     <h2 class="text-5xl mb-4">{{ props.course.prefix }} {{ props.course.number }}: Storyboard</h2>
         <div v-for="module in props.course.modules" :key="module.id">
             <h3 class="text-3xl mb-4">Module {{ module.order_index }}: {{ module.title }}</h3>
-            <button class="btn btn-md btn-info text-info-content">Add Item to Module</button>
-            <section v-if="module.items.length >0">
+          
+            <section v-if="module.items && module.items.length > 0">
                 <article v-for="item in module.items" :key="item.id" class="border rounded-lg p-4 mb-4">
                     <h4 class="text-2xl mb-2">{{ item.title }}</h4>
-                    <p class="mb-2">{{ item.description }}</p>
                     <p class="italic text-sm">Type: {{ item.type }}</p>
                 </article>
             </section>
@@ -16,18 +15,34 @@
                 <p class="italic">No items in this module yet.</p>
             </article>
             </section>
+              <button @click="addItem(module)" class="btn btn-md mb-4 btn-info text-info-content">Add Item to Module</button>
+            <AddItem v-if="showAddItemForm && moduleToAddItem?.id === module.id" :module="module" @close="closeAddItem" />
         </div>
     </div>
-
 </template>
 
 <script setup lang="ts">
-import { Course } from '@/types';
+import { Course, CourseModule } from '@/types';
+import { ref, defineAsyncComponent } from 'vue';
+
+const AddItem = defineAsyncComponent(() => import('@/components/Course/Module/Items/AddItem.vue'));
 interface Props {
-    course: Course;
+   course: Course;
     numberOfModules: number;
 }
+const showAddItemForm = ref(false);
+const moduleToAddItem = ref<CourseModule | null>(null);
+
 const props = defineProps<Props>();
+const addItem = (module: any) => {
+    showAddItemForm.value = true;
+    moduleToAddItem.value = module;
+};
+
+const closeAddItem = () => {
+    showAddItemForm.value = false;
+    moduleToAddItem.value = null;
+};
 </script>
 
 <style scoped>

@@ -1,7 +1,8 @@
 <template>
     <div class="mx-32 flex gap-4 border bg-base-300 p-8">
-        <form
-            v-if="props.parent === 'map'"
+    
+       <form
+          
             @submit.prevent="handleSubmit"
             class="w-full"
         >
@@ -272,84 +273,17 @@
                 </button>
             </div>
         </form>
-        <form
-            v-if="props.parent === 'storyboard'"
-            @submit.prevent="form.post('/modules')"
-        >
-            <div class="flex flex-row gap-4">
-                <p>Module:</p>
-                <input
-                    type="number"
-                    class="input-bordered input w-full max-w-xs"
-                    v-model="form.number"
-                    required
-                />
-            </div>
-            <label class="label">
-                <span class="label-text">Module Name</span>
-            </label>
-            <input
-                type="text"
-                placeholdeer="Module Name"
-                class="input-bordered input w-full max-w-xs"
-                v-model="form.title"
-                required
-            />
-            <label class="label">
-                <span class="label-text">Aligned CourseeObjectives</span>
-            </label>
-            <div
-                v-for="(objective, index) in courseObjectives"
-                :key="index"
-                class="mb-2"
-            >
-                <input
-                    type="checkbox"
-                    :value="objective.number"
-                    v-model="form.course_objectives"
-                    class="checkbox mr-2 checkbox-primary"
-                />
-            </div>
-            <span class="label-text">Module Objectives</span>
-
-            <div
-                v-for="(objective, index) in form.module_objectives"
-                :key="index"
-                class="mb-2"
-            >
-                <input
-                    type="text"
-                    v-model="form.module_objectives[index].objective"
-                    placeholder="Module Objective"
-                    class="input-bordered input w-full max-w-xs"
-                />
-                <button
-                    type="button"
-                    class="btn ml-2 btn-sm btn-error"
-                    @click="form.module_objectives.splice(index, 1)"
-                >
-                    Remove
-                </button>
-            </div>
-            <button
-                type="button"
-                class="btn mb-4 btn-sm btn-primary"
-                @click="
-                    form.module_objectives.push({ number: '', objective: '' })
-                "
-            >
-                Add Objective
-            </button>
-        </form>
+      
     </div>
 </template>
 
 <script setup lang="ts">
-import { Course_Assessment, ModuleObjective } from '@/types';
-import { useForm } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
-import ModuleObjectiveDropDown from './ModuleObjectiveDropDown.vue';
 
+import { useForm } from '@inertiajs/vue3';
+
+import ModuleObjectiveDropDown from './ModuleObjectiveDropDown.vue';
+import {computed} from 'vue';
+import { ModuleObjective, Course_Assessment } from '@/types';
 interface Props {
     course: {
         id: number;
@@ -361,7 +295,7 @@ interface Props {
             id: number;
             module_number: number;
             module_name: string;
-            module_objectives: ModuleObjective[];
+            objectives: ModuleObjective[];
             aligned_course_objectives: string[];
             course_assessments: Course_Assessment[];
             course_instructions: string[];
@@ -372,11 +306,10 @@ interface Props {
     parent: string;
     numberOfModules: number;
 }
-
 const props = defineProps<Props>();
 const emit = defineEmits(['close']);
 
-const courseObjectives = ref(props.course.objectives);
+
 
 const form = useForm({
     title: '',
@@ -392,7 +325,7 @@ const form = useForm({
 
 const objectives = computed(() => {
     const existingObjectives =
-        props.course.modules?.flatMap((module) => module.module_objectives) ||
+        props.course.modules?.flatMap((module) => module.objectives) ||
         [];
     return [...existingObjectives, ...form.module_objectives];
 });
