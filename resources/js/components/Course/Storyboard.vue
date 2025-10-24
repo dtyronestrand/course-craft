@@ -2,12 +2,12 @@
     <div class="flex flex-col mx-20" >
     <h2 class="text-5xl mb-4">{{ props.course.prefix }} {{ props.course.number }}: Storyboard</h2>
         <div v-for="module in props.course.modules" :key="module.id">
+    
             <h3 class="text-3xl mb-4">Module {{ module.order_index }}: {{ module.title }}</h3>
           
-            <section v-if="module.items && module.items.length > 0">
-                <article v-for="item in module.items" :key="item.id" class="border rounded-lg p-4 mb-4">
-                    <h4 class="text-2xl mb-2">{{ item.title }}</h4>
-                    <p class="italic text-sm">Type: {{ item.type }}</p>
+            <section class="prose max-w-none" v-if="module.items && module.items.length > 0">
+                <article v-for="(item, index) in module.items" :key="item.id" class=" rounded-lg p-4 mb-4">
+                    <component :is="getComponentForItem(item.itemable_type)" :module="module" :item="item" :index="index" />
                 </article>
             </section>
             <section v-else>
@@ -38,6 +38,17 @@ const addItem = (module: any) => {
     showAddItemForm.value = true;
     moduleToAddItem.value = module;
 };
+const itemsMap: Record<string, any> = {
+    'App\\Models\\ModuleOverview': defineAsyncComponent(() => import('@/components/Course/Module/Items/Overview/View.vue')),
+    'App\\Models\\CoursePage': defineAsyncComponent(() => import('@/components/Course/Module/Items/Page/View.vue')),
+    'App\\Models\\CourseAssignment': defineAsyncComponent(() => import('@/components/Course/Module/Items/Assignment/View.vue')),
+    'App\\Models\\CourseDiscussion': defineAsyncComponent(() => import('@/components/Course/Module/Items/Discussion/View.vue')),
+};
+
+const getComponentForItem = (itemableType: string) => {
+    return itemsMap[itemableType] || 'div';
+};
+
 
 const closeAddItem = () => {
     showAddItemForm.value = false;

@@ -71,7 +71,7 @@ return Inertia::render('Dashboard', [
      */
     public function show(Course $course)
     {
-        $course->load(['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions', 'modules.materials', 'modules.needs','users', 'objectives']);
+        $course->load(['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions', 'modules.materials', 'modules.needs','users', 'modules.items.itemable', 'objectives']);
         $numberOfModules = $course->modules()->count();
         return Inertia::render('courses/Show', [
             'course' => $course,

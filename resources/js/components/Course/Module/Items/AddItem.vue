@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent="createItem">
+        <form >
             <label for="itemType">Select Item Type:</label>
             <select id="itemType" v-model="selectedItemType">
                 <option value="" disabled>Select an item type</option>
@@ -11,9 +11,8 @@
                 <option value="discussion">Discussion</option>
             </select>
             <section v-if="selectedItemType">
-                <component :is="newItem" :module="props.module"></component>
+                <component :is="newItem" :module="props.module" @close="selectedItemType=null"></component>
             </section>
-            <button type="submit" class="btn btn-md btn-success text-success-content mt-4">Save Item</button>
         </form>
     </div>
 </template>
@@ -27,7 +26,7 @@ interface Props {
     module: CourseModule|null;
 }
 const props = defineProps<Props>();
-const selectedItemType = ref(null);
+const selectedItemType = ref<"overview" | "page" | "quiz" | "assignment" | "discussion" | null>(null);
 const itemsMap: Record<string, any> = {
     overview: defineAsyncComponent(() => import('@/components/Course/Module/Items/Overview/AddOverview.vue')),
     page: defineAsyncComponent(() => import('@/components/Course/Module/Items/Page/AddPage.vue')),
@@ -39,10 +38,14 @@ const newItem = computed(() => {
     return selectedItemType.value ? itemsMap[selectedItemType.value] : null;
 });
 
-const createItem = () => {
-   
+
+
+
+
+
+
   
-};
+
 </script>
 
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-<div style="box-shadow: 0 215px 0 -100px var(--color-neutral) inset;">
+<div class="prose max-w-none" style="box-shadow: 0 215px 0 -100px var(--color-neutral) inset;">
     <!-- Centered main content -->
     <div class=" container md:mx-auto px-3 md:px-0">
         <!-- Top nav bar -->

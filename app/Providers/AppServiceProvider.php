@@ -23,7 +23,11 @@ class AppServiceProvider extends ServiceProvider
             'assessment' => \App\Models\CourseAssessment::class,
             'instruction' => \App\Models\CourseInstruction::class,
             'material' => \App\Models\CourseMaterial::class,
-            
+            'page' => \App\Models\CoursePage::class,
+            'assignment' => \App\Models\CourseAssignment::class,
+            'overview' => \App\Models\ModuleOverview::class,
+            'discussion' => \App\Models\CourseDiscussion::class,
         ]);
     }
+
 }

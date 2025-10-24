@@ -61,11 +61,31 @@ export interface Course_Assessment {
     title: string;
     aligned_module_objectives: string[];
 }
-export interface ModuleItem {
-    id: number;
-    type: string;
-    title: string;
+
+export interface AssignmentSettings {
+    submission_type: string[];
+    point_value: number;
 }
+export interface DiscussionSettings {
+    graded: boolean;
+    point_value?: number;
+}
+
+export interface ModuleItem {
+        id: number;
+        course_module_id: number;
+        itemable_type: string;
+        itemable_id: number;
+        itemable: {
+            title: string;
+            content: string;
+            purpose?: string;
+            prompt?: string;
+            criteria?: string;
+            settings?: AssignmentSettings | DiscussionSettings;
+        };
+    }
+
 
 export interface CourseModule {
     id: number;
@@ -82,5 +102,8 @@ export interface CourseModule {
     materials: string[];
     needs: string[];
     items: ModuleItem[];
+    overview: {
+        content: string;
+    }
 }
 export type BreadcrumbItemType = BreadcrumbItem;

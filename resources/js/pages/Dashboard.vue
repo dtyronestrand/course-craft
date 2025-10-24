@@ -105,7 +105,7 @@ onMounted(() => {
     fabElement.addEventListener("mouseup", mouseUp);
     fabElement.addEventListener("touchstart", mouseDown);
     fabElement.addEventListener("touchend", mouseUp);
-    fabElement.addEventListener("click", (e) => {
+    fabElement.addEventListener("click", () => {
         if (
             oldPositionY === fabElement.style.top &&
             oldPositionX === fabElement.style.left
@@ -130,7 +130,7 @@ onMounted(() => {
              <CoursesTable :courses="page.props.courses as any[]" />
                 </div>
 
-<div id="floating-snap-btn-wrapper" class="absolute top-[40%] left-[30px] w-[73px] h-[75px] rounded-[50%] transform-[translate(-50%, -50%)]">
+<div id="floating-snap-btn-wrapper" class="prose absolute top-[40%] left-[30px] w-[73px] h-[75px] rounded-[50%] transform-[translate(-50%, -50%)]">
 <div role="button" @click="isCreateCourseModalOpen = !isCreateCourseModalOpen" class="glass absolute top-0 left-0 flex justify-center items-center w-full h-full rounded-[50%] bg-primary  text-primary-content z-[1000] shadow-[0px 2px 17px -1px rgba(0,0,0,0.3)]">
 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg> 
 </div>

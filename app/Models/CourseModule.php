@@ -57,4 +57,9 @@ public function needs(): HasMany
 {
     return $this->hasMany(CourseMediaLibraryNeed::class, 'module_id');
 }
+
+public function items()
+{
+    return $this->hasMany(ModuleItem::class, 'course_module_id');
+}
 }

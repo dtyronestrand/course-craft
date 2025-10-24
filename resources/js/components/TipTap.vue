@@ -14,17 +14,26 @@
 import { useEditor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import { onBeforeUnmount } from 'vue'
+const props = defineProps({
+    modelValue: String,
+})
+
+const emit = defineEmits(['update:modelValue'])
 
 const editor = useEditor({
-    content: '',
+    content: props.modelValue,
+    onUpdate: ({editor})=>{
+        emit('update:modelValue', editor.getHTML())
+    },
     extensions: [
         StarterKit,
     ],
     editorProps: {
         attributes: {
             class: 'min-h-[12rem] max-h-[12rem] overflow-y-auto prose prose-sm sm:prose lg:prose-lg xl:prose-2xl m-5 focus:outline-none bg-base-300 border p-4'
-        }
-    }
+        },
+    },
+ 
 })
 
 onBeforeUnmount(() => {

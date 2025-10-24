@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
+
 class CourseDiscussion extends Model
 {
  protected $fillable = [
@@ -16,8 +16,17 @@ class CourseDiscussion extends Model
         'settings' => 'array',
     ];
 
-    public function modules(): MorphToMany
+    public function moduleItem()
     {
-        return $this->morphToMany(ModuleItem::class, 'itemable', 'module_items');
+        return $this->morphOne(ModuleItem::class, 'itemable');
     }
+
+      protected static function boot()
+  {
+    parent::boot();
+    
+    static::deleting(function ($discussion) {
+      $discussion->moduleItem()->delete();
+    });
+  }
 }

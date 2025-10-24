@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
-class CoursePage extends Model
+class ModuleOverview extends Model
 {
 protected $fillable = [
-    'title',
-    'content',
- ];
+  
+        'content',
+    ];
 
   public function moduleItem()
   {
@@ -20,8 +21,8 @@ protected $fillable = [
   {
     parent::boot();
     
-    static::deleting(function ($page) {
-      $page->moduleItem()->delete();
+    static::deleting(function ($overview) {
+      $overview->moduleItem()->delete();
     });
   }
 }
