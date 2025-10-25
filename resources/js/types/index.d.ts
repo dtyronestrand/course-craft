@@ -78,7 +78,7 @@ export interface ModuleItem {
         itemable_id: number;
         itemable: {
             title: string;
-            content: string;
+            content?: string;
             purpose?: string;
             prompt?: string;
             criteria?: string;
