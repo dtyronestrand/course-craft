@@ -78,7 +78,25 @@ return Inertia::render('Dashboard', [
             'numberOfModules' => $numberOfModules,
         ]);
     }
+    public function map(Course $course)
+    {
+        $course->load(['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions', 'modules.materials', 'modules.needs','users', 'objectives']);
+        $numberOfModules = $course->modules()->count();
+        return Inertia::render('courses/Map', [
+            'course' => $course,
+            'numberOfModules' => $numberOfModules,
+        ]);
+    }
 
+    public function storyboard(Course $course)
+    {
+        $course->load(['modules.courseObjectives', 'modules.module_objectives', 'users', 'modules.items.itemable','objectives']);
+        $numberOfModules = $course->modules()->count();
+        return Inertia::render('courses/Storyboard', [
+            'course' => $course,
+            'numberOfModules' => $numberOfModules,
+        ]);
+    }
     /**
      * Show the form for editing the specified resource.
      */

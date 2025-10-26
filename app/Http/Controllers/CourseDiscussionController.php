@@ -23,10 +23,13 @@ class CourseDiscussionController extends Controller
             'settings' => $request->settings,
      ]);
 
+     $maxOrderIndex = ModuleItem::where('course_module_id', $request->module)->max('order_index') ?? -1;
+
      ModuleItem::create([
          'course_module_id' => $request->module,
          'itemable_id' => $courseDiscussion->id,
-         'itemable_type' => CourseDiscussion::class,
+         'itemable_type' => 'discussion',
+         'order_index' => $maxOrderIndex + 1,
      ]);
 
      return redirect()->back()->with('success', 'Course dicussion created successfully');

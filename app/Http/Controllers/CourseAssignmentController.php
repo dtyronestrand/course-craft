@@ -25,10 +25,13 @@ class CourseAssignmentController extends Controller
             'settings' => $request->settings,
         ]);
 
+        $maxOrderIndex = ModuleItem::where('course_module_id', $request->module)->max('order_index') ?? -1;
+
         ModuleItem::create([
             'course_module_id' => $request->module,
             'itemable_id' => $courseAssignment->id,
-            'itemable_type' => CourseAssignment::class,
+            'itemable_type' => 'assignment',
+            'order_index' => $maxOrderIndex + 1,
         ]);
 
         return redirect()->back()->with('success', 'Course assignment created successfully');

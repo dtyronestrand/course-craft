@@ -16,17 +16,12 @@ class CourseDiscussion extends Model
         'settings' => 'array',
     ];
 
+
+  
     public function moduleItem()
     {
         return $this->morphOne(ModuleItem::class, 'itemable');
     }
 
-      protected static function boot()
-  {
-    parent::boot();
-    
-    static::deleting(function ($discussion) {
-      $discussion->moduleItem()->delete();
-    });
-  }
+
 }

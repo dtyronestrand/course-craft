@@ -351,7 +351,7 @@ interface Props {
         id: number;
         objectives: {
             number: string;
-            text: string;
+            objective: string;
         }[];
         modules: CourseModule[];
     };

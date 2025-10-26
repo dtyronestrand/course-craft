@@ -21,10 +21,13 @@ class CoursePageController extends Controller
          'content' => $request->content,
      ]);
 
+     $maxOrderIndex = ModuleItem::where('course_module_id', $request->module)->max('order_index') ?? -1;
+
      ModuleItem::create([
          'course_module_id' => $request->module,
          'itemable_id' => $coursePage->id,
-         'itemable_type' => CoursePage::class,
+         'itemable_type' => 'page',
+         'order_index' => $maxOrderIndex + 1,
      ]);
 
      return redirect()->back()->with('success', 'Course page created successfully');

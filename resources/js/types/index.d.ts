@@ -36,6 +36,9 @@ export interface User {
     last_name: string;
     email: string;
     avatar?: string;
+    pivot?: {
+        role: string;
+    };
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
@@ -45,10 +48,11 @@ export interface Course {
     title: string;
     prefix: string;
     number: string;
+    users: User[];
     objectives: [
         {
             number: string;
-            text: string;
+            objective: string;
         },
     ];
     created_at: string;
@@ -70,21 +74,36 @@ export interface DiscussionSettings {
     graded: boolean;
     point_value?: number;
 }
+export interface Itemable {
+    title: string;
+    content?: string;
+    instructions?: string;
+    criteria?: string;
+    purpose?: string;
+    prompt?: string;
+    settings?: {
+        submission_type?: string[];
+        point_value?: number;
+        graded?: boolean;
+        time_limit?: number;
+        attempts?: number;
+    }
+    questions?: {
+        stem: string;
+        type: string;
+        options?: string[];
+        correct_answer?: string | boolean;
+    }[];
+}
 
 export interface ModuleItem {
-        id: number;
-        course_module_id: number;
-        itemable_type: string;
-        itemable_id: number;
-        itemable: {
-            title: string;
-            content?: string;
-            purpose?: string;
-            prompt?: string;
-            criteria?: string;
-            settings?: AssignmentSettings | DiscussionSettings;
-        };
-    }
+    id: number;
+    order_index: number;
+    course_module_id: number;
+    itemable_type: string;
+    itemable_id: number;
+    itemable: Itemable;
+}
 
 
 export interface CourseModule {

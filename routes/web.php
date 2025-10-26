@@ -25,6 +25,8 @@ Route::get('/courses/create', function () {
 Route::get('courses/{course}/delete', [\App\Http\Controllers\CourseController::class, 'destroy'])->name('courses.destroy');
 
 Route::get('courses/{course}', [\App\Http\Controllers\CourseController::class, 'show'])->name('courses.show');
+Route::get('courses/{course}/map', [\App\Http\Controllers\CourseController::class, 'map'])->name('courses.map');
+Route::get('courses/{course}/storyboard', [\App\Http\Controllers\CourseController::class, 'storyboard'])->name('courses.storyboard');
 Route::post('/courses', [\App\Http\Controllers\CourseController::class, 'store'])->name('courses.store');
 Route::post('/course_modules', [\App\Http\Controllers\CourseModuleController::class, 'store'])->name('course_modules.store');
 Route::put('/course_modules/{courseModule}', [\App\Http\Controllers\CourseModuleController::class, 'update'])->name('course_modules.update');
@@ -40,5 +42,8 @@ Route::delete('/course_assignments/{courseAssignment}', [\App\Http\Controllers\C
 Route::post('/course_discussions', [\App\Http\Controllers\CourseDiscussionController::class, 'store'])->name('course.discussion.store');
 Route::put('/course_discussions/{courseDiscussion}', [\App\Http\Controllers\CourseDiscussionController::class, 'update'])->name('course.discussion.update');
 Route::delete('/course_discussions/{courseDiscussion}', [\App\Http\Controllers\CourseDiscussionController::class, 'destroy'])->name('course.discussion.destroy');
+Route::post('/course_quizzes', [\App\Http\Controllers\CourseQuizController::class, 'store'])->name('course.quiz.store');
+Route::put('/course_quizzes/{courseQuiz}', [\App\Http\Controllers\CourseQuizController::class, 'update'])->name('course.quiz.update');
+Route::delete('/course_quizzes/{courseQuiz}', [\App\Http\Controllers\CourseQuizController::class, 'destroy'])->name('course.quiz.destroy');
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

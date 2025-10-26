@@ -27,7 +27,10 @@ class AppServiceProvider extends ServiceProvider
             'assignment' => \App\Models\CourseAssignment::class,
             'overview' => \App\Models\ModuleOverview::class,
             'discussion' => \App\Models\CourseDiscussion::class,
+            'quiz' => \App\Models\CourseQuiz::class,
         ]);
+        
+        \App\Models\CourseDiscussion::observe(\App\Observers\CourseDiscussionObserver::class);
     }
 
 }

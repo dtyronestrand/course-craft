@@ -123,7 +123,7 @@
                 Add Assessment
             </button>
             <div class="flex flex-col">
-                <label class="label text-2xl">
+                <label class="label my-4 text-2xl">
                     <span class="label-text">Instructional Activities:</span>
                 </label>
                 <div
@@ -132,15 +132,11 @@
                     class="mb-2 flex flex-col gap-4 border p-8"
                 >
                     <input
-                        v-model="form.course_instructions[index]"
+                        v-model="form.course_instructions[index].title"
                         placeholder="Activity"
                         class="input-bordered input w-full max-w-xs"
                     />
-                     <input
-                    v-model="form.course_instructions[index].title"
-                    placeholder="Assessment"
-                    class="input-bordered input w-full"
-                />
+         
                 <label class="label mt-2">
                     <span class="label-text">Aligned Module Objectives:</span>
                 </label>
@@ -153,7 +149,7 @@
                 />
                     <button
                         type="button"
-                        class="btn ml-2 btn-sm btn-error"
+                        class="btn w-24 ml-2 btn-sm btn-error"
                         @click="form.course_instructions.splice(index, 1)"
                     >
                         Remove
@@ -161,7 +157,7 @@
                 </div>
                 <button
                     type="button"
-                    class="btn mb-4 w-max text-info-content btn-sm btn-info"
+                    class="btn my-4 w-max text-info-content btn-sm btn-info"
                     @click="form.course_instructions.push({
                          title: '',
                          aligned_module_objectives: [],
@@ -198,7 +194,7 @@
                 <button
                     type="button"
                     class="btn w-24 text-error-content btn-sm btn-error"
-                    @click="form.course_assessments.splice(index, 1)"
+                    @click="form.course_materials.splice(index, 1)"
                 >
                     Remove
                 </button>
@@ -289,7 +285,7 @@ interface Props {
         id: number;
         objectives: {
             number: string;
-            text: string;
+            objective: string;
         }[];
         modules: {
             id: number;

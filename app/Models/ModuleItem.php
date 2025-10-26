@@ -12,6 +12,7 @@ class ModuleItem extends Model
         'course_module_id',
         'itemable_id',
         'itemable_type',
+        'order_index',
     ];
 
    public function module(): BelongsTo

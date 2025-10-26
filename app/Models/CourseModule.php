@@ -60,6 +60,6 @@ public function needs(): HasMany
 
 public function items()
 {
-    return $this->hasMany(ModuleItem::class, 'course_module_id');
+    return $this->hasMany(ModuleItem::class, 'course_module_id')->orderBy('order_index');
 }
 }

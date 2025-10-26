@@ -39,10 +39,13 @@ class ModuleOverviewController extends Controller
             'content' => $request->content,
         ]);
 
+        $maxOrderIndex = ModuleItem::where('course_module_id', $request->module)->max('order_index') ?? -1;
+
         ModuleItem::create([
             'course_module_id' => $request->module,
             'itemable_id' => $moduleOverview->id,
             'itemable_type' => ModuleOverview::class,
+            'order_index' => $maxOrderIndex + 1,
         ]);
 
         return redirect()->back()->with('success', 'Module overview created successfully');

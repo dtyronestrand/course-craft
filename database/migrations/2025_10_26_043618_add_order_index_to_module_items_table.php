@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('module_overviews', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->text('content');
-     
+        Schema::table('module_items', function (Blueprint $table) {
+            $table->integer('order_index')->default(0)->after('id');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('module_overviews');
+        Schema::table('module_items', function (Blueprint $table) {
+            $table->dropColumn('order_index');
+        });
     }
 };

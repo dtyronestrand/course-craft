@@ -39,10 +39,11 @@ const addItem = (module: any) => {
     moduleToAddItem.value = module;
 };
 const itemsMap: Record<string, any> = {
-    'App\\Models\\ModuleOverview': defineAsyncComponent(() => import('@/components/Course/Module/Items/Overview/View.vue')),
-    'App\\Models\\CoursePage': defineAsyncComponent(() => import('@/components/Course/Module/Items/Page/View.vue')),
-    'App\\Models\\CourseAssignment': defineAsyncComponent(() => import('@/components/Course/Module/Items/Assignment/View.vue')),
-    'App\\Models\\CourseDiscussion': defineAsyncComponent(() => import('@/components/Course/Module/Items/Discussion/View.vue')),
+    'overview': defineAsyncComponent(() => import('@/components/Course/Module/Items/Overview/View.vue')),
+    'page': defineAsyncComponent(() => import('@/components/Course/Module/Items/Page/View.vue')),
+    'assignment': defineAsyncComponent(() => import('@/components/Course/Module/Items/Assignment/View.vue')),
+    'discussion': defineAsyncComponent(() => import('@/components/Course/Module/Items/Discussion/View.vue')),
+    'quiz': defineAsyncComponent(() => import('@/components/Course/Module/Items/Quiz/View.vue')),
 };
 
 const getComponentForItem = (itemableType: string) => {

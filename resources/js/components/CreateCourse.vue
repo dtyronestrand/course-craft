@@ -41,10 +41,10 @@
                     <div v-for="user in courseData.users" :key="user.id" class="text-primary-content">
                         {{user.first_name}} {{user.last_name }}
                         <select v-model="user.role" class="ml-2 border border-secondary rounded-md shadow-sm p-1">
-                            <option value="designer">Designer</option>
-                            <option value="sme">Subject Matter Expert</option>
-                            <option value="manager">Manager</option>
-                            <option value="builder">Builder</option>
+                            <option value="Designer">Designer</option>
+                            <option value="SME">Subject Matter Expert</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Builder">Builder</option>
                         </select>
                     </div>
                     <button type="button" @click ="addUser" class="bg-info text-info-content px-4 py-2 rounded-md hover:bg-success/70 mt-2">Add User</button>
@@ -161,7 +161,7 @@ const updateUsers = () => {
     if (selectedUserId.value) {
         const selectedUser = users.value.find(user => user.id === selectedUserId.value);
         if (selectedUser && !courseData.value.users.some(user => user.id === selectedUserId.value)) {
-            courseData.value.users.push({ ...selectedUser, role: 'designer' });
+            courseData.value.users.push({ ...selectedUser, role: 'Designer' });
         }
         addingUser.value = false;
         selectedUserId.value = null;
