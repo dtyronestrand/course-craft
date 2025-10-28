@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
@@ -24,6 +25,9 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'google_id',
+        'google_token',
+        'google_refresh_token',
     ];
 
     /**
@@ -52,5 +56,9 @@ class User extends Authenticatable
     public function courses() : BelongsToMany
     {
         return $this->belongsToMany(Course::class)->withPivot('role');
+    }
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
     }
 }

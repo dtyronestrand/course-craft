@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\User;
+use App\Http\Controllers\GoogleAuthController;
+Route::get('/google/redirect', [GoogleAuthController::class, 'redirect'])->name('google.redirect');
+Route::get('/google/callback', [GoogleAuthController::class, 'callback'])->name('google.callback');
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
