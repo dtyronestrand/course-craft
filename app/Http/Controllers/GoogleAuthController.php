@@ -22,7 +22,8 @@ public function redirect()
                 'openid',
                 'profile',
                 'email',
-                'https://www.googleapis.com/auth/drive'
+                'https://www.googleapis.com/auth/drive',
+                'https://www.googleapis.com/auth/documents'
             ])
             ->with(['access_type' => 'offline'])
             ->redirect();

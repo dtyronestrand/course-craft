@@ -49,7 +49,8 @@ class HandleInertiaRequests extends Middleware
                     'last_name' => $request->user()->last_name,
                     'email' => $request->user()->email,
                     'role' => $request->user()->role,
-                    'is_google_connected' => (bool) $request->user()->google_token,
+                    'is_google_connected' => (bool) !empty($request->user()->google_token),
+                   
                 ] : null,
 
             ],

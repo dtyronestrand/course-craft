@@ -7,6 +7,7 @@
 <div class="flex flex-row gap-4 mb-4 ">
 <Map @changeDisplay="handleDisplay($event)"/>
 <Storyboard @changeDisplay="handleDisplay($event)"/>
+
 <Delete @delete="handleDelete"/>
 </div>
     </div>
@@ -22,6 +23,16 @@
     </div>
     <div>
     <component :is="currentDisplay" :numberOfModules="page.props.numberOfModules" :course="page.props.course" v-if="currentDisplay"/>
+    <pre class="text-xs">{{ page.props.auth.user }}</pre>
+    <div v-if="page.props.auth.user.is_google_connected" >
+<button @click="exportToDrive" :disabled="isExporting" class="btn btn-info text-info-content px-4 py-2 disabled:opacity-50"><span v-if="isExporting">Creating Document...</span><span v-else>Export to Drive</span></button>
+<div v-if="exportError" class="mt-2 text-sm text-error">Error: {{ exportError }}</div>
+<div v-if="exportSuccessUrl" class="mt-2 text-sm text-success">Successfully exported! <a :href="exportSuccessUrl" target="_blank" class="underline">Open Document</a></div> 
+</div>
+<div v-else>
+<p class="mb-2 text-sm text-base-content">Connect your Google Drive to export.</p>
+<a href="/google/redirect" class="inline-flex items-center px-4 py-2 bg-info text-info-content">Connect Google Drive</a>
+</div>
     </div>
     </New>
 </template>
@@ -29,7 +40,8 @@
 <script setup lang="ts">
 import { usePage , router} from '@inertiajs/vue3';
 import {Storyboard, Map, Delete} from '@/components/CourseActions'
-import { shallowRef , defineAsyncComponent, nextTick} from 'vue';
+
+import { shallowRef , defineAsyncComponent, nextTick, ref} from 'vue';
 import New from '@/layouts/New.vue';
 interface Course {
     id: number;
@@ -50,13 +62,17 @@ interface PageProps {
     course: Course;
     numberOfModules: number;
 }
-import type { Component } from 'vue';
-
-const MapComponent = defineAsyncComponent(() => import('@/components/Course/Map.vue'));
-const StoryboardComponent = defineAsyncComponent(() => import('@/components/Course/Storyboard.vue'));
 
 const currentDisplay = shallowRef<Component | null>(null);
 const page = usePage<PageProps>();
+
+const isExporting = ref(false);
+const exportError = ref<string | null>(null);
+const exportSuccessUrl = ref<string | null>(null);
+const documentTitle = ref(`${page.props.course.prefix} ${page.props.course.number} - ${page.props.course.title}`);
+const documentContent = ref(`${page.props.course.objectives.map(obj => obj.objective).join('\n')}`);
+const MapComponent = defineAsyncComponent(() => import('@/components/Course/Map.vue'));
+const StoryboardComponent = defineAsyncComponent(() => import('@/components/Course/Storyboard.vue'));
 
 const handleDisplay = async (display: string) => {
     currentDisplay.value = null;
@@ -73,6 +89,75 @@ const handleDelete = () => {
 router.delete(`/courses/${page.props.course.id}`);
     }
 };
+
+async function exportToDrive() {
+  isExporting.value = true;
+  exportError.value = null;
+  exportSuccessUrl.value = null;
+
+  const meta = document.querySelector('meta[name="csrf-token"]');
+  const csrfToken = meta?.getAttribute('content') ?? '';
+  if (!csrfToken) {
+    exportError.value = 'CSRF token not found.';
+    isExporting.value = false;
+    return;
+  }
+
+  try {
+    const response = await fetch('/export/google-doc', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-CSRF-TOKEN': csrfToken
+      },
+      body: JSON.stringify({
+        title: documentTitle.value,
+        content: documentContent.value,
+      })
+    });
+
+    const data = await response.json();
+
+    // Handle errors
+    if (!response.ok) {
+
+      // --- THIS IS THE SELF-HEALING LOGIC ---
+      if (response.status === 401) {
+        // 1. Show the error message
+        exportError.value = data.error || 'Your connection expired. Please reconnect.';
+
+        // 2. Tell Inertia to reload *only* the 'auth' prop
+        //    The backend deleted the token, so the new prop
+        //    will be `is_google_connected: false`
+        router.reload({ 
+            only: ['auth'],
+            preserveState: true, // Don't lose other page data
+            preserveScroll: true
+        });
+
+      } else {
+        // It's a different error (like a 500)
+        throw new Error(data.error || `HTTP error! status: ${response.status}`);
+      }
+      // --- END OF SELF-HEALING LOGIC ---
+
+    } else {
+      // Handle Success
+      console.log('File created:', data.url);
+      exportSuccessUrl.value = data.url;
+    }
+
+  } catch (error) {
+    // Handle any network or parsing error
+    console.error('Export failed:', error);
+    exportError.value = error.message;
+
+  } finally {
+    // Reset loading state
+    isExporting.value = false;
+  }
+}
 </script>
 
 <style scoped>

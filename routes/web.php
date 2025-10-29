@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\User;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\GoogleDocController;
+
 Route::get('/google/redirect', [GoogleAuthController::class, 'redirect'])->name('google.redirect');
 Route::get('/google/callback', [GoogleAuthController::class, 'callback'])->name('google.callback');
 
@@ -12,6 +14,10 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('dashboard', [\App\Http\Controllers\CourseController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/export/google-doc', [GoogleDocController::class, 'createDoc'])->name('google.doc.create');
+});
 
 Route::get('/courses/create', function () {
     $users = User::select('id', 'first_name', 'last_name')->get();
