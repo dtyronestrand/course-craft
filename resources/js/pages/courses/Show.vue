@@ -23,7 +23,6 @@
     </div>
     <div>
     <component :is="currentDisplay" :numberOfModules="page.props.numberOfModules" :course="page.props.course" v-if="currentDisplay"/>
-    <pre class="text-xs">{{ page.props.auth.user }}</pre>
     <div v-if="page.props.auth.user.is_google_connected" >
 <button @click="exportToDrive" :disabled="isExporting" class="btn btn-info text-info-content px-4 py-2 disabled:opacity-50"><span v-if="isExporting">Creating Document...</span><span v-else>Export to Drive</span></button>
 <div v-if="exportError" class="mt-2 text-sm text-error">Error: {{ exportError }}</div>
@@ -48,6 +47,7 @@ interface Course {
     prefix: string;
     number: string | number;
     title: string;
+    document_id: string | null;
     objectives: { number: string; objective: string; }[];
     users: { id: number; first_name: string; last_name: string; pivot: { role: string; } }[];
     course_modules: any[];
@@ -104,19 +104,36 @@ async function exportToDrive() {
   }
 
   try {
-    const response = await fetch('/export/google-doc', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'X-CSRF-TOKEN': csrfToken
-      },
-      body: JSON.stringify({
-        title: documentTitle.value,
-        content: documentContent.value,
-      })
-    });
-
+    let response;
+    if (page.props.course.document_id){
+      response = await fetch('/export/google-doc/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': csrfToken
+        },
+        body: JSON.stringify({
+          title: documentTitle.value,
+          content: documentContent.value,
+          document_id: page.props.course.document_id
+        })
+      });
+    } else {
+      response = await fetch('/export/google-doc', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': csrfToken
+        },
+        body: JSON.stringify({
+          title: documentTitle.value,
+          content: documentContent.value,
+        })
+      });
+    }
+  
     const data = await response.json();
 
     // Handle errors

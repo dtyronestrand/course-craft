@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Google\Client as GoogleClient;
 use Google\Service\Drive;
+use Google\Service\Docs;
 use Illuminate\Support\Facades\Log; // Use Illuminate\Support\Facades\Log
 use Illuminate\Support\Facades\Auth;
 
@@ -56,7 +57,10 @@ class GoogleDriveService
     {
         return new Drive($this->client);
     }
-
+    public function getDocsService(): Docs
+    {
+        return new Docs($this->client);
+    }
     /**
      * Refresh the user's access token.
      */
