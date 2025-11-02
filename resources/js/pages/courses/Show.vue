@@ -40,7 +40,7 @@
 import { usePage , router} from '@inertiajs/vue3';
 import {Storyboard, Map, Delete} from '@/components/CourseActions'
 
-import { shallowRef , defineAsyncComponent, nextTick, ref} from 'vue';
+import { shallowRef , defineAsyncComponent, nextTick, ref, Component} from 'vue';
 import New from '@/layouts/New.vue';
 interface Course {
     id: number;
@@ -148,9 +148,7 @@ async function exportToDrive() {
         //    The backend deleted the token, so the new prop
         //    will be `is_google_connected: false`
         router.reload({ 
-            only: ['auth'],
-            preserveState: true, // Don't lose other page data
-            preserveScroll: true
+            only: ['auth']
         });
 
       } else {
@@ -168,7 +166,7 @@ async function exportToDrive() {
   } catch (error) {
     // Handle any network or parsing error
     console.error('Export failed:', error);
-    exportError.value = error.message;
+    exportError.value = error instanceof Error ? error.message : 'An unknown error occurred';
 
   } finally {
     // Reset loading state
