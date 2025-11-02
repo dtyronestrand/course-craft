@@ -9,6 +9,7 @@
                 <option value="quiz">Quiz</option>
                 <option value="assignment">Assignment</option>
                 <option value="discussion">Discussion</option>
+                <option value="wrap_up">Wrap Up</option>
             </select>
             <section v-if="selectedItemType">
                 <component :is="newItem" :module="props.module" @close="selectedItemType=null"></component>
@@ -33,6 +34,7 @@ const itemsMap: Record<string, any> = {
     quiz: defineAsyncComponent(() => import('@/components/Course/Module/Items/Quiz/AddQuiz.vue')),
     assignment: defineAsyncComponent(() => import('@/components/Course/Module/Items/Assignment/AddAssignment.vue')),
     discussion: defineAsyncComponent(() => import('@/components/Course/Module/Items/Discussion/AddDiscussion.vue')),
+    wrap_up: defineAsyncComponent(() => import('@/components/Course/Module/Items/WrapUp/AddWrapUp.vue')),
 };
 const newItem = computed(() => {
     return selectedItemType.value ? itemsMap[selectedItemType.value] : null;

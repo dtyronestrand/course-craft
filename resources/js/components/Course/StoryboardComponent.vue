@@ -44,6 +44,7 @@ const itemsMap: Record<string, any> = {
     'assignment': defineAsyncComponent(() => import('@/components/Course/Module/Items/Assignment/View.vue')),
     'discussion': defineAsyncComponent(() => import('@/components/Course/Module/Items/Discussion/View.vue')),
     'quiz': defineAsyncComponent(() => import('@/components/Course/Module/Items/Quiz/View.vue')),
+    'wrap_up': defineAsyncComponent(() => import('@/components/Course/Module/Items/WrapUp/View.vue')),
 };
 
 const getComponentForItem = (itemableType: string) => {

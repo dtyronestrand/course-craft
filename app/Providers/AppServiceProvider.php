@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
             'overview' => \App\Models\ModuleOverview::class,
             'discussion' => \App\Models\CourseDiscussion::class,
             'quiz' => \App\Models\CourseQuiz::class,
+            'wrapup' => \App\Models\ModuleWrapUp::class,
         ]);
         
         \App\Models\CourseDiscussion::observe(\App\Observers\CourseDiscussionObserver::class);
