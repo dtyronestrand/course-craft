@@ -321,7 +321,7 @@ const form = useForm({
 
 const objectives = computed(() => {
     const existingObjectives =
-        props.course.modules?.flatMap((module) => module.objectives) ||
+        props.course.modules?.flatMap((module) => module.objectives).filter(obj => obj !== undefined) ||
         [];
     return [...existingObjectives, ...form.module_objectives];
 });

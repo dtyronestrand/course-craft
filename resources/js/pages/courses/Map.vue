@@ -1,8 +1,8 @@
 <template>
  <New>
-    <BasicInfo :course="page.props.course as Course" />
+    <BasicInfo :course="page.props.course as Course"/>
     <Map :numberOfModules="page.props.numberOfModules as number" :course="page.props.course as Course"/>
- </New>
+</New>
 </template>
 
 <script setup lang="ts">

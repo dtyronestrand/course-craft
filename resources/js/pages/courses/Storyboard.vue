@@ -1,7 +1,7 @@
 <template>
  <New>
-    <BasicInfo :course="page.props.course as Course" />
-    <Storyboard :numberOfModules="page.props.numberOfModules as number" :course="page.props.course as Course"/>
+    <BasicInfo :course="course"/>
+    <StoryboardComponent :numberOfModules="numberOfModules" :course="course"/>
  </New>
 </template>
 
@@ -9,10 +9,12 @@
 import BasicInfo from '@/components/Course/BasicInfo.vue';
 import New from '@/layouts/New.vue';
 import {Course} from "@/types";
-import Storyboard from '@/components/Course/Storyboard.vue';
-import {usePage} from "@inertiajs/vue3";
+import StoryboardComponent from '@/components/Course/StoryboardComponent.vue';
 
-const page = usePage();
+defineProps<{
+    course: Course;
+    numberOfModules: number;
+}>();
 </script>
 
 <style scoped>

@@ -40,7 +40,7 @@
 import { usePage , router} from '@inertiajs/vue3';
 import {Storyboard, Map, Delete} from '@/components/CourseActions'
 
-import { shallowRef , defineAsyncComponent, nextTick, ref, Component} from 'vue';
+import { shallowRef , defineAsyncComponent, nextTick, ref} from 'vue';
 import New from '@/layouts/New.vue';
 interface Course {
     id: number;
@@ -63,7 +63,7 @@ interface PageProps {
     numberOfModules: number;
 }
 
-const currentDisplay = shallowRef<Component | null>(null);
+const currentDisplay = shallowRef<any>(null);
 const page = usePage<PageProps>();
 
 const isExporting = ref(false);
@@ -72,7 +72,7 @@ const exportSuccessUrl = ref<string | null>(null);
 const documentTitle = ref(`${page.props.course.prefix} ${page.props.course.number} - ${page.props.course.title}`);
 const documentContent = ref(`${page.props.course.objectives.map(obj => obj.objective).join('\n')}`);
 const MapComponent = defineAsyncComponent(() => import('@/components/Course/Map.vue'));
-const StoryboardComponent = defineAsyncComponent(() => import('@/components/Course/Storyboard.vue'));
+const StoryboardComponent = defineAsyncComponent(() => import('@/components/Course/StoryboardComponent.vue'));
 
 const handleDisplay = async (display: string) => {
     currentDisplay.value = null;

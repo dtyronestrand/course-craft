@@ -44,7 +44,7 @@ class ModuleOverviewController extends Controller
         ModuleItem::create([
             'course_module_id' => $request->module,
             'itemable_id' => $moduleOverview->id,
-            'itemable_type' => ModuleOverview::class,
+            'itemable_type' => 'overview',
             'order_index' => $maxOrderIndex + 1,
         ]);
 
