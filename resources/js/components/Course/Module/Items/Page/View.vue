@@ -1,17 +1,28 @@
 <template>
-    <div v-if="!isEditing">
-        <h3 class="text-3xl p-4 border-b border-secondary bg-primary">Page: {{ props.item.itemable?.title }}</h3>
+  <div class="max-w-none prose mt-4 border" v-if="!isEditing">
+      <div class="flex flex-row justify-between items-center text-xl p-4 w-full border-b border-secondary bg-primary ">
+        <h4>Page: {{ props.item.itemable?.title }}</h4>
+        <div>
+                <button @click="isEditing = true" class="btn btn-sm btn-success text-success-content mt-4">Edit Page</button>
+        <button @click="deletePage" class="btn btn-sm btn-error text-error-content mt-4 ml-4">Delete Page</button>
+        
+        </div>
+      </div>
         <div class="p-4" v-html="props.item.itemable?.content"></div>
-        <button @click="isEditing = true" class="btn btn-md btn-success text-success-content mt-4">Edit Page</button>
-        <button @click="deletePage" class="btn btn-md btn-error text-error-content mt-4 ml-4">Delete Page</button>
     </div>
-    <div v-else>
+    <div v-else class="mt-4 border" >
     <form @submit.prevent="updatePage">
-    <h3 class="text-3xl p-4 border-b border-secondary bg-primary">Page: </h3>
-        <input v-model="localItemable.title" type="text" class="input input-bordered w-full max-w-xs mb-4 mt-2" />
+        <div class="flex flex-row gap-4 items-center text-xl mb-4 p-4 w-full border-b border-secondary bg-primary">
+    <h4 class="m-0">Page: </h4>
+        <input v-model="localItemable.title" type="text" class="input input-bordered" />
+    </div>
+      
         <TipTap v-model="localItemable.content" />
-           <button type="submit" class="btn btn-md btn-success text-success-content mt-4">Update Page</button>
-           <button @click="isEditing = false" class="btn btn-md btn-error text-error-content mt-4 ml-4">Cancel</button>
+     
+        <div class="flex flex-row gap-4 p-4">
+           <button type="submit" class="btn btn-sm btn-success text-success-content mt-4">Update Page</button>
+           <button @click="isEditing = false" class="btn btn-sm btn-error text-error-content mt-4 ml-4">Cancel</button>
+        </div>
     </form>
     </div>
 </template>

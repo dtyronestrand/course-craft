@@ -1,8 +1,8 @@
 <template>
-    <div class="flex flex-col p-4 gap-8">
+    <div class="flex flex-col border  border-secondary p-4 mb-8 gap-8">
     <h2 class="text-5xl font-bold mb-8 pl-4">Course Map</h2>
         <div v-if="props.course.modules?.length" >
-<table class="min-w-[350px] w-full border-4 border-secondary bg-base-300 rounded-xl overflow-hidden shadow-[4px 4px 8px var(--color-base-300)] border-collapse">
+<table class="w-full nowrap border-collapse border-2 border-secondary mt-16 mx-auto glass">
 
 <thead>
 <tr>
@@ -18,8 +18,8 @@
 </thead>
 <tbody>
 
-<tr class="glass" v-for="module in props.course.modules" :key="module.id">
-<td>{{module.order_index}}: &nbsp; {{ module.title }}</td>
+<tr class="" v-for="module in props.course.modules" :key="module.id">
+<td class="sticky">{{module.order_index}}: &nbsp; {{ module.title }}</td>
 <td>
 <div v-for="objective in module.course_objectives" :key="objective.id">
 {{ objective.number }}
@@ -37,7 +37,8 @@
 <td>{{ module.course_instructions }}</td>
 <td>{{ module.course_materials }}</td>
 <td>{{ module.course_media_library_needs }}</td>
-<td class="flex flex-col"><button @click="editModule(module)" class="btn btn-sm btn-info ">Edit</button><button @click="deleteModule(module)" class="btn btn-sm btn-error">Delete</button></td>
+<td class="flex flex-col"><button @click="editModule(module)" class="btn btn-sm btn-info ">Edit</button></td>
+<td class="flex flex-col"><button @click="deleteModule(module)" class="btn btn-sm btn-error ">Delete</button></td>
 </tr>
 </tbody>
 </table>
@@ -49,9 +50,10 @@
                 @click="addModule"
             >Add Module</button>
             </div>
-    </div>
-    <AddModule v-if="addModuleModalOpen" :numberOfModules="props.numberOfModules" :course="props.course" :parent="'map'" @close="addModuleModalOpen = false" />
+                <AddModule v-if="addModuleModalOpen" :numberOfModules="props.numberOfModules" :course="props.course" :parent="'map'" @close="addModuleModalOpen = false" />
     <EditModule v-if="isEditing" :module="moduleToEdit" :course="props.course" :parent="'map'" :numberOfModules="props.numberOfModules" @close="() => isEditing = false" />
+    </div>
+
 </template>
 
 <script setup lang="ts">
@@ -86,6 +88,7 @@ const deleteModule = (module: CourseModule) => {
 </script>
 
 <style scoped>
+
 th, td{
     padding: 12px 16px;
     text-align: left;
@@ -99,7 +102,7 @@ th{
 thead{
     background: var(--color-primary);
     font-weight: bold;
-    color: var(--color-secondary-content);
+    color: var(--color-primary-content);
 }
 
 tbody tr:nth-child(even){

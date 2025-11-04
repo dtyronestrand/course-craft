@@ -49,7 +49,7 @@ class HandleInertiaRequests extends Middleware
                     'last_name' => $request->user()->last_name,
                     'email' => $request->user()->email,
                     'role' => $request->user()->role,
-                    'is_google_connected' => (bool) !empty($request->user()->google_token),
+                    'hasGoogleAccess' => $request->user()->hasGoogleAccess(),
                    
                 ] : null,
 
@@ -57,6 +57,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'success' => fn () => $request->session()->get('status'),
                 'error' => fn () => $request->session()->get('error'),
+                'documentUrl' => fn () => $request->session()->get('documentUrl'),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];

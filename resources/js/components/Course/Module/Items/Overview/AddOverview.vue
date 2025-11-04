@@ -10,6 +10,7 @@
             </li>
         </ol>
            <button type="submit" class="btn btn-md btn-success text-success-content mt-4">Save Item</button>
+           <button @click.prevent="emit('close')" class="btn btn-md btn-error text-error-content mt-4">Cancel</button>
     </form>
 </template>
 

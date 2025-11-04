@@ -3,7 +3,10 @@
        <input v-model="pageData.title" type="text" class="input input-bordered w-full max-w-md text-3xl p-4 mb-4 mt-2" />
         <h4 class="p-4 text-2xl">Page Content</h4>
         <TipTap v-model="pageData.content" />
-           <button type="submit" class="btn btn-md btn-success text-success-content mt-4">Save Item</button>
+        <div class="flex flex-row gap-4 p-4">
+           <button type="submit" class="btn btn-sm btn-success text-success-content mt-4">Save Item</button>
+              <button @click.prevent="emit('close')" class="btn btn-sm btn-error text-error-content mt-4">Cancel</button>
+        </div>
     </form>
 </template>
 

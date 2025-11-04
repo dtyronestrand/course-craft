@@ -1,19 +1,26 @@
 <template>
-    <div v-if="!isEditing">
-        <h3 class="text-3xl p-4 border-b border-secondary bg-primary">Assignment: {{ module.items[index].itemable?.title}} </h3>
-        <h4 class="mt-4">Purpose</h4>
+    <div class="max-w-none prose mt-4 border" v-if="!isEditing">
+         <div class="flex flex-row justify-between items-center text-xl p-4 w-full border-b border-secondary bg-primary ">
+        <h4 >Assignment: {{ module.items[index].itemable?.title}} </h4>
+        <div>
+                <button class="btn-sm btn btn-success mt-4" @click="isEditing=true">Edit Assignment</button>
+        <button class="btn btn-sm ml-4 btn-error mt-4" @click="deleteAssignment">Delete Assignment</button>
+        </div>
+         </div>
+           <div class="max-w-none prose">
+        <h5 class="text-lg w-full p-4 bg-neutral border-b border-t ">Purpose</h5>
         <div class="p-4" v-html="module.items[index].itemable?.purpose"></div>
-        <h4 class="prose">Criteria</h4>
+           </div>
+        <h5 class="text-lg w-full p-4 bg-neutral border-b border-t">Criteria</h5>
         <div class="p-4" v-html="module.items[index].itemable?.criteria">    
         </div>
-        <h4 class="prose">Settings</h4>
+        <h5 class="text-lg w-full p-4 bg-neutral border-b border-t">Settings</h5>
         <div class="p-4">
             <p>Point Value: {{ module.items[index].itemable?.settings?.point_value }}</p
 >
             <p>Submission Types: {{ (module.items[index].itemable?.settings as AssignmentSettings)?.submission_type?.join(', ') }}</p>
         </div>
-        <button class="btn btn-success mt-4" @click="isEditing=true">Edit Assignment</button>
-        <button class="btn ml-4 btn-error mt-4" @click="deleteAssignment">Delete Assignment</button>
+
     </div>
 <div v-else>
     <form @submit.prevent="updateAssignment" class="border border-secondary ">

@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <form >
-            <label for="itemType">Select Item Type:</label>
-            <select id="itemType" v-model="selectedItemType">
+    <div class="my-8 text-xl">
+       
+            <label class="px-4" for="itemType">Select Item Type:</label>
+            <select id="itemType" class="border border-accent" v-model="selectedItemType">
                 <option value="" disabled>Select an item type</option>
                 <option value="overview">Overview</option>
                 <option value="page">Page</option>
@@ -12,9 +12,9 @@
                 <option value="wrap_up">Wrap Up</option>
             </select>
             <section v-if="selectedItemType">
-                <component :is="newItem" :module="props.module" @close="selectedItemType=null"></component>
+                <component :is="newItem" :module="props.module" @close="doneAddingItem"></component>
             </section>
-        </form>
+  
     </div>
 </template>
 
@@ -28,6 +28,7 @@ interface Props {
 }
 const props = defineProps<Props>();
 const selectedItemType = ref<"overview" | "page" | "quiz" | "assignment" | "discussion" | null>(null);
+const emit = defineEmits(['close']);
 const itemsMap: Record<string, any> = {
     overview: defineAsyncComponent(() => import('@/components/Course/Module/Items/Overview/AddOverview.vue')),
     page: defineAsyncComponent(() => import('@/components/Course/Module/Items/Page/AddPage.vue')),
@@ -39,7 +40,10 @@ const itemsMap: Record<string, any> = {
 const newItem = computed(() => {
     return selectedItemType.value ? itemsMap[selectedItemType.value] : null;
 });
-
+const doneAddingItem = () => {
+    selectedItemType.value = null;
+    emit('close');
+};
 
 
 

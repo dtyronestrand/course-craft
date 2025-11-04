@@ -23,7 +23,7 @@
     </div>
     <div>
     <component :is="currentDisplay" :numberOfModules="page.props.numberOfModules" :course="page.props.course" v-if="currentDisplay"/>
-    <div v-if="page.props.auth.user.is_google_connected" >
+    <div v-if="page.props.auth.user.hasGoogleAccess" >
 <button @click="exportToDrive" :disabled="isExporting" class="btn btn-info text-info-content px-4 py-2 disabled:opacity-50"><span v-if="isExporting">Creating Document...</span><span v-else>Export to Drive</span></button>
 <div v-if="exportError" class="mt-2 text-sm text-error">Error: {{ exportError }}</div>
 <div v-if="exportSuccessUrl" class="mt-2 text-sm text-success">Successfully exported! <a :href="exportSuccessUrl" target="_blank" class="underline">Open Document</a></div> 
@@ -42,6 +42,7 @@ import {Storyboard, Map, Delete} from '@/components/CourseActions'
 
 import { shallowRef , defineAsyncComponent, nextTick, ref} from 'vue';
 import New from '@/layouts/New.vue';
+import course from '@/routes/course';
 interface Course {
     id: number;
     prefix: string;
@@ -114,9 +115,7 @@ async function exportToDrive() {
           'X-CSRF-TOKEN': csrfToken
         },
         body: JSON.stringify({
-          title: documentTitle.value,
-          content: documentContent.value,
-          document_id: page.props.course.document_id
+         course_id: page.props.course_id
         })
       });
     } else {
@@ -128,8 +127,7 @@ async function exportToDrive() {
           'X-CSRF-TOKEN': csrfToken
         },
         body: JSON.stringify({
-          title: documentTitle.value,
-          content: documentContent.value,
+       course_id: page.props.course.id
         })
       });
     }

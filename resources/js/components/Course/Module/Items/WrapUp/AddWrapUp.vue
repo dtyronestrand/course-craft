@@ -1,15 +1,13 @@
 <template>
-    <form @submit.prevent="wrapUpSubmit" class="border border-secondary ">
+    <form @submit.prevent="wrapUpSubmit" class="border my-8 border-secondary ">
         <h3 class="text-3xl p-4 border-b border-secondary bg-primary">Module {{ props.module.order_index }} {{ props.module.title  }} Wrap Up</h3>
         <h4 class="p-4 text-2xl">Wrap Up Content</h4>
         <TipTap v-model="wrapUpData.content" />
-        <h4 class="p-2 text-2xl">Learning Objectives</h4>
-        <ol class="">
-            <li v-for="(objective, index) in props.module.module_objectives" :key="index">
-                {{ props.module.order_index }}.{{ objective.number }}: {{ objective.objective }}
-            </li>
-        </ol>
+  <div class="p-4 flex flex-row gap-4">
+           <input type="hidden" name="module" :value="props.module.id" />
            <button type="submit" class="btn btn-md btn-success text-success-content mt-4">Save Item</button>
+           <button @click.prevent="emit('close')" class="btn btn-md btn-error text-error-content mt-4">Cancel</button>
+    </div>
     </form>
 </template>
 

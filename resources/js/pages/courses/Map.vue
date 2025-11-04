@@ -1,7 +1,7 @@
 <template>
  <New>
-    <BasicInfo :course="page.props.course as Course"/>
-    <Map :numberOfModules="page.props.numberOfModules as number" :course="page.props.course as Course"/>
+    <BasicInfo :course="course"/>
+    <MapComponent :numberOfModules="numberOfModules" :course="course"/>
 </New>
 </template>
 
@@ -9,10 +9,12 @@
 import BasicInfo from '@/components/Course/BasicInfo.vue';
 import New from '@/layouts/New.vue';
 import {Course} from "@/types";
-import Map from '@/components/Course/Map.vue';
-import {usePage} from "@inertiajs/vue3";
+import MapComponent from '@/components/Course/Map.vue';
 
-const page = usePage();
+defineProps<{
+    course: Course;
+    numberOfModules: number;
+}>();
 </script>
 
 <style scoped>
