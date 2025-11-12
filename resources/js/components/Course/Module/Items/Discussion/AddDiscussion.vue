@@ -8,7 +8,7 @@
      
         <h4 class="p-4 text-2xl">Settings</h4>
   <div class="flex flex-row">
-        <label for="graded" class="flex items-center p-4 mb-4 mx-4">Graded   </label>
+        <label for="graded" class="flex items-center pl-4 mx-4">Graded   </label>
 <input name="graded" type="checkbox" v-model="discussionData.settings.graded" id="graded" class="checkbox checkbox-bordered mx-4" />
   </div>
   <div class="flex flex-row" v-if="discussionData.settings.graded" >
@@ -17,8 +17,8 @@
     </div>
 
             <div class="flex flex-row ">
-           <button type="submit" class="btn btn-md btn-success text-success-content m-4 w-50 max-w-xs ">Save Item</button>
-           <button @click="handleClose" class="btn btn-md btn-error text-error-content m-4 w-50 max-w-xs ">Cancel</button>
+           <button type="submit" class="btn btn-sm btn-success text-success-content m-4 w-50 max-w-xs ">Save Item</button>
+           <button @click="handleClose" class="btn btn-sm btn-error text-error-content m-4 w-50 max-w-xs ">Cancel</button>
             </div>
     </form>
 </template>

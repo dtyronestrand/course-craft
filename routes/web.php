@@ -6,8 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\GoogleDocController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Laravel\Socialite\Facades\Socialite;
+
 
 Route::get('/google/redirect', [GoogleAuthController::class, 'redirect'])->name('google.redirect');
 Route::get('/google/callback', [GoogleAuthController::class, 'callback'])->name('google.callback');
@@ -61,6 +60,9 @@ Route::delete('/course_discussions/{courseDiscussion}', [\App\Http\Controllers\C
 Route::post('/course_quizzes', [\App\Http\Controllers\CourseQuizController::class, 'store'])->name('course.quiz.store');
 Route::put('/course_quizzes/{courseQuiz}', [\App\Http\Controllers\CourseQuizController::class, 'update'])->name('course.quiz.update');
 Route::delete('/course_quizzes/{courseQuiz}', [\App\Http\Controllers\CourseQuizController::class, 'destroy'])->name('course.quiz.destroy');
+Route::post('/module_wrapUps', [\App\Http\Controllers\ModuleWrapUpController::class, 'store'])->name('module.wrapup.store');
+Route::put('/module_wrapUps/{moduleWrapUp}', [\App\Http\Controllers\ModuleWrapUpController::class, 'update'])->name('module.wrapup.update');
+Route::delete('/module_wrapUps/{moduleWrapUp}', [\App\Http\Controllers\ModuleWrapUpController::class, 'destroy'])->name('module.wrapup.destroy');
 
 
    

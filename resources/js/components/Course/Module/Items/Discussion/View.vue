@@ -1,19 +1,26 @@
 <template>
-    <div v-if="!isEditing">
-        <h3 class="text-3xl p-4 border-b border-secondary bg-primary">Discussion: {{ module.items[index].itemable?.title}} </h3>
-        <h4 class="mt-4">Prompt</h4>
+    <div class="max-w-none prose mt-4 border" v-if="!isEditing">
+      <div class="flex flex-row justify-between items-center text-xl p-4 w-full border-b border-secondary bg-primary ">
+        <h4>Discussion: {{ module.items[index].itemable?.title}} </h4>
+     <div class="flex flex-row gap-4">
+              <EditButton background="success" @click="isEditing = true" />
+       <DeleteButton @click="deleteDiscussion" />
+    </div>
+      </div>
+      <div class="prose max-w-none">
+        <h5 class=" text-lg w-full p-4 bg-neutral border-b border-t">Prompt</h5>
         <div class="p-4" v-html="module.items[index].itemable?.prompt"></div>
       
-        <h4 class="prose">Settings</h4>
+        <h5 class="text-lg w-full p-4 bg-neutral border-b border-t">Settings</h5>
         <div class="p-4"> 
             <p>Graded: {{ discussionSettings?.graded ? 'Yes' : 'No' }}</p>
             <p v-if="discussionSettings?.graded">Point Value: {{ discussionSettings?.point_value }}</p>
         </div>
-        <button class="btn btn-success mt-4" @click="isEditing=true">Edit discussion</button>
-        <button class="btn ml-4 btn-error mt-4" @click="deleteDiscussion">Delete Discussion</button>
+      </div>
+     
     </div>
 <div v-else>
-    <form @submit.prevent="updateDiscussion"  class=" h-full p-4 bg-base-300 w-full max-w-none text-3xl mb-4 mt-2">
+    <form @submit.prevent="updateDiscussion"  class=" border border-secondary">
     <input v-model="form.title" type="text" class="input  h-full p-4 bg-base-300 w-full max-w-md text-3xl mb-4 mt-2" />
         <h4 class="p-4 text-2xl">Prompt</h4>
         <TipTap v-model="form.prompt" />
@@ -26,8 +33,10 @@
             <input v-if="form.settings.graded" v-model="form.settings.point_value" type="number" class="input input-bordered w-full mx-4 max-w-xs mb-4 mt-2" placeholder="Point Value" />
 
     </div>
-           <button type="submit" class="btn btn-md btn-success text-success-content mt-4">Update discussion</button>
-           <button type="button" class="btn btn-md btn-error text-error-content mt-4" @click="isEditing=false">Cancel</button>
+    <div class="flex flex-row gap-4 p-4">
+          <UpdateButton :itemType="props.module.items[index].itemable_type"/>
+           <CancelButton @click="isEditing=false"/>
+    </div>
     </form>
     </div>
  
@@ -38,6 +47,10 @@ import { CourseModule } from "@/types";
 import { ref, computed } from "vue";
 import {useForm} from "@inertiajs/vue3";
 import TipTap from "@/components/TipTap.vue";
+import EditButton from "@/components/EditButton.vue";
+import DeleteButton from "@/components/DeleteButton.vue";
+import UpdateButton from "@/components/Course/Module/Items/Buttons/UpdateButton.vue";
+import CancelButton from "../Buttons/CancelButton.vue";
 
 const props = defineProps<{
     module: CourseModule;

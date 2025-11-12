@@ -76,6 +76,7 @@ export interface DiscussionSettings {
 }
 export interface Itemable {
     title: string;
+    type: string;
     content?: string;
     instructions?: string;
     criteria?: string;

@@ -39,42 +39,42 @@
             </div>
             <div class="flex flex-col">
                 <label class="my-4 label text-2xl">Module Objectives:</label>
-                <ol class="mb-4 list-decimal pl-8">
-                    <li
-                        v-for="(objective, index) in form.module_objectives"
-                        :key="index"
-                        class="mb-2 flex flex-row flex-nowrap gap-4"
-                    >
-                    {{ form.number }}.{{ form.module_objectives[index].number }}
-
-                        <input
-                            class="input w-full pl-4"
-                            type="text"
-                            placeholder="Objective"
-                            v-model="form.module_objectives[index].objective"
-                        />
-                        <button
-                            type="button"
-                            class="btn ml-2 btn-sm btn-error"
-                            @click="form.module_objectives.splice(index, 1)"
-                        >
-                            Remove
-                        </button>
-                    </li>
-                </ol>
-                <button
-                    type="button"
-                    class="btn mt-4 mb-8 w-max btn-sm btn-info"
-                    @click="
-                        form.module_objectives.push({
-                            number: `${form.module_objectives.length + 1}`,
-                            objective: '',
-                        })
-                    "
-                >
-                    Add Objective
-                </button>
             </div>
+            <ol class="mb-4 list-decimal pl-8">
+                <li
+                    v-for="(objective, index) in form.module_objectives"
+                    :key="index"
+                    class="mb-2 flex flex-row flex-nowrap gap-4"
+                >
+                {{ form.number }}.{{ form.module_objectives[index].number }}
+
+                    <input
+                        class="input w-full pl-4"
+                        type="text"
+                        placeholder="Objective"
+                        v-model="form.module_objectives[index].objective"
+                    />
+                    <button
+                        type="button"
+                        class="bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" 
+                        @click="form.module_objectives.splice(index, 1)"
+                    >
+                        Remove
+                    </button>
+                </li>
+            </ol>
+            <button
+                type="button"
+                class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" 
+                @click="
+                    form.module_objectives.push({
+                        number: `${form.module_objectives.length + 1}`,
+                        objective: '',
+                    })
+                "
+            >
+                Add Objective
+            </button>
             <div class="flex flex-col">
                 <label class="my-4 label text-2xl">
                     <span class="label-text">Assessments:</span>
@@ -102,7 +102,7 @@
                 />
                 <button
                     type="button"
-                    class="btn w-24 text-error-content btn-sm btn-error"
+                  class="self-start bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" 
                     @click="form.course_assessments.splice(index, 1)"
                 >
                     Remove
@@ -111,7 +111,7 @@
 
             <button
                 type="button"
-                class="btn my-4 text-info-content btn-sm btn-info"
+                class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" 
                 @click="
                     form.course_assessments.push({
                         title: '',
@@ -126,46 +126,46 @@
                 <label class="label my-4 text-2xl">
                     <span class="label-text">Instructional Activities:</span>
                 </label>
-                <div
-                    v-for="(activity, index) in form.course_instructions"
-                    :key="index"
-                    class="mb-2 flex flex-col gap-4 border p-8"
-                >
-                    <input
-                        v-model="form.course_instructions[index].title"
-                        placeholder="Activity"
-                        class="input-bordered input w-full max-w-xs"
-                    />
-         
-                <label class="label mt-2">
-                    <span class="label-text">Aligned Module Objectives:</span>
-                </label>
-
-                <ModuleObjectiveDropDown
-                    :objectives="objectives"
-                    v-model="
-                        form.course_instructions[index].aligned_module_objectives
-                    "
+            </div>
+            <div
+                v-for="(activity, index) in form.course_instructions"
+                :key="index"
+                class="mb-2 flex flex-col gap-4 border p-8"
+            >
+                <input
+                    v-model="form.course_instructions[index].title"
+                    placeholder="Activity"
+                    class="input-bordered input w-full max-w-xs"
                 />
-                    <button
-                        type="button"
-                        class="btn w-24 ml-2 btn-sm btn-error"
-                        @click="form.course_instructions.splice(index, 1)"
-                    >
-                        Remove
-                    </button>
-                </div>
+     
+            <label class="label mt-2">
+                <span class="label-text">Aligned Module Objectives:</span>
+            </label>
+
+            <ModuleObjectiveDropDown
+                :objectives="objectives"
+                v-model="
+                    form.course_instructions[index].aligned_module_objectives
+                "
+            />
                 <button
                     type="button"
-                    class="btn my-4 w-max text-info-content btn-sm btn-info"
-                    @click="form.course_instructions.push({
-                         title: '',
-                         aligned_module_objectives: [],
-                    })"
+                  class="self-start bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" 
+                    @click="form.course_instructions.splice(index, 1)"
                 >
-                    Add Activity
+                    Remove
                 </button>
             </div>
+            <button
+                type="button"
+               class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" 
+                @click="form.course_instructions.push({
+                     title: '',
+                     aligned_module_objectives: [],
+                })"
+            >
+                Add Activity
+            </button>
             <div class="flex flex-col">
                 <label class="my-4 label text-2xl">
                     <span class="label-text">Instructional Materials:</span>
@@ -193,7 +193,7 @@
                 />
                 <button
                     type="button"
-                    class="btn w-24 text-error-content btn-sm btn-error"
+                    class="self-start bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" 
                     @click="form.course_materials.splice(index, 1)"
                 >
                     Remove
@@ -202,7 +202,7 @@
 
             <button
                 type="button"
-                class="btn my-4 text-info-content btn-sm btn-info"
+                class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" 
                 @click="
                     form.course_materials.push({
                         title: '',
@@ -239,7 +239,7 @@
                 />
                 <button
                     type="button"
-                    class="btn w-24 text-error-content btn-sm btn-error"
+                   class="self-start bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" 
                     @click="form.course_media_library_needs.splice(index, 1)"
                 >
                     Remove
@@ -248,7 +248,7 @@
 
             <button
                 type="button"
-                class="btn my-4 text-info-content btn-sm btn-info"
+              class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" 
                 @click="
                     form.course_media_library_needs.push({
                         title: '',
@@ -258,11 +258,11 @@
             >
                 Add Media/Library Need
             </button>
-            <div class="flex flex-row gap-4">
-                <button type="submit" class="btn btn-success">Save</button>
+            <div class="flex flex-row gap-4 mt-8">
+                <button type="submit" class="bg-success text-success-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" >Save</button>
                 <button
                     type="button"
-                    class="btn btn-error"
+                  class="bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" 
                     @click="emit('close')"
                 >
                     Cancel

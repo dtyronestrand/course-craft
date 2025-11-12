@@ -1,6 +1,7 @@
 <template>
     <div v-if="!editing">
-    <p>{{ question.stem }}</p>
+    <h5>Multiple Choice</h5>
+    <p class="ml-4">{{ question.stem }}</p>
     <ol v-for="(option, index) in question.options" :key="index" class="list-none list-inside">
         <li :class="{'font-bold': option === question.correct_answer}">{{ String.fromCharCode(65 + index) }}. {{ option }}</li>
     </ol>

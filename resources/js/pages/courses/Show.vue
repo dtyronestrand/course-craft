@@ -24,7 +24,7 @@
     <div>
     <component :is="currentDisplay" :numberOfModules="page.props.numberOfModules" :course="page.props.course" v-if="currentDisplay"/>
     <div v-if="page.props.auth.user.hasGoogleAccess" >
-<button @click="exportToDrive" :disabled="isExporting" class="btn btn-info text-info-content px-4 py-2 disabled:opacity-50"><span v-if="isExporting">Creating Document...</span><span v-else>Export to Drive</span></button>
+<button @click="exportToDrive" :disabled="isExporting" class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" ><span v-if="isExporting">Creating Document...</span><span v-else>Export to Google Drive</span></button>
 <div v-if="exportError" class="mt-2 text-sm text-error">Error: {{ exportError }}</div>
 <div v-if="exportSuccessUrl" class="mt-2 text-sm text-success">Successfully exported! <a :href="exportSuccessUrl" target="_blank" class="underline">Open Document</a></div> 
 </div>
@@ -42,7 +42,7 @@ import {Storyboard, Map, Delete} from '@/components/CourseActions'
 
 import { shallowRef , defineAsyncComponent, nextTick, ref} from 'vue';
 import New from '@/layouts/New.vue';
-import course from '@/routes/course';
+
 interface Course {
     id: number;
     prefix: string;

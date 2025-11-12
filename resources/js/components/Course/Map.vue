@@ -37,8 +37,8 @@
 <td>{{ module.course_instructions }}</td>
 <td>{{ module.course_materials }}</td>
 <td>{{ module.course_media_library_needs }}</td>
-<td class="flex flex-col"><button @click="editModule(module)" class="btn btn-sm btn-info ">Edit</button></td>
-<td class="flex flex-col"><button @click="deleteModule(module)" class="btn btn-sm btn-error ">Delete</button></td>
+<td class="flex flex-col"><EditButton @click="editModule(module)" background="info"/></td>
+<td class="flex flex-col"><DeleteButton @click="deleteModule(module)"/></td>
 </tr>
 </tbody>
 </table>
@@ -46,7 +46,7 @@
             <div>
             <button
                 :style="{ display: addModuleModalOpen ? 'none' : '' }"
-                class="btn btn-info text-info-content"
+             class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" 
                 @click="addModule"
             >Add Module</button>
             </div>
@@ -62,7 +62,8 @@ import AddModule from "@/components/Course/Module/AddModule.vue";
 import EditModule from "@/components/Course/Module/EditModule.vue";
 import { Course, CourseModule } from "@/types";
 import { router } from "@inertiajs/vue3";
-
+import EditButton from "@/components/EditButton.vue";
+import DeleteButton from "@/components/DeleteButton.vue";
 interface Props {
     course: Course;
     numberOfModules: number;

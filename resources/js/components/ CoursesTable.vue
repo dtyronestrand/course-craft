@@ -55,7 +55,7 @@ const columnsCourses = [
     {
         accessorKey: 'actions',
         header:'',
-        cell: ({row}) => h(CourseActionButtons, {id: row.original.id} ),
+        cell: ({ row }: { row: any }) => h(CourseActionButtons, { id: row.original.id }),
     },
 
 ]
@@ -78,7 +78,7 @@ th,td{
     border-bottom: 1px solid var(--color-secondary);
 }
 th{
-   background-color:  oklch(from var(--color-primary) l c h / 0.15);
+   background-color:  oklch(from var(--color-info) l c h / 0.15);
    backdrop-filter: blur(20px);
    border: 1px solid oklch(from var(--color-primary-content) l c h /0.1);
    box-shadow: 0 8px 32px 0 oklch(from var(--color-neutral) l c h /0.3);
@@ -107,7 +107,7 @@ tr:nth-child(even){
 
 }
 tr:hover{
-    background: var(--color-success);
-    color: var(--color-success-content);
+    background: var(--color-primary);
+    color: var(--color-primary-content);
 }
 </style>

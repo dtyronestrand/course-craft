@@ -1,22 +1,26 @@
 <template>
-    <div v-if="!isEditing">
-        <h3 class="text-3xl p-4 border-b border-secondary bg-primary">Module {{ module.order_index }} {{ module.title  }} Wrap Up</h3>
+    <div class="max-w-none prose mt-4 border" v-if="!isEditing">
+    <div class="flex flex-row justify-between items-center text-xl p-4 w-full border-b border-secondary bg-primary ">
+        <h4 >Module {{ module.order_index }} {{ module.title  }} Wrap Up</h4>
+       <div class="flex flex-row gap-4">
+              <EditButton background="success" @click="isEditing = true" />
+       <DeleteButton @click="deleteWrapUp" />
+    </div>
+    </div>
+        
         <div class="p-4" v-html="module.items[index].itemable.content"></div>
-        <div><h4 class="prose">Learning Objectives</h4>
-        <ol class="list-none list-inside">
-            <li v-for="(objective, objIndex) in module.module_objectives" :key="objIndex">
-              {{ module.order_index  }}.{{ objective.number }}: {{ objective.objective }}
-            </li>
-        </ol>
-        </div>
-        <button class="btn btn-success mt-4" @click="isEditing=true">Edit Wrap Up</button>
+      
+      
     </div>
 <div v-else>
-    <form @submit.prevent="updatewrapUp" class="border border-secondary ">
+    <form @submit.prevent="updateWrapUp" class="border border-secondary ">
         <h3 class="text-3xl p-4 border-b border-secondary bg-primary">Module {{ module.order_index }} {{ module.title  }} Wrap Up</h3>
         <h4 class="p-4 text-2xl">Wrap Up Content</h4>
         <TipTap v-model="form.content" />
-           <button type="submit" class="btn btn-md btn-success text-success-content mt-4">Update Wrap Up</button>
+        <div class="flex flex-row gap-4 p-4">
+          <UpdateButton :itemType="props.module.items[index].itemable_type"/>
+           <CancelButton @click="isEditing=false"/>
+        </div>
     </form>
     </div>
 </template>
@@ -24,8 +28,12 @@
 <script setup lang="ts">
 import { CourseModule } from "@/types";
 import { ref } from "vue";
-import {useForm} from "@inertiajs/vue3";
+import {router, useForm} from "@inertiajs/vue3";
 import TipTap from "@/components/TipTap.vue";
+import EditButton from "@/components/EditButton.vue";
+import DeleteButton from "@/components/DeleteButton.vue";
+import UpdateButton from "@/components/Course/Module/Items/Buttons/UpdateButton.vue";
+import CancelButton from "../Buttons/CancelButton.vue";
 const props = defineProps<{
     module: CourseModule;
     index: number;
@@ -38,13 +46,20 @@ const form = useForm({
     content: props.module.items[props.index].itemable.content
 });
 
-const updatewrapUp = () => {
+const updateWrapUp = () => {
     form.put(`/module_wrapUps/${props.module.items[props.index].itemable_id}`, {
         onSuccess: () => {
             isEditing.value = false;
         }
     });
 };
+const deleteWrapUp = ()=> {
+    form.get(`/module_wrapUps/${props.module.items[props.index].itemable_id}/delete`, {
+        onSuccess: () => {
+         router.reload();
+        }
+    });
+}
 </script>
 
 <style scoped>
