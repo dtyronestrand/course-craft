@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-none prose mt-4 border" v-if="!isEditing">
          <div class="flex flex-row justify-between items-center text-xl p-4 w-full border-b border-secondary bg-primary ">
-        <h4 >Assignment: {{ module.items[index].itemable?.title}} </h4>
+        <h4 class="text-primary-content" >Assignment: {{ module.items[index].itemable?.title}} </h4>
     <div class="flex flex-row gap-4">
               <EditButton background="success" @click="isEditing = true" />
        <DeleteButton @click="deleteAssignment" />

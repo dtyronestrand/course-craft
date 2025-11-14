@@ -2,21 +2,18 @@
 import New from '@/layouts/New.vue';
 
 import { Head } from '@inertiajs/vue3';
-import CoursesTable from '@/components/ CoursesTable.vue';
+import CoursesTable from '@/components/Course/ CoursesTable.vue';
 import {usePage, router} from '@inertiajs/vue3';
 import { onMounted, ref } from 'vue';
-import CreateCourse from '@/components/CreateCourse.vue';
+import CreateCourse from '@/components/Course/CreateCourse.vue';
 
 const isCreateCourseModalOpen = ref(false);
 
 const saveCourse = (courseData: any) => {
     // Handle course creation logic here
-    router.post('/courses', courseData, {
-        onFinish: () => {
-           router.reload();
-        },
-    });
+    router.post('/courses', courseData, );
     isCreateCourseModalOpen.value = false;
+    router.get('/dashboard');
 };
 
 const page = usePage();

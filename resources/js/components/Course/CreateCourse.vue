@@ -23,21 +23,21 @@
                     <input v-model="courseData.title" type="text" id="title" class="mt-1 block w-full border-b border-secondary shadow-sm p-2" required />
                 </div>
                 <div class="mb-4">
-                    <label for="objectives" class="block text-sm font-medium text-primary-content">Course Objectives</label>
+                    <label for="objectives" class="mb-4 block text-sm font-medium text-primary-content">Course Objectives</label>
                 <div v-for="(objective, index) in courseData.objectives" :key="index" class="mb-2 flex items-center gap-2">
                     <p class="mb-0">{{objective.number}}.</p>
                     <input v-model="objective.objective" type="text" :id="'objective-' + index" class="mt-1 block w-full border border-secondary rounded-md shadow-sm p-2" />
-                    <button type="button" @click="courseData.objectives.splice(index, 1)" class="text-error hover:text-error/70">
+                    <button type="button" @click="courseData.objectives.splice(index, 1)" class="bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" >
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 </div>
-                <button type="button" @click="createObjective" class="bg-info text-info-content px-4 py-2 rounded-md hover:bg-success/70">Add Objective</button>
+                <button type="button" @click="createObjective" class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" >Add Objective</button>
                 </div>
 
                 <div class="mb-4">
-                    <label for="users" class="block text-sm font-medium text-primary-content"> Users</label>
+                    <label for="users" class="block text-sm font-medium text-primary-content mb-4"> Users</label>
                     <div v-for="user in courseData.users" :key="user.id" class="text-primary-content">
                         {{user.first_name}} {{user.last_name }}
                         <select v-model="user.role" class="ml-2 border border-secondary rounded-md shadow-sm p-1">
@@ -47,7 +47,7 @@
                             <option value="Builder">Builder</option>
                         </select>
                     </div>
-                    <button type="button" @click ="addUser" class="bg-info text-info-content px-4 py-2 rounded-md hover:bg-success/70 mt-2">Add User</button>
+                    <button type="button" @click ="addUser" class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" >Add User</button>
                     <select v-if="addingUser" @change="updateUsers" v-model="selectedUserId" id="users" class="mt-1 block w-full border border-secondary rounded-md shadow-sm p-2" >
                         <option v-for="user in users" :key="user.id" :value="user.id">
                             {{ user.first_name }} {{ user.last_name }}
@@ -56,8 +56,8 @@
 
                 </div>
                 <div class="flex gap-2">
-                    <button @click="handleCreateCourse" class="bg-success text-success-content px-4 py-2 rounded-md hover:bg-success/70 flex-1">Create Course</button>
-                    <button type="button" @click="$emit('close')" class="bg-error text-error-content px-4 py-2 rounded-md hover:bg-error/70">Cancel</button>
+                    <button @click="handleCreateCourse" class="bg-success text-success-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" >Create Course</button>
+                    <button type="button" @click="$emit('close')" class="bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" >Cancel</button>
                 </div>
             </form>
         </div>

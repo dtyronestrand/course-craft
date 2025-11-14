@@ -30,7 +30,7 @@ import {
     getCoreRowModel,
 } from '@tanstack/vue-table'
 import { ref , h} from 'vue'
-import CourseActionButtons from './CourseActionButtons.vue'
+import CourseActionButtons from '../CourseActions/CourseActionButtons.vue'
 interface Props {
     courses: any[]
 }
@@ -78,10 +78,10 @@ th,td{
     border-bottom: 1px solid var(--color-secondary);
 }
 th{
-   background-color:  oklch(from var(--color-info) l c h / 0.15);
+   background-color:  oklch(from var(--color-primary) l c h / 0.55);
    backdrop-filter: blur(20px);
-   border: 1px solid oklch(from var(--color-primary-content) l c h /0.1);
-   box-shadow: 0 8px 32px 0 oklch(from var(--color-neutral) l c h /0.3);
+   border: 1px solid oklch(from var(--color-accent) l c h /0.1);
+   box-shadow: 0 8px 32px 0 oklch(from var(--color-accent) l c h /0.3);
     color: var(--color-primary-content);
     font-weight: 600;
     position: relative;
@@ -98,12 +98,13 @@ th i {
 }
 
 th:hover {
-    background: var(--color-secondary);
+    background: var(--color-neutral);
+    color: var(--color-neutral-content);
 }
 
 tr:nth-child(even){
-    background: var(--color-info);
-    color: var(--color-info-content);
+    background: var(--color-base-200);
+    color: var(--color-base-content);
 
 }
 tr:hover{

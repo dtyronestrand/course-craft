@@ -1,7 +1,7 @@
 <template>
     <New>
     <div class="p-12   bg-base-100 text-base-content">
-    <div class="bg-primary rounded-t-lg border p-8 ">
+    <div class="bg-base-200 rounded-t-lg border p-8 ">
 <h1 class="text-7xl text-base-content mb-4"> {{ page.props.course.prefix }} {{ page.props.course.number }} </h1>
 <h2 class="text-5xl mb-4 text-base-content ">{{ page.props.course.title }}</h2>
 <div class="flex flex-row gap-4 mb-4 ">
@@ -11,7 +11,7 @@
 <Delete @delete="handleDelete"/>
 </div>
     </div>
-    <div class="bg-base-200 border  p-8">
+    <div class="bg-base-300 border  p-8">
  <div v-for="(user, index) in page.props.course.users" :key="index">
  <p>{{ user.pivot.role }}: {{ user.first_name }} {{ user.last_name  }}</p>
  </div>

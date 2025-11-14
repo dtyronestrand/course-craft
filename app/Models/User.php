@@ -67,4 +67,8 @@ class User extends Authenticatable
     {
         return !empty($this->google_token);
     }
+      public function teams()
+    {
+        return $this->belongsToMany(Team::class)->withPivot('role')->withTimestamps();
+    }
 }

@@ -1,8 +1,7 @@
 <template>
-    {{ module.items[index].itemable_type }}
     <div class="max-w-none prose mt-4 border" v-if="!isEditing">
     <div class="flex flex-row justify-between items-center text-xl p-4 w-full border-b border-secondary bg-primary ">
-        <h4 >Module {{ module.order_index }} {{ module.title  }} Overview</h4>
+        <h4 class="text-primary-content">Module {{ module.order_index }} {{ module.title  }} Overview</h4>
     <div class="flex flex-row gap-4">
               <EditButton background="success" @click="isEditing = true" />
        <DeleteButton @click="deleteOverview" />
@@ -42,6 +41,7 @@ import UpdateButton from "@/components/Course/Module/Items/Buttons/UpdateButton.
 import CancelButton from "../Buttons/CancelButton.vue";
 const props = defineProps<{
     module: CourseModule;
+    item: any;
     index: number;
 }>();
 

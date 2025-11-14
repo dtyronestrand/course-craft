@@ -3,7 +3,7 @@
     <!-- Centered main content -->
     <div class=" container md:mx-auto px-3 md:px-0">
         <!-- Top nav bar -->
-        <div class=" bg-neutral text-accent-content py-3 flex justify-between">
+        <div class=" bg-neutral text-neutral-content py-3 flex justify-between">
             <!-- left Logo -->
             <Link :href="'/dashboard'" >
             <img src="../lib/assets/CCLogo.png" alt="Course Craft Logo" class="md:h-10 h-8"/>
@@ -88,7 +88,7 @@
             </div>
         </div>
         <!-- Main content -->
-        <div class="rounded-lg bg-base-300 p-4 min-h-64">
+        <div class="rounded-lg bg-base-100 p-4 min-h-64">
         <slot />
         </div>
     </div>

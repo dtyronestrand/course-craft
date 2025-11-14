@@ -1,9 +1,8 @@
 <template>
-    <div class="flex flex-col border  border-secondary p-4 mb-8 gap-8">
+    <div class="flex bg-base-300 flex-col border  border-accent p-4 mb-8 gap-8">
     <h2 class="text-5xl font-bold mb-8 pl-4">Course Map</h2>
         <div v-if="props.course.modules?.length" >
-<table class="w-full nowrap border-collapse border-2 border-secondary mt-16 mx-auto glass">
-
+<table class="w-full nowrap border-collapse border-2 border-accent mt-16 mx-auto ">
 <thead>
 <tr>
 <th>Module</th>
@@ -93,7 +92,7 @@ const deleteModule = (module: CourseModule) => {
 th, td{
     padding: 12px 16px;
     text-align: left;
-    border-bottom: 2px solid rgba(from var(--color-neutral) R G B /0.8);
+
 }
 
 th{
@@ -107,9 +106,11 @@ thead{
 }
 
 tbody tr:nth-child(even){
-    background: rgba(from var(--color-base-300) R G B /0.1);
+    background: var(--color-base-200);
 }
-
+tbody tr:nth-child(odd){
+    background: var(--color-base-100);
+}
 td{
     word-break: break-word;
 }

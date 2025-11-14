@@ -11,6 +11,7 @@
 
 <script setup lang="ts">
 import {ref} from 'vue';
+import TipTap from '@/components/TipTap.vue';
 
 interface Props {
     question: {
