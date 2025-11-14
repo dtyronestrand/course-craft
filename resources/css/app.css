@@ -112,6 +112,7 @@
 */
 html{
   background-color: var(--color-base-300);
+  box-sizing:border-box;
 }
 
 body {

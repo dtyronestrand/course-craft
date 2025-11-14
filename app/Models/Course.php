@@ -30,4 +30,12 @@ class Course extends Model
     {
         return $this->hasMany(CourseObjective::class);
     }
+      protected static function boot()
+  {
+    parent::boot();
+    
+    static::deleting(function ($course) {
+      $course->course_user()->delete();
+    });
+  }
 }

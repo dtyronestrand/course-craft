@@ -35,6 +35,8 @@ interface Props {
     courses: any[]
 }
 const props = defineProps<Props>()    
+const data = ref(props.courses)
+
 const columnsCourses = [
     {
         accessorKey: 'prefix',
@@ -59,7 +61,7 @@ const columnsCourses = [
     },
 
 ]
-const data = ref(props.courses)
+
 
 const table = useVueTable({
     data: data.value,

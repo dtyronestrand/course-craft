@@ -14,9 +14,9 @@ class CourseController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->user()->role === 'admin') {
+        if ($request->user()->is_admin) {
             return Inertia::render('Admin', [
-                'courses' => Course::all(),
+                'courses' => Course::all()->load(['users:id,first_name,last_name'])
             ]);
         } else {
 return Inertia::render('Dashboard', [
