@@ -1,147 +1,61 @@
 <template>
-<div class="max-w-none" style="box-shadow: 0 215px 0 -100px var(--color-neutral) inset;">
-    <!-- Centered main content -->
-    <div class=" container md:mx-auto px-3 md:px-0">
-        <!-- Top nav bar -->
-        <div class=" bg-neutral text-neutral-content py-3 flex justify-between">
-            <!-- left Logo -->
-            <Link :href="'/dashboard'" >
-            <img src="../lib/assets/CCLogo.png" alt="Course Craft Logo" class="md:h-10 h-8"/>
-            </Link>
-            <div class="ml-auto flex items-center space-x-2">
-                    <div class="relative flex items-center space-x-1">
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            class="group h-9 w-9 cursor-pointer"
-                        >
-                            <Search
-                                class="size-5 opacity-80 group-hover:opacity-100"
-                            />
-                        </Button>
-
-                        <div class="hidden space-x-1 lg:flex">
-                            <template
-                                v-for="item in rightNavItems"
-                                :key="item.title"
-                            >
-                                <TooltipProvider :delay-duration="0">
-                                    <Tooltip>
-                                        <TooltipTrigger>
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                as-child
-                                                class="group h-9 w-9 cursor-pointer"
-                                            >
-                                                <a
-                                                    :href="toUrl(item.href)"
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                >
-                                                    <span class="sr-only">{{
-                                                        item.title
-                                                    }}</span>
-                                                    <component
-                                                        :is="item.icon"
-                                                        class="size-5 opacity-80 group-hover:opacity-100"
-                                                    />
-                                                </a>
-                                            </Button>
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                            <p>{{ item.title }}</p>
-                                        </TooltipContent>
-                                    </Tooltip>
-                                </TooltipProvider>
-                            </template>
+    <div class="flex h-screen">
+        <!-- SideNavBar -->
+        <aside class="w-64 flex-shrink-0 bg-base-300">
+            <div class="flex h-full flex-col justify-between p-4">
+                <div class="flex flex-col gap-4">
+                    <div class="flex items-center gap-3 p-2">
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Avatar of Dr. Eleanor Vance" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBOylM6K4GT6aAtpBVV3FZMnSv3UEZcEs1u6l_BbIekWmVu4wCyh4PlWirrsZAAYkd0MtIIvmLy7hUxdN08ea2F6lun2V9gHKwz-sIE72M_sqSPIpCyPJiwbM59yiVXFhFwPvdlusGNPhkPBniAWpLhsfFnzWsPRZhWtyE9DMwEbHE3p8jKJ8DwPMm2433nylB88FX6qaVhQQX7qKp941-NOP6XzEzucN3UByXGezLTWlGqJp5LvAbcXiNrQlJtt3u7CeFyPPxPYzas");'></div>
+                        <div class="flex flex-col">
+                            <h1 class="text-base-content text-base font-medium leading-normal">Dr. Eleanor Vance</h1>
+                            <p class="text-base-content/70 text-sm font-normal leading-normal">Director, ID Team</p>
                         </div>
                     </div>
-
-                 <DropdownMenu>
-                        <DropdownMenuTrigger :as-child="true">
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                class="relative size-10 w-auto rounded-full p-1 focus-within:ring-2 focus-within:ring-primary"
-                            >
-                                <Avatar
-                                    class="size-8 overflow-hidden rounded-full"
-                                >
-                                    <AvatarImage
-                                        v-if="auth.user.avatar"
-                                        :src="auth.user.avatar"
-                                        :alt="auth.user.first_name"
-                                    />
-                                    <AvatarFallback
-                                        class="rounded-lg bg-neutral-200 font-semibold text-black dark:bg-neutral-700 dark:text-white"
-                                    >
-                                        {{ userInitials }}
-                                    </AvatarFallback>
-                                </Avatar>
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" class="w-56">
-                            <UserMenuContent :user="auth.user" />
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                    <nav class="flex flex-col gap-2 mt-4">
+                        <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary" href="#">
+                            <span class="material-symbols-outlined">dashboard</span>
+                            <p class="text-sm font-medium leading-normal">Dashboard</p>
+                        </a>
+                        <a class="flex items-center gap-3 px-3 py-2 text-base-content/80 hover:bg-base-100/10 rounded-lg" href="#">
+                            <span class="material-symbols-outlined">folder</span>
+                            <p class="text-sm font-medium leading-normal">Projects</p>
+                        </a>
+                        <a class="flex items-center gap-3 px-3 py-2 text-base-content/80 hover:bg-base-100/10 rounded-lg" href="#">
+                            <span class="material-symbols-outlined">group</span>
+                            <p class="text-sm font-medium leading-normal">Team</p>
+                        </a>
+                        <a class="flex items-center gap-3 px-3 py-2 text-base-content/80 hover:bg-base-100/10 rounded-lg" href="#">
+                            <span class="material-symbols-outlined">bar_chart</span>
+                            <p class="text-sm font-medium leading-normal">Reports</p>
+                        </a>
+                        <a class="flex items-center gap-3 px-3 py-2 text-base-content/80 hover:bg-base-100/10 rounded-lg" href="#">
+                            <span class="material-symbols-outlined">settings</span>
+                            <p class="text-sm font-medium leading-normal">Settings</p>
+                        </a>
+                    </nav>
+                </div>
+                <button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-primary-content text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90">
+                    <span class="truncate">New Project</span>
+                </button>
             </div>
-        </div>
+        </aside>
+
         <!-- Main content -->
-        <div class="rounded-lg bg-base-100 p-4 min-h-64">
-        <slot />
-        </div>
+        <main class="flex-1 overflow-y-auto bg-base-100 p-8">
+            <slot />
+        </main>
     </div>
-</div>
 </template>
 
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { computed } from 'vue';
-import { usePage } from '@inertiajs/vue3';
-import { Button } from '@/components/ui/button';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { toUrl } from '@/lib/utils';
-import { Search } from 'lucide-vue-next';
-import UserMenuContent from '@/components/UserMenuContent.vue';
-import type { NavItem } from '@/types';
-
-const page = usePage();
-
-const auth = computed(()=> {
-   return page.props.auth
-})
-const rightNavItems: NavItem[] = [
-
-];
-
-const userInitials = computed(() => {
-    const firstName = auth.value.user?.first_name;
-    const lastName = auth.value.user?.last_name;
-    const email = auth.value.user?.email;
-    
-    if (firstName && lastName) {
-        return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
-    }
-    if (firstName) return firstName.charAt(0).toUpperCase();
-    if (lastName) return lastName.charAt(0).toUpperCase();
-    if (email) return email.charAt(0).toUpperCase();
-    
-    return 'U';
-});
 </script>
 
 <style scoped>
-
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+    }
 </style>
