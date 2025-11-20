@@ -78,7 +78,7 @@ const quizData = ref<{
 
 const questionTypes: Record<QuestionTypeKey, { name: string; component: any }> = {
   multiple_choice: { name: 'Multiple Choice', component: defineAsyncComponent(() => import('./QuestionTypes/MultipleChoice/Create.vue')) },
-  true_false: { name: 'True/False', component: defineAsyncComponent(() => import('./QuestionTypes/TrueFalse.vue')) },
+  true_false: { name: 'True/False', component: defineAsyncComponent(() => import('./QuestionTypes/TrueFalse/Create.vue')) },
   essay: { name: 'Essay', component: defineAsyncComponent(() => import('./QuestionTypes/Essay/Create.vue')) },
   // Add other question types here
 };
