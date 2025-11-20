@@ -39,11 +39,11 @@ class CourseService
 
     public function getCourseWithDetails(Course $course)
     {
-        return $this->courseRepository->getById($course, ['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions', 'modules.materials', 'modules.needs', 'users', 'modules.items.itemable', 'objectives']);
+        return $this->courseRepository->getById($course, ['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions.objectives', 'modules.materials.objectives', 'modules.needs.objectives', 'users', 'modules.items.itemable', 'objectives']);
     }
     public function getCourseForMap(Course $course)
     {
-        return $this->courseRepository->getById($course, ['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions', 'modules.materials', 'modules.needs', 'users', 'objectives']);
+        return $this->courseRepository->getById($course, ['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions.objectives', 'modules.materials.objectives', 'modules.needs.objectives', 'users', 'objectives']);
     }
     public function getCourseForStoryboard(Course $course)
     {

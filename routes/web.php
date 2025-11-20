@@ -49,6 +49,7 @@ Route::put('/course_modules/{courseModule}', [\App\Http\Controllers\CourseModule
 Route::delete('/course_modules/{courseModule}', [\App\Http\Controllers\CourseModuleController::class, 'destroy'])->name('course_modules.destroy');
 Route::post('/module_overviews', [\App\Http\Controllers\ModuleOverviewController::class, 'store'])->name('module.overview.store');
 Route::put('/module_overviews/{moduleOverview}', [\App\Http\Controllers\ModuleOverviewController::class, 'update'])->name('module.overview.update');
+Route::delete('/module_overviews/{moduleOverview}', [\App\Http\Controllers\ModuleOverviewController::class, 'destroy'])->name('module.overview.destroy');
 
 Route::post('/course_pages', [\App\Http\Controllers\CoursePageController::class, 'store'])->name('course.page.store');
 Route::put('/course_pages/{coursePage}', [\App\Http\Controllers\CoursePageController::class, 'update'])->name('course.page.update');

@@ -33,8 +33,40 @@
 <li >{{ assessment.title}}</li> <li v-for="objective in assessment.objectives" :key="objective.id">{{ module.order_index }}.{{ objective.number }} </li>
 </ul>
 </td>
-<td>{{ module.course_instructions }}</td>
-<td>{{ module.course_materials }}</td>
+<td><ul v-for="(instruction,index) in module.instructions" :key="index">
+<li >{{ instruction.title}}</li> <li v-for="objective in instruction.objectives" :key="objective.id">{{ module.order_index }}.{{ objective.number }} </li>
+</ul></td>
+
+<td><ul v-for="(material, index) in module.materials" :key="index">
+<li >{{ material.title}}</li> <li v-for="objective in material.objectives" :key="objective.id">{{ module.order_index }}.{{ objective.number }} </li>
+</ul></td>
+<td><ul v-for="(media, index) in module.media_libraries" :key="index">
+<li >{{ media.title}}</li> <li v-for="objective in media.objectives" :key="objective.id">{{ module.order_index }}.{{ objective.number }} </li>
+</ul></td>
+<td class="flex flex-col"><EditButton @click="editModule(module)" background="info"/></td>
+<td class="flex flex-col"><DeleteButton @click="deleteModule(module)"/></td>
+</tr>
+</tbody>
+</table>
+        </div>
+        <div v-else>
+            <table class="w-full nowrap border-collapse border-2 border-accent mt-16 mx-auto ">
+<thead>
+<tr>
+<th>Module</th>
+<th>Aligned Course Objectives</th>
+<th>Module Objectives</th>
+<th>Assessments</th>
+<th>Instructional Activities</th>
+<th>Instructional Materials</th>
+<th>Media/Library Needs</th>
+<th> </th>
+</tr>
+</thead>
+<tbody>
+
+<tr class="" v-for="module in props.course.modules" :key="module.id">
+<td class="sticky">{{module.order_index}}: &nbsp;{{ module.course_materials }}</td>
 <td>{{ module.course_media_library_needs }}</td>
 <td class="flex flex-col"><EditButton @click="editModule(module)" background="info"/></td>
 <td class="flex flex-col"><DeleteButton @click="deleteModule(module)"/></td>

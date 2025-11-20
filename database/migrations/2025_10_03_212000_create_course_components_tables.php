@@ -31,7 +31,7 @@ return new class extends Migration
             $table->foreignId('module_id')->nullable()->constrained('course_modules')->onDelete('cascade');
             $table->string('title');
             $table->string('type');
-           $table->foreignId('module_objective_id')->nullable()->constrained('module_objectives')->onDelete('set null');
+      
             $table->timestamps();
         });
 
@@ -39,7 +39,7 @@ return new class extends Migration
         Schema::create('course_instruction', function (Blueprint $table) {
             $table->id();
             $table->foreignId('module_id')->nullable()->constrained('course_modules')->onDelete('cascade');
-            $table->foreignId('module_objective_id')->nullable()->constrained('module_objectives')->onDelete('set null');
+         
             $table->string('title');
             $table->string('type');
             $table->text('content')->nullable();

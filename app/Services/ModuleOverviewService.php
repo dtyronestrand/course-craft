@@ -25,4 +25,9 @@ class ModuleOverviewService
     {
         return (new UpdateModuleOverviewAction($this->moduleOverviewRepository))->execute($moduleOverview, $data);
     }
+
+    public function deleteOverview(ModuleOverview $moduleOverview)
+    {
+        return $moduleOverview->delete();
+    }
 }

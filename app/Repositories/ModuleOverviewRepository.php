@@ -25,4 +25,9 @@ class ModuleOverviewRepository
     {
         return $moduleOverview->update($data);
     }
+
+    public function delete(ModuleOverview $moduleOverview)
+    {
+        return $moduleOverview->delete();
+    }
 }

@@ -58,8 +58,9 @@ class UpdateCourseModuleAction
             foreach ($data['course_instructions'] as $activity) {
                 $createdInstruction = $courseModule->instructions()->create([
                     'title' => $activity['title'],
+                    'type' => $activity['type'] ?? '',
                 ]);
-                if (!empty($activity['aligned_module_objectives'])) {
+                if (isset($activity['aligned_module_objectives']) && !empty($activity['aligned_module_objectives'])) {
                     $objectiveIds = $courseModule->module_objectives()
                         ->whereIn('number', $activity['aligned_module_objectives'])
                         ->pluck('id');
@@ -73,6 +74,8 @@ class UpdateCourseModuleAction
             foreach ($data['course_materials'] as $material) {
                 $createdMaterial = $courseModule->materials()->create([
                     'title' => $material['title'],
+                    'course_id' => $courseModule->course_id,
+                    'type' => $material['type'] ?? '',
                 ]);
                 if (!empty($material['aligned_module_objectives'])) {
                     $objectiveIds = $courseModule->module_objectives()

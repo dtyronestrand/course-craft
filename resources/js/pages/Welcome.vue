@@ -25,6 +25,7 @@ const page = usePage();
         </div>
         <div  v-else class="flex justify-center space-x-5">
          <Link :href="dashboard()" class="mt-4 flex w-full items-center justify-center gap-1 rounded-2xl bg-primary p-5 py-3 font-semibold text-primary-content hover:bg-primary/70 hover:text-primary-content" >Dashboard</Link>
+         <button @click="$inertia.post('/logout')" class="mt-4 flex w-full items-center justify-center gap-1 rounded-2xl bg-error p-5 py-3 font-semibold text-error-content hover:bg-error/70 hover:text-error-content" > Logout</button>
          </div>
     </div>
     <img src="../lib/assets/CCLogo.png" alt="Course Crafter Logo" >

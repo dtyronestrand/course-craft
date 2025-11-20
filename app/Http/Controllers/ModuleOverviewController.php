@@ -37,4 +37,11 @@ class ModuleOverviewController extends Controller
 
         return redirect()->back()->with('success', 'Module overview updated successfully');
     }
+
+    public function destroy(ModuleOverview $moduleOverview)
+    {
+        $this->moduleOverviewService->deleteOverview($moduleOverview);
+
+        return redirect()->back()->with('success', 'Module overview deleted successfully');
+    }
 }
