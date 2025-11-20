@@ -10,9 +10,9 @@ class CourseMapController extends Controller
     public function show(Course $course)
     {
         $courseData = $course->load([
-            'modules.assessments',
-            'modules.materials', 
-            'modules.instructions'
+            'modules.assessments.objectives',
+            'modules.materials.objectives', 
+            'modules.instructions.objectives'
         ]);
 
         return view('courses.map', compact('courseData'));
@@ -21,9 +21,9 @@ class CourseMapController extends Controller
     public function storyboard(Course $course)
     {
         $courseData = $course->load([
-            'modules.assessments',
-            'modules.materials',
-            'modules.instructions'
+            'modules.assessments.objectives',
+            'modules.materials.objectives',
+            'modules.instructions.objectives'
         ]);
 
         return view('courses.storyboard', compact('courseData'));
@@ -33,7 +33,7 @@ class CourseMapController extends Controller
     {
         return response()->json([
             'course' => $course->only(['id', 'title', 'description']),
-            'modules' => $course->modules()->with(['assessments', 'materials', 'instructions'])
+            'modules' => $course->modules()->with(['assessments.objectives', 'materials.objectives', 'instructions.objectives'])
                 ->orderBy('order_index')
                 ->get()
         ]);

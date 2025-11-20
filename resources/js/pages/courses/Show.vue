@@ -43,6 +43,7 @@ import {Storyboard, Map, Delete} from '@/components/CourseActions'
 import { shallowRef , defineAsyncComponent, nextTick, ref} from 'vue';
 import New from '@/layouts/New.vue';
 
+
 interface Course {
     id: number;
     prefix: string;
@@ -115,7 +116,10 @@ async function exportToDrive() {
           'X-CSRF-TOKEN': csrfToken
         },
         body: JSON.stringify({
-         course_id: page.props.course_id
+         course_id: page.props.course_id,
+         title: documentTitle.value,
+         content: documentContent.value,
+         document_id: page.props.course.document_id,
         })
       });
     } else {
@@ -127,7 +131,9 @@ async function exportToDrive() {
           'X-CSRF-TOKEN': csrfToken
         },
         body: JSON.stringify({
-       course_id: page.props.course.id
+       course_id: page.props.course.id,
+        title: documentTitle.value,
+        content: documentContent.value,
         })
       });
     }

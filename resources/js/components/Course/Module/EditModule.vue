@@ -378,11 +378,11 @@ const form = useForm({
         ...assessment,
         aligned_module_objectives: (assessment as any).objectives?.map((obj: any) => obj.number) || []
     })) || [],
-    course_instructions: props.module?.instructions?.map(instruction => 
-        typeof instruction === 'string' 
-            ? { title: instruction, aligned_module_objectives: [] }
-            : instruction
-    ) ?? [],
+    course_instructions: props.module?.instructions?.map(instruction => ({
+        title: typeof instruction === 'string' ? instruction : instruction.title,
+        type: typeof instruction === 'string' ? '' : (instruction.type || ''),
+        aligned_module_objectives: typeof instruction === 'string' ? [] : ((instruction as any).objectives?.map((obj: any) => obj.number) || [])
+    })) ?? [],
     course_materials: props.module?.materials?.map(material => 
         typeof material === 'string' 
             ? { title: material, aligned_module_objectives: [] }

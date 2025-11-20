@@ -2,38 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\CourseDiscussion;
-use App\Models\ModuleItem;
+use App\Services\CourseDiscussionService;
+use Illuminate\Http\Request;
 
 class CourseDiscussionController extends Controller
 {
- public function store(Request $request)
- {
-     $request->validate([
-         'title' => 'required|string|max:255',
-         'prompt' => 'required|string',
-         'settings' => 'required|array',
-         'module' => 'required',
-     ]);
+    protected $courseDiscussionService;
 
-     $courseDiscussion = CourseDiscussion::create([
-         'title' => $request->title,
-         'prompt' => $request->prompt,
-            'settings' => $request->settings,
-     ]);
+    public function __construct(CourseDiscussionService $courseDiscussionService)
+    {
+        $this->courseDiscussionService = $courseDiscussionService;
+    }
 
-     $maxOrderIndex = ModuleItem::where('course_module_id', $request->module)->max('order_index') ?? -1;
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'prompt' => 'required|string',
+            'settings' => 'required|array',
+            'module' => 'required',
+        ]);
 
-     ModuleItem::create([
-         'course_module_id' => $request->module,
-         'itemable_id' => $courseDiscussion->id,
-         'itemable_type' => 'discussion',
-         'order_index' => $maxOrderIndex + 1,
-     ]);
+        $this->courseDiscussionService->createDiscussion($request->all());
 
-     return redirect()->back()->with('success', 'Course dicussion created successfully');
- }
+        return redirect()->back()->with('success', 'Course discussion created successfully');
+    }
 
     public function update(Request $request, CourseDiscussion $courseDiscussion)
     {
@@ -42,20 +36,16 @@ class CourseDiscussionController extends Controller
             'prompt' => 'required|string',
             'settings' => 'required|array',
         ]);
-    
-        $courseDiscussion->update([
-            'title' => $request->title,
-            'prompt' => $request->prompt,
-            'settings' => $request->settings,
-        ]);
-    
+
+        $this->courseDiscussionService->updateDiscussion($courseDiscussion, $request->all());
+
         return redirect()->back()->with('success', 'Course discussion updated successfully');
     }
 
     public function destroy(CourseDiscussion $courseDiscussion)
     {
-        $courseDiscussion->delete();
+        $this->courseDiscussionService->deleteDiscussion($courseDiscussion);
 
-        return redirect()->back()->with('success', 'Course page deleted successfully');
+        return redirect()->back()->with('success', 'Course discussion deleted successfully');
     }
 }

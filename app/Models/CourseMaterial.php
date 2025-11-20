@@ -13,6 +13,7 @@ class CourseMaterial extends Model
         'url',
         'content',
         'name',
+        'course_id',
     ];
 
     public function objectives() : MorphToMany

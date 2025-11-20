@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="overviewSubmit" class="border border-secondary ">
+    <form class="border border-secondary ">
         <h3 class="text-3xl p-4 border-b border-secondary bg-primary">Module {{ props.module.order_index }} {{ props.module.title  }} Overview</h3>
         <h4 class="p-4 text-2xl">Overview Content</h4>
         <TipTap v-model="overviewData.content" />
@@ -9,8 +9,8 @@
                 {{ props.module.order_index }}.{{ objective.number }}: {{ objective.objective }}
             </li>
         </ol>
-           <button type="submit" class="btn btn-md btn-success text-success-content mt-4">Save Item</button>
-           <button @click.prevent="emit('close')" class="btn btn-md btn-error text-error-content mt-4">Cancel</button>
+           <SaveButton @click.prevent="overviewSubmit" />
+           <CancelButton @click="$emit('close')" />
     </form>
 </template>
 
@@ -19,6 +19,8 @@ import { CourseModule } from '@/types';
 import {useForm} from '@inertiajs/vue3';
 import { ref } from 'vue';
 import TipTap from '@/components/TipTap.vue';
+import SaveButton from '../Buttons/SaveButton.vue';
+import CancelButton from '../Buttons/CancelButton.vue';
 interface Props {
     module: CourseModule;
 }

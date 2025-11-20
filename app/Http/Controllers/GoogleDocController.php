@@ -2,36 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\GoogleDocGenerationService;
 use Illuminate\Http\Request;
-use App\Services\GoogleDocsService;
-use App\Models\Course;
 
 class GoogleDocController extends Controller
 {
+    protected $googleDocGenerationService;
 
-  public function generate(Request $request)
-  {
-  $user = $request->user();
-  
-  if (!$user->hasGoogleAccess()) {
-    return back()->with('error', 'Please connect your Google account first.');
-  }
+    public function __construct(GoogleDocGenerationService $googleDocGenerationService)
+    {
+        $this->googleDocGenerationService = $googleDocGenerationService;
+    }
 
-  $course = Course::find($request->course_id);
+    public function generate(Request $request)
+    {
+        $result = $this->googleDocGenerationService->generate($request->course_id);
 
-  $data =[
-    'title' => $course->prefix.' '.$course->number.': '.$course->title,
-    'modules' => $course->modules()->with(['courseObjectives', 'assessments', 'instructions', 'materials', 'needs'])->get(),
-  ];
+        if (isset($result['error'])) {
+            return back()->with('error', $result['error']);
+        }
 
-  $googleDocsService = new GoogleDocsService($user->google_token, $user->google_refresh_token);
-  $result = $googleDocsService->createDocument("Generated Document - " . now()->format('Y-m-d H:i:s'), $data);
-
-  $newToken = $googleDocsService->getAccessToken();
-  if ($newToken !== $user->google_token) {
-    $user->update(['google_token' => $newToken]);
-  }
-
-  return back()->with('success', 'Google Doc created successfully: ' . $result['url']);
-  }
+        return back()->with('success', $result['success']);
+    }
 }

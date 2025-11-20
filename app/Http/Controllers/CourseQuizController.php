@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CourseQuiz;
+use App\Services\CourseQuizService;
 use Illuminate\Http\Request;
 
 class CourseQuizController extends Controller
 {
+    protected $courseQuizService;
+
+    public function __construct(CourseQuizService $courseQuizService)
+    {
+        $this->courseQuizService = $courseQuizService;
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -16,26 +25,12 @@ class CourseQuizController extends Controller
             'module' => 'required',
         ]);
 
-        $courseQuiz = \App\Models\CourseQuiz::create([
-            'title' => $request->title,
-            'instructions' => $request->instructions,
-            'settings' => $request->settings,
-            'questions' => $request->questions,
-        ]);
-
-        $maxOrderIndex = \App\Models\ModuleItem::where('course_module_id', $request->module)->max('order_index') ?? -1;
-
-        \App\Models\ModuleItem::create([
-            'course_module_id' => $request->module,
-            'itemable_id' => $courseQuiz->id,
-            'itemable_type' => 'quiz',
-            'order_index' => $maxOrderIndex + 1,
-        ]);
+        $this->courseQuizService->createQuiz($request->all());
 
         return redirect()->back()->with('success', 'Course quiz created successfully');
     }
 
-    public function update(Request $request, \App\Models\CourseQuiz $courseQuiz)
+    public function update(Request $request, CourseQuiz $courseQuiz)
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -44,19 +39,14 @@ class CourseQuizController extends Controller
             'settings' => 'required|array',
         ]);
 
-        $courseQuiz->update([
-            'title' => $request->title,
-            'instructions' => $request->instructions,
-            'settings' => $request->settings,
-            'questions' => $request->questions,
-        ]);
+        $this->courseQuizService->updateQuiz($courseQuiz, $request->all());
 
         return redirect()->back()->with('success', 'Course quiz updated successfully');
     }
 
-    public function destroy(\App\Models\CourseQuiz $courseQuiz)
+    public function destroy(CourseQuiz $courseQuiz)
     {
-        $courseQuiz->delete();
+        $this->courseQuizService->deleteQuiz($courseQuiz);
 
         return redirect()->back()->with('success', 'Course quiz deleted successfully');
     }

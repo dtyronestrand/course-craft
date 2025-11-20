@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\CourseAssignment;
-use App\Models\ModuleItem;
+use App\Services\CourseAssignmentService;
+use Illuminate\Http\Request;
 
 class CourseAssignmentController extends Controller
 {
+    protected $courseAssignmentService;
+
+    public function __construct(CourseAssignmentService $courseAssignmentService)
+    {
+        $this->courseAssignmentService = $courseAssignmentService;
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -18,21 +25,7 @@ class CourseAssignmentController extends Controller
             'module' => 'required',
         ]);
 
-        $courseAssignment = CourseAssignment::create([
-            'title' => $request->title,
-            'purpose' => $request->purpose,
-            'criteria' => $request->criteria,
-            'settings' => $request->settings,
-        ]);
-
-        $maxOrderIndex = ModuleItem::where('course_module_id', $request->module)->max('order_index') ?? -1;
-
-        ModuleItem::create([
-            'course_module_id' => $request->module,
-            'itemable_id' => $courseAssignment->id,
-            'itemable_type' => 'assignment',
-            'order_index' => $maxOrderIndex + 1,
-        ]);
+        $this->courseAssignmentService->createAssignment($request->all());
 
         return redirect()->back()->with('success', 'Course assignment created successfully');
     }
@@ -46,19 +39,14 @@ class CourseAssignmentController extends Controller
             'settings' => 'required|array',
         ]);
 
-        $courseAssignment->update([
-            'title' => $request->title,
-            'purpose' => $request->purpose,
-            'criteria' => $request->criteria,
-            'settings' => $request->settings,
-        ]);
+        $this->courseAssignmentService->updateAssignment($courseAssignment, $request->all());
 
         return redirect()->back()->with('success', 'Course assignment updated successfully');
     }
 
     public function destroy(CourseAssignment $courseAssignment)
     {
-        $courseAssignment->delete();
+        $this->courseAssignmentService->deleteAssignment($courseAssignment);
 
         return redirect()->back()->with('success', 'Course assignment deleted successfully');
     }
