@@ -2,36 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\CoursePage;
-use App\Models\ModuleItem;
+use App\Services\CoursePageService;
+use Illuminate\Http\Request;
 
 class CoursePageController extends Controller
 {
- public function store(Request $request)
- {
-     $request->validate([
-         'title' => 'required|string|max:255',
-         'content' => 'required|string',
-         'module' => 'required',
-     ]);
+    protected $coursePageService;
 
-     $coursePage = CoursePage::create([
-         'title' => $request->title,
-         'content' => $request->content,
-     ]);
+    public function __construct(CoursePageService $coursePageService)
+    {
+        $this->coursePageService = $coursePageService;
+    }
 
-     $maxOrderIndex = ModuleItem::where('course_module_id', $request->module)->max('order_index') ?? -1;
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'module' => 'required',
+        ]);
 
-     ModuleItem::create([
-         'course_module_id' => $request->module,
-         'itemable_id' => $coursePage->id,
-         'itemable_type' => 'page',
-         'order_index' => $maxOrderIndex + 1,
-     ]);
+        $this->coursePageService->createPage($request->all());
 
-     return redirect()->back()->with('success', 'Course page created successfully');
- }
+        return redirect()->back()->with('success', 'Course page created successfully');
+    }
 
     public function update(Request $request, CoursePage $coursePage)
     {
@@ -39,18 +34,15 @@ class CoursePageController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
-    
-        $coursePage->update([
-            'title' => $request->title,
-            'content' => $request->content,
-        ]);
-    
+
+        $this->coursePageService->updatePage($coursePage, $request->all());
+
         return redirect()->back()->with('success', 'Course page updated successfully');
     }
 
     public function destroy(CoursePage $coursePage)
     {
-        $coursePage->delete();
+        $this->coursePageService->deletePage($coursePage);
 
         return redirect()->back()->with('success', 'Course page deleted successfully');
     }

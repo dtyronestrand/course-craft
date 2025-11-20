@@ -3,117 +3,69 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Services\CourseService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-
 class CourseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $courseService;
+
+    public function __construct(CourseService $courseService)
+    {
+        $this->courseService = $courseService;
+    }
+
     public function index(Request $request)
     {
-        if ($request->user()->is_admin) {
-            return Inertia::render('admin/Courses', [
-                'courses' => Course::all()->load(['users:id,first_name,last_name'])
-            ]);
-        } else {
-return Inertia::render('Dashboard', [
-    'courses' => $request->user()->courses()->get(),
-]);
-        }
+        $courses = $this->courseService->getCoursesForUser($request->user());
+        $view = $request->user()->is_admin ? 'admin/Courses' : 'Dashboard';
+
+        return Inertia::render($view, ['courses' => $courses]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-      $request->validate([
-        'prefix' => 'required|string|max:10',
-        'number' => 'required|string|max:10',
-        'title' => 'required|string|max:255',
-        'objectives' => 'nullable|array',
-        'users' => 'nullable|array',
-    ]);
+        $request->validate([
+            'prefix' => 'required|string|max:10',
+            'number' => 'required|string|max:10',
+            'title' => 'required|string|max:255',
+            'objectives' => 'nullable|array',
+            'users' => 'nullable|array',
+        ]);
 
-    $course = Course::create([
-        'prefix' => $request->prefix,
-        'number' => $request->number,
-        'title' => $request->title,
-    
-    ]);
+        $this->courseService->createCourse($request->all());
 
-    if ($request->objectives) {
-        foreach ($request->objectives as $objective) {
-            $course->objectives()->create([
-                'number' => $objective['number'],
-                'objective' => $objective['objective'],
-            ]);
-        }
-    }
-    
-    if ($request->users) {
-        foreach ($request->users as $user) {
-            $course->users()->attach($user['id'], ['role' => $user['role']]);
-        }
-    }
-    return to_route('dashboard');
-
-
+        return to_route('dashboard');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Course $course)
     {
-        $course->load(['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions', 'modules.materials', 'modules.needs','users', 'modules.items.itemable', 'objectives']);
-        $numberOfModules = $course->modules()->count();
+        $course = $this->courseService->getCourseWithDetails($course);
         return Inertia::render('courses/Show', [
             'course' => $course,
-            'numberOfModules' => $numberOfModules,
+            'numberOfModules' => $course->modules()->count(),
         ]);
     }
+
     public function map(Course $course)
     {
-        $course->load(['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions', 'modules.materials', 'modules.needs','users', 'objectives']);
-        $numberOfModules = $course->modules()->count();
+        $course = $this->courseService->getCourseForMap($course);
         return Inertia::render('courses/Map', [
             'course' => $course,
-            'numberOfModules' => $numberOfModules,
+            'numberOfModules' => $course->modules()->count(),
         ]);
     }
 
     public function storyboard(Course $course)
     {
-        $course->load(['modules.courseObjectives', 'modules.module_objectives', 'users', 'modules.items.itemable','objectives']);
-        $numberOfModules = $course->modules()->count();
+        $course = $this->courseService->getCourseForStoryboard($course);
         return Inertia::render('courses/Storyboard', [
             'course' => $course,
-            'numberOfModules' => $numberOfModules,
+            'numberOfModules' => $course->modules()->count(),
         ]);
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Course $course)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Course $course)
     {
         $request->validate([
@@ -124,38 +76,15 @@ return Inertia::render('Dashboard', [
             'users' => 'nullable|array',
         ]);
 
-        $course->update([
-            'prefix' => $request->prefix,
-            'number' => $request->number,
-            'title' => $request->title,
-        ]);
+        $this->courseService->updateCourse($course, $request->all());
 
-        if ($request->objectives) {
-            $course->objectives()->delete();
-            foreach ($request->objectives as $objective) {
-                $course->objectives()->create([
-                    'number' => $objective['number'],
-                    'objective' => $objective['objective'],
-                ]);
-            }
-        }
-        
-        if ($request->users) {
-            $course->users()->detach();
-            foreach ($request->users as $user) {
-                $course->users()->attach($user['id'], ['role' => $user['role']]);
-            }
-        }
-        
         return to_route('dashboard');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Course $course)
     {
-      $course->delete();
-      return to_route('dashboard');
+        $this->courseService->deleteCourse($course);
+
+        return to_route('dashboard');
     }
 }
