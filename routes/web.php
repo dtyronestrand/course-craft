@@ -70,10 +70,10 @@ Route::delete('/course_quizzes/{courseQuiz}', [\App\Http\Controllers\CourseQuizC
 Route::post('/module_wrapUps', [\App\Http\Controllers\ModuleWrapUpController::class, 'store'])->name('module.wrapup.store');
 Route::put('/module_wrapUps/{moduleWrapUp}', [\App\Http\Controllers\ModuleWrapUpController::class, 'update'])->name('module.wrapup.update');
 Route::delete('/module_wrapUps/{moduleWrapUp}', [\App\Http\Controllers\ModuleWrapUpController::class, 'destroy'])->name('module.wrapup.destroy');
-
-Route::get('/admin/courses', [\App\Http\Controllers\CourseController::class, 'index']);
-Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
-
+Route::middleware([\App\Http\Middleware\isAdminMiddleWare::class])->group(function () {
+    Route::get('/admin/courses', [\App\Http\Controllers\AdminController::class, 'courses'])->name('admin.courses');
+    Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
+});
 
     
 

@@ -19,7 +19,7 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         $courses = $this->courseService->getCoursesForUser($request->user());
-        $view = $request->user()->is_admin ? 'admin/Courses' : 'Dashboard';
+        $view = $request->user()->is_admin ? 'admin/Dashboard' : 'Dashboard';
 
         return Inertia::render($view, ['courses' => $courses]);
     }

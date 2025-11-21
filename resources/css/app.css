@@ -78,6 +78,12 @@
   --depth: 1;
   --noise: 0;
 }
+@layer base {
+  :root {
+    --sidebar:oklch(20% 0.042 265.755);
+    --sidebar-foreground: blue;
+  }
+}
 @layer utilities {
             .glass{
                 /* 1. BACKGROUND: We take your theme's base color and add transparency.
