@@ -11,7 +11,8 @@
 <AppLogo class="m-0" />
 </div>
 <ul class="menu text-2xl text-base-content bg-base-200 min-h-full w-80 p-4">
-    <li><Link href="/admin"><Icon name="LayoutGrid" /><span class="px-4">Dashboard</span></Link></li>
+    <li><Link href="/admin/dashboard"><Icon name="LayoutGrid" /><span class="px-4">Dashboard</span></Link></li>
+    <li><Link href="/admin/calendar"><Icon name="Calendar"/><span class="px-4">Calendar</span></Link></li>
     <li><Link href="/admin/courses"><Icon name="Folder"/><span class="px-4">Courses</span></Link></li>
     <li><Link href="/admin/users"><Icon name="PersonStanding"/><span class="px-4">Users</span></Link></li>
     <li><Link href="/admin/settings"><Icon name="Settings"/><span class="px-4">Settings</span></Link></li>

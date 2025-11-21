@@ -37,6 +37,11 @@ class CourseService
         return (new UpdateCourseAction($this->courseRepository))->execute($course, $data);
     }
 
+public function getAllCourses()
+    {
+        return $this->courseRepository->getAllForAdmin(['users:id,first_name,last_name']);
+    }
+
     public function getCourseWithDetails(Course $course)
     {
         return $this->courseRepository->getById($course, ['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions.objectives', 'modules.materials.objectives', 'modules.needs.objectives', 'users', 'modules.items.itemable', 'objectives']);
