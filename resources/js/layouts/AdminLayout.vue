@@ -1,8 +1,10 @@
 <template>
 <div class="drawer lg:drawer-open">
 <input id="sidebar" type="checkbox" class="drawer-toggle"/>
-<div class="drawer-content flex flex-col items-center ">
+<div class="drawer-content flex flex-col w-full overflow-x-hidden">
+<div class="w-full max-w-full">
 <slot />
+</div>
 <label for="sidebar" class="btn drawer-button lg:hidden">Open Sidebar</label>
 </div>
 <div class="drawer-side">
