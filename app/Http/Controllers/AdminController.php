@@ -15,7 +15,8 @@ class AdminController extends Controller
   }
   public function index()
   {
-    return Inertia::render('admin/Dashboard');
+    $activeCoursesCount = $this->courseService->countActiveCourses();
+    return Inertia::render('admin/Dashboard', ['activeCoursesCount' => $activeCoursesCount]);
   }
   public function courses()
   {

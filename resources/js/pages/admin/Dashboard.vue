@@ -21,7 +21,9 @@
     </div>
     </header>
         <h1 class="text-7xl text-center mx-auto p-4 my-8 prose">{{ page.props.auth.user.first_name }}'s Dashboard</h1>
-
+<div class="grid grid-cols-4 grid-rows-13">
+<InfoCard title="Active Courses" :info="page.props.activeCoursesCount"/>
+</div>
 </AdminLayout>
 </template>
 
@@ -32,7 +34,7 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
 import Search from '@/components/Search.vue';
 import { useInitials } from '@/composables/useInitials';
 import NotificationCenter from '@/components/NotificationCenter.vue';
-
+import InfoCard from '@/components/Admin/Dashboard/InfoCard.vue';
 const page = usePage();
 const { getInitials } = useInitials();
 </script>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Services\CourseService;
 use Illuminate\Http\Request;
+use App\Notifications\CourseAssigned;
 use Inertia\Inertia;
 
 class CourseController extends Controller
@@ -18,10 +19,11 @@ class CourseController extends Controller
 
     public function index(Request $request)
     {
-        $courses = $this->courseService->getCoursesForUser($request->user());
-        $view = $request->user()->is_admin ? 'admin/Dashboard' : 'Dashboard';
 
-        return Inertia::render($view, ['courses' => $courses]);
+        $courses = $this->courseService->getCoursesForUser($request->user());
+     
+
+        return Inertia::render('Dashboard', ['courses' => $courses]);
     }
 
     public function store(Request $request)
@@ -34,7 +36,13 @@ class CourseController extends Controller
             'users' => 'nullable|array',
         ]);
 
-        $this->courseService->createCourse($request->all());
+       $course = $this->courseService->createCourse($request->all());
+       
+       if (!empty($request->users)) {
+           foreach($course->users as $user){
+               $user->notify(new CourseAssigned($course, $user->pivot));
+           }
+       }
 
         return to_route('dashboard');
     }

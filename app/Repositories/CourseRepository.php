@@ -16,6 +16,11 @@ class CourseRepository
     {
         return $user->courses()->get();
     }
+    
+    public function countActiveCourses()
+    {
+        return Course::where('status', 'active')->count();
+    }
 
     public function create(array $data)
     {
@@ -33,6 +38,7 @@ class CourseRepository
         foreach ($users as $user) {
             $course->users()->attach($user['id'], ['role' => $user['role']]);
         }
+        return $course->users;
     }
 
     public function getById(Course $course, array $relations = [])

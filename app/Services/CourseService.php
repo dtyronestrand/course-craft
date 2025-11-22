@@ -31,10 +31,17 @@ class CourseService
     {
         return (new CreateCourseAction($this->courseRepository))->execute($data);
     }
-
+    public function syncUsers(Course $course, array $users)
+    {
+        return $this->courseRepository->syncUsers($course, $users);
+    }
     public function updateCourse(Course $course, array $data)
     {
         return (new UpdateCourseAction($this->courseRepository))->execute($course, $data);
+    }
+    public function countActiveCourses()
+    {
+        return $this->courseRepository->countActiveCourses();
     }
 
 public function getAllCourses()

@@ -10,10 +10,11 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, TwoFactorAuthenticatable;
+    use HasFactory, Notifiable, TwoFactorAuthenticatable, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -70,5 +71,9 @@ class User extends Authenticatable
       public function teams()
     {
         return $this->belongsToMany(Team::class)->withPivot('role')->withTimestamps();
+    }
+    public function conversations()
+    {
+        return $this->belongsToMany(Conversation::class, 'prticipants')->using(Participant::class)->withTimestamps();
     }
 }

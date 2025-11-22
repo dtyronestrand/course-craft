@@ -18,7 +18,7 @@
     <li><Link href="/admin/courses"><Icon name="Folder"/><span class="px-4">Courses</span></Link></li>
     <li><Link href="/admin/users"><Icon name="PersonStanding"/><span class="px-4">Users</span></Link></li>
     <li><Link href="/admin/settings"><Icon name="Settings"/><span class="px-4">Settings</span></Link></li>
-    <li class="mt-100"><Link href="/logout"><Icon name="ArrowRightToLine"/><span class="px-4">Log Out</span></Link></li>
+    <li class="mt-100"><button class="btn btn-ghost" @click="logout"><Icon name="ArrowRightToLine"/><span class="px-4">Log Out</span></button></li>
 </ul>
 </div>
 </div>
@@ -28,6 +28,11 @@
 import { Link } from '@inertiajs/vue3';
 import AppLogo from '@/components/AppLogo.vue';
 import Icon from '@/components/Icon.vue';
+import { router } from '@inertiajs/vue3';
+
+const logout = () => {
+    router.post('/logout');
+};
 </script>
 
 <style scoped>

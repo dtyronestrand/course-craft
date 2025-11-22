@@ -11,6 +11,9 @@ class Course extends Model
         'prefix',
         'number',
         'title',
+        'start',
+        'end',
+        'status',
 
     ] ;
 
