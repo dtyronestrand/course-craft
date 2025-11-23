@@ -19,6 +19,9 @@ class CreateCourseAction
             'prefix' => $data['prefix'],
             'number' => $data['number'],
             'title' => $data['title'],
+            'start' => $data['start'],
+            'end' => $data['end'] ?? null,
+            'status' => $data['status'] ?? 'active',
         ]);
 
         if (isset($data['objectives'])) {
@@ -30,6 +33,8 @@ class CreateCourseAction
         if (isset($data['users'])) {
             $this->courseRepository->syncUsers($course, $data['users']);
         }
+
+        $this->courseRepository->attachAllDeliverables($course);
 
         return $course;
     }

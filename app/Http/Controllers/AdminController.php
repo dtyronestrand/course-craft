@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 use App\Services\CourseService;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use App\Services\AdminSettingService;
 use Inertia\Inertia;
 
 class AdminController extends Controller
 {
   protected $courseService;
-  public function __construct(CourseService $courseService)
+  protected $adminSettingService;
+  public function __construct(CourseService $courseService, AdminSettingService $adminSettingService)
   {
     $this->courseService = $courseService;
+    $this->adminSettingService = $adminSettingService;
+    
   }
+  
   public function index()
   {
     $activeCoursesCount = $this->courseService->countActiveCourses();
@@ -22,5 +27,10 @@ class AdminController extends Controller
   {
     $courses = $this->courseService->getAllCourses();
     return Inertia::render('admin/Courses', ['courses' => $courses]);
+  }
+  public function settings()
+  {
+    $settings = $this->adminSettingService->getAllSettings();
+    return Inertia::render('admin/Settings', ['settings' => $settings]);
   }
 }

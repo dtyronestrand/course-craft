@@ -17,6 +17,7 @@ class isAdminMiddleWare
     {
         if(!$request->user() || !$request->user()->is_admin) {
             abort(403, 'Unauthorized');
+            redirect()->route('home');
         }
         return $next($request);
     }

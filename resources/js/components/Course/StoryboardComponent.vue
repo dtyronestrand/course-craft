@@ -2,8 +2,9 @@
     <div class="flex flex-col my-12 mx-20" >
     <h2 class="text-5xl mb-8">{{ props.course.prefix }} {{ props.course.number }}: Storyboard</h2>
         <div v-for="module in props.course.modules" :key="module.id">
-    <div class="border rounded-lg p-4 mb-8">
-            <h3 class="text-3xl mb-2">Module {{ module.order_index }}: {{ module.title }}</h3>
+    <details class="border rounded-lg p-4 mb-8">
+            <summary class="text-3xl mb-2"><h2>Module {{ module.order_index }}: {{ module.title }}
+            </h2></summary>
           
             <section class="prose max-w-none" v-if="module.items && module.items.length > 0">
                 <article v-for="(item, index) in module.items" :key="item.id" class=" rounded-lg mb-4">
@@ -15,9 +16,9 @@
                 <p class="italic">No items in this module yet.</p>
             </article>
             </section>
-              <button @click="addItem(module)" class="appearance-none bg-info border-[0.125em] border-secondary rounded-[0.9375em] box-border text-info-content cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0">Add Item to Module</button>
+              <button @click="addItem(module)" class="appearance-none bg-info border-[0.125em] border-secondary rounded-[0.9375em] box-border text-info-content cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier-(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0">Add Item to Module</button>
             <AddItem v-if="showAddItemForm && moduleToAddItem?.id === module.id" :module="module" @close="closeAddItem" />
-        </div>
+        </details>
         </div>
     </div>
 </template>
@@ -60,5 +61,8 @@ const closeAddItem = () => {
 </script>
 
 <style scoped>
-
+summary{
+    list-style: none;
+    cursor: pointer;
+}
 </style>

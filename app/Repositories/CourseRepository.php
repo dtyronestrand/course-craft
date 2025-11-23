@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Models\Course;
 use App\Models\User;
+use App\Models\Deliverable;
+use Carbon\Carbon;
 
 class CourseRepository
 {
@@ -59,5 +61,22 @@ class CourseRepository
     public function delete(Course $course)
     {
         return $course->delete();
+    }
+
+    public function attachAllDeliverables(Course $course)
+    {
+        $deliverables = Deliverable::all();
+        $startDate = Carbon::parse($course->start);
+        
+        $pivotData = [];
+        foreach ($deliverables as $deliverable) {
+            $pivotData[$deliverable->id] = [
+                'due_date' => $startDate->copy()->addDays($deliverable->template_days_offset),
+                'is_done' => false,
+                'missed_due_date_count' => 0,
+            ];
+        }
+        
+        return $course->deliverables()->attach($pivotData);
     }
 }

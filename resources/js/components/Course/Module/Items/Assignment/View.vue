@@ -1,12 +1,13 @@
 <template>
     <div class="max-w-none prose mt-4 border" v-if="!isEditing">
-         <div class="flex flex-row justify-between items-center text-xl p-4 w-full border-b border-secondary bg-primary ">
+    <details>
+         <summary class="flex flex-row justify-between items-center text-xl p-4 w-full border-b border-secondary bg-primary ">
         <h4 class="text-primary-content" >Assignment: {{ module.items[index].itemable?.title}} </h4>
     <div class="flex flex-row gap-4">
               <EditButton background="success" @click="isEditing = true" />
        <DeleteButton @click="deleteAssignment" />
     </div>
-         </div>
+         </summary>
            <div class="max-w-none prose">
         <h5 class="text-lg w-full p-4 bg-neutral border-b border-t ">Purpose</h5>
         <div class="p-4" v-html="module.items[index].itemable?.purpose"></div>
@@ -20,6 +21,7 @@
 >
             <p>Submission Types: {{ (module.items[index].itemable?.settings as AssignmentSettings)?.submission_type?.join(', ') }}</p>
         </div>
+    </details>
 
     </div>
 <div v-else>

@@ -159,6 +159,7 @@
                     class="btn my-4 w-max text-info-content btn-sm btn-info"
                     @click="form.course_instructions.push({
                          title: '',
+                         type: '',
                          aligned_module_objectives: [],
                     })"
                 >
@@ -378,21 +379,21 @@ const form = useForm({
         ...assessment,
         aligned_module_objectives: (assessment as any).objectives?.map((obj: any) => obj.number) || []
     })) || [],
-    course_instructions: props.module?.instructions?.map(instruction => ({
-        title: typeof instruction === 'string' ? instruction : instruction.title,
-        type: typeof instruction === 'string' ? '' : (instruction.type || ''),
+    course_instructions: (props.module?.instructions?.map(instruction => ({
+        title: typeof instruction === 'string' ? instruction : (instruction as any).title,
+        type: typeof instruction === 'string' ? '' : ((instruction as any).type || ''),
         aligned_module_objectives: typeof instruction === 'string' ? [] : ((instruction as any).objectives?.map((obj: any) => obj.number) || [])
-    })) ?? [],
-    course_materials: props.module?.materials?.map(material => 
+    })) ?? []) as Array<{ title: string; type: string; aligned_module_objectives: string[] }>,
+    course_materials: (props.module?.materials?.map(material => 
         typeof material === 'string' 
             ? { title: material, aligned_module_objectives: [] }
-            : material
-    ) ?? [],
-    course_media_library_needs: props.module?.needs?.map(need => 
+            : { title: (material as any).title, aligned_module_objectives: (material as any).objectives?.map((obj: any) => obj.number) || [] }
+    ) ?? []) as Array<{ title: string; aligned_module_objectives: string[] }>,
+    course_media_library_needs: (props.module?.needs?.map(need => 
         typeof need === 'string' 
             ? { title: need, aligned_module_objectives: [] }
-            : need
-    ) ?? [],
+            : { title: (need as any).title, aligned_module_objectives: (need as any).objectives?.map((obj: any) => obj.number) || [] }
+    ) ?? []) as Array<{ title: string; aligned_module_objectives: string[] }>,
     course_id: props.course.id,
 });
 

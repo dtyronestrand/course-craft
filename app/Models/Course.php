@@ -33,6 +33,14 @@ class Course extends Model
     {
         return $this->hasMany(CourseObjective::class);
     }
+
+    public function deliverables()
+    {
+      return $this->belongsToMany(Deliverable::class, 'course_deliverable')
+      ->withPivot('due_date', 'is_done', 'missed_due_date_count', 'date_completed')
+      ->using(CourseDeliverable::class);
+    }
+
       protected static function boot()
   {
     parent::boot();

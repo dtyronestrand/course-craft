@@ -1,5 +1,5 @@
 <template>
-<div class="text-3xl col-span-1 row-span-1 bg-neutral text-neutral-content rounded-xl p-4 mx-4">
+<div class="text-3xl col-span-1 row-span-1 bg-base-100 text-base-content border border-primary rounded-xl p-4 ">
 <h2>{{props.title}}</h2>
 <p>{{props.info}}</p>
 </div>

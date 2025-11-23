@@ -1,5 +1,5 @@
 <template>
-    <DropdownMenu>
+    <DropdownMenu >
     <DropdownMenuTrigger as-child>
         <Button variant="ghost" size="icon" class="relative">
             <Bell class="w-5 h-5" />
@@ -11,7 +11,7 @@
             </span>
         </Button>
     </DropdownMenuTrigger>
-    <DropdownMenuContent align="end" class="w-[400px] p-0">
+    <DropdownMenuContent align="end" class="w-[400px] p-0 bg-base-100">
         <div class="p-4 border-b border-accent">
         <div class="flex items-center justify-between">
         <h3 class="font-medium">Notifications</h3>
@@ -53,7 +53,7 @@
                 <div class="flex gap-3">
                   <div
                     :class="[
-                      'w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0',
+                      'w-10 h-10 rounded-full flex items-center justify-center shrink-0',
                       notification.iconColor
                     ]"
                   >
@@ -71,7 +71,7 @@
                       </h4>
                       <div
                         v-if="!notification.read"
-                        class="w-2 h-2 bg-blue-600 rounded-full flex-shrink-0 mt-1"
+                        class="w-2 h-2 bg-blue-600 rounded-full shrink-0 mt-1"
                       />
                     </div>
                     <p class="text-sm text-slate-600 mb-1">{{ notification.message }}</p>
@@ -102,7 +102,7 @@
                 <div class="flex gap-3">
                   <div
                     :class="[
-                      'w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0',
+                      'w-10 h-10 rounded-full flex items-center justify-center shrink-0',
                       notification.iconColor
                     ]"
                   >
@@ -120,7 +120,7 @@
                       </h4>
                       <div
                         v-if="!notification.read"
-                        class="w-2 h-2 bg-blue-600 rounded-full flex-shrink-0 mt-1"
+                        class="w-2 h-2 bg-blue-600 rounded-full shrink-0 mt-1"
                       />
                     </div>
                     <p class="text-sm text-slate-600 mb-1">{{ notification.message }}</p>

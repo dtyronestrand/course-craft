@@ -72,6 +72,8 @@ Route::delete('/module_wrapUps/{moduleWrapUp}', [\App\Http\Controllers\ModuleWra
 Route::middleware([\App\Http\Middleware\isAdminMiddleWare::class])->group(function () {
     Route::get('/admin/courses', [\App\Http\Controllers\AdminController::class, 'courses'])->name('admin.courses');
     Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/settings', [\App\Http\Controllers\AdminController::class, 'settings'])->name('admin.settings');
+    Route::post('/admin/settings', [\App\Http\Controllers\AdminController::class, 'store'])->name('admin.settings.store');
 });
 
     

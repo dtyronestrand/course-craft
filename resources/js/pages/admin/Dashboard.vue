@@ -21,9 +21,14 @@
     </div>
     </header>
         <h1 class="text-7xl text-center mx-auto p-4 my-8 prose">{{ page.props.auth.user.first_name }}'s Dashboard</h1>
-<div class="grid grid-cols-4 grid-rows-13">
+<div class="grid grid-cols-4 grid-rows-13 gap-4 mx-12">
 <InfoCard title="Active Courses" :info="page.props.activeCoursesCount"/>
+<InfoCard title="Courses Needing Attention" :info="page.props.activeCoursesCount"/>
+<div class="col-span-2 row-span-2 bg-base-100 border border-primary text-neutral-content text-3xl rounded-2xl p-4">Project Status Distribution</div>
+<div class="col-span-2 row-span-2 bg-base-100 text-base-content border border-primary text-3xl rounded-2xl p-4"><h2>Recent Activities</h2></div>
+<div class="col-span-2 row-span-2 bg-base-100 text-base-content border border-primary text-3xl rounded-2xl p-4"><h2>Courses By Department</h2></div>
 </div>
+
 </AdminLayout>
 </template>
 

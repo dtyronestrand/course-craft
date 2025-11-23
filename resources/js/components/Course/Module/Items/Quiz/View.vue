@@ -1,12 +1,13 @@
 <template>
  <div class="max-w-none prose mt-4 border" v-if="!isEditing">
- <div class="flex flex-row justify-between items-center text-xl p-4 w-full border-b border-secondary bg-primary ">
+ <details>
+ <summary class="flex flex-row justify-between items-center text-xl p-4 w-full border-b border-secondary bg-primary ">
         <h4 class="text-primary-content">Quiz: {{ module.items[index].itemable?.title}} </h4>
     <div class="flex flex-row gap-4">
               <EditButton background="success" @click="isEditing = true" />
        <DeleteButton @click="deleteQuiz" />
     </div>
-        </div>
+        </summary>
 
         <h5 class="text-lg w-full p-4 bg-neutral border-b border-t ">Instructions</h5>
         <div class="p-4" v-html="module.items[index].itemable?.instructions"></div>
@@ -17,7 +18,8 @@
             <p>Number of Attempts: {{ module.items[index].itemable?.settings?.attempts }}</p>
             <p>Point Value: {{ module.items[index].itemable?.settings?.point_value }}</p>
         </div>
-        <h4 class="text-lg w-full p-4 bg-neutral border-b border-t ">Questions</h4>
+        <details>
+       <summary><h4 class="text-lg w-full p-4 bg-neutral border-b border-t ">Questions</h4></summary> 
   
             <ol v-for="(question, qIndex) in module.items[index].itemable?.questions" :key="qIndex" class="list-none flex flex-col items-center w-full mr-12 list-inside">
                 <li class="mr-4 flex-1  h-full w-full">
@@ -25,6 +27,8 @@
                     <component class="p-4 border border-secondary" :is="getQuestionComponent(question.type)" :question="question" :editing="false" :question-index="qIndex" />
                 </li>
             </ol>
+        </details>
+ </details>
    
 
     </div>
@@ -136,5 +140,8 @@ const addQuestion = () => {
 </script>
 
 <style scoped>
-
+summary{
+    list-style: none;
+    cursor: pointer;
+}
 </style>
