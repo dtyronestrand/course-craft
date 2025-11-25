@@ -14,8 +14,8 @@ class Course extends Model
         'start',
         'end',
         'status',
-
-    ] ;
+        'development_cycle_id',
+    ];
 
 
 
@@ -34,11 +34,22 @@ class Course extends Model
         return $this->hasMany(CourseObjective::class);
     }
 
+    public function developmentCycle()
+    {
+        return $this->belongsTo(DevelopmentCycle::class);
+    }
+
     public function deliverables()
     {
-      return $this->belongsToMany(Deliverable::class, 'course_deliverable')
-      ->withPivot('due_date', 'is_done', 'missed_due_date_count', 'date_completed')
-      ->using(CourseDeliverable::class);
+        return $this->belongsToMany(Deliverable::class, 'course_deliverable')
+            ->using(CourseDeliverable::class)
+            ->withPivot(['id', 'default_due_date', 'override_due_date', 'is_done', 'missed_due_date_count'])
+            ->withTimestamps();
+    }
+
+    public function courseDeliverables()
+    {
+        return $this->hasMany(CourseDeliverable::class);
     }
 
       protected static function boot()

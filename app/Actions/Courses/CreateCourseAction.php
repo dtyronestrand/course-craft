@@ -15,14 +15,7 @@ class CreateCourseAction
 
     public function execute(array $data)
     {
-        $course = $this->courseRepository->create([
-            'prefix' => $data['prefix'],
-            'number' => $data['number'],
-            'title' => $data['title'],
-            'start' => $data['start'],
-            'end' => $data['end'] ?? null,
-            'status' => $data['status'] ?? 'active',
-        ]);
+        $course = $this->courseRepository->create($data);
 
         if (isset($data['objectives'])) {
             foreach ($data['objectives'] as $objective) {

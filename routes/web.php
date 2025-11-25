@@ -76,8 +76,8 @@ Route::middleware([\App\Http\Middleware\isAdminMiddleWare::class])->group(functi
     Route::post('/admin/settings', [\App\Http\Controllers\AdminController::class, 'store'])->name('admin.settings.store');
 });
 
-    
-
+Route::post('/admin/deliverables', [\App\Http\Controllers\DeliverableController::class, 'store'])->name('admin.deliverables.store');
+Route::delete('/admin/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableController::class, 'destroy'])->name('admin.deliverables.destroy');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

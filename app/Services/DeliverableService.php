@@ -19,7 +19,11 @@ class DeliverableService
     {
         $this->deliverableRepository = $deliverableRepository;
     }
-
+    public function getAllDeliverables()
+    {
+        return $this->deliverableRepository->getAll();
+    }
+    
     public function createDeliverable(array $data)
     {
         return (new CreateDeliverableAction($this->deliverableRepository))->execute($data);

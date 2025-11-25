@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin_settings', function (Blueprint $table) {
+        Schema::create('development_cycles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('name');
+            $table->date('start_date');
+            $table->date('end_date');
         });
     }
 
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin_settings');
+        Schema::dropIfExists('development_cycles');
     }
 };

@@ -11,7 +11,11 @@ class DeliverableRepository
     {
         return Deliverable::create($data);
     }
-
+    public function getAll()
+    {
+        return Deliverable::all();
+    }
+    
     public function update(Deliverable $deliverable, array $data)
     {
         return $deliverable->update($data);

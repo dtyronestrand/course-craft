@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Course;
 use App\Models\User;
 use App\Models\Deliverable;
+use App\Models\DevelopmentCycle;
 use Carbon\Carbon;
 
 class CourseRepository
@@ -26,7 +27,15 @@ class CourseRepository
 
     public function create(array $data)
     {
-        return Course::create($data);
+        return Course::create([
+            'prefix' => $data['prefix'],
+            'number' => $data['number'],
+            'title' => $data['title'],
+            'start' => $data['start'],
+            'end' => $data['end'] ?? null,
+            'status' => $data['status'] ?? 'active',
+            'development_cycle_id' => $data['development_cycle_id'] ?? null,
+        ]);
     }
 
     public function addObjective(Course $course, array $objectiveData)
@@ -42,7 +51,6 @@ class CourseRepository
         }
         return $course->users;
     }
-
     public function getById(Course $course, array $relations = [])
     {
         return $course->load($relations);
@@ -66,17 +74,19 @@ class CourseRepository
     public function attachAllDeliverables(Course $course)
     {
         $deliverables = Deliverable::all();
-        $startDate = Carbon::parse($course->start);
+        $developmentCycle = $course->developmentCycle;
         
         $pivotData = [];
         foreach ($deliverables as $deliverable) {
             $pivotData[$deliverable->id] = [
-                'due_date' => $startDate->copy()->addDays($deliverable->template_days_offset),
+                'default_due_date' => $developmentCycle && $developmentCycle->start_date 
+                    ? $developmentCycle->start_date->copy()->addDays($deliverable->template_days_offset) 
+                    : null,
                 'is_done' => false,
                 'missed_due_date_count' => 0,
             ];
         }
         
-        return $course->deliverables()->attach($pivotData);
+        $course->deliverables()->attach($pivotData);
     }
 }
