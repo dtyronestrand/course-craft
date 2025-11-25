@@ -79,8 +79,8 @@ class CourseRepository
         $pivotData = [];
         foreach ($deliverables as $deliverable) {
             $pivotData[$deliverable->id] = [
-                'default_due_date' => $developmentCycle && $developmentCycle->start_date 
-                    ? $developmentCycle->start_date->copy()->addDays($deliverable->template_days_offset) 
+                'default_due_date' => $developmentCycle && $developmentCycle->start_date
+                    ? Carbon::parse($developmentCycle->start_date)->addDays($deliverable->template_days_offset)
                     : null,
                 'is_done' => false,
                 'missed_due_date_count' => 0,
