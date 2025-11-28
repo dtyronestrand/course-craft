@@ -28,7 +28,7 @@
 <CourseStatusChart class="flex-1" :courseStatusCounts="statusCounts"/>
 </div>
 <div class="col-span-2 row-span-2 bg-base-100 text-base-content border border-primary text-3xl rounded-2xl p-4"><h2>Recent Activities</h2><ActivityFeed :initialActivities="page.props.recentActivities"/></div>
-<div class="col-span-2 row-span-2 bg-base-100 text-base-content border border-primary text-3xl rounded-2xl p-4"><h2>Courses By Department</h2></div>
+<div class="col-span-2 row-span-2 bg-base-100 text-base-content border border-primary text-3xl rounded-2xl p-4"><h2>Courses By Department</h2>{{ page.props.coursesByPrefix }}</div>
 </div>
 
 </AdminLayout>
@@ -61,6 +61,7 @@ const page = usePage<PageProps & {
     pendingCoursesCount: number;
     recentActivities: Activity[];
     statusCounts: Record<string, number>;
+    coursesByPrefix: Record<string, number>;
 }>();
 const { getInitials } = useInitials();
 const logout = ()=>{

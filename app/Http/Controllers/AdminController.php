@@ -33,6 +33,7 @@ class AdminController extends Controller
       'pendingCoursesCount' => $this->courseService->countPendingCourses(),
       'activeCoursesCount' => $this->courseService->countActiveCourses(),
       'recentActivities' => $this->activityService->getRecentActivities(10),
+      'coursesByPrefix' => $this->courseService->coursesByPrefix(),
     ]);
   }
   public function courses()

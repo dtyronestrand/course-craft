@@ -52,7 +52,10 @@ class CourseService
     {
         return $this->courseRepository->countPendingCourses();
     }
-    
+    public function coursesByPrefix()
+    {
+        return $this->courseRepository->coursesByPrefix();
+    }
 public function getAllCourses()
     {
         return $this->courseRepository->getAllForAdmin(['users:id,first_name,last_name']);

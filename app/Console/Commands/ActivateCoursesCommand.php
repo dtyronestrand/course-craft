@@ -15,8 +15,11 @@ class ActivateCoursesCommand extends Command
     public function handle()
     {
         $now = Carbon::now();
+      
         $coursesToActivate = Course::where('status', 'pending')
-            ->where('start_date', '<=', $now)
+            ->whereHas('developmentCycle', function($query){
+                $query->where('start_date', '<=', now());
+            })
             ->get();
 
             $count = $coursesToActivate->count();

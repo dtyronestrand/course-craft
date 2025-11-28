@@ -35,7 +35,15 @@ class CourseRepository
             ->pluck('count', 'status')
             ->toArray();
     }
-    
+    public function coursesByPrefix()
+    {
+        return Course::selectRaw('prefix, COUNT(*) as count')
+            ->groupBy('prefix')
+            ->pluck('count', 'prefix')
+            ->toArray();
+    }
+
+    public function courseNeedsAttention
     public function countPendingCourses()
     {
         return Course::where('status', 'pending')->count();

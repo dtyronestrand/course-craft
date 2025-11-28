@@ -19,7 +19,7 @@ interface Props {
 const props = defineProps<Props>();
 const chartData = computed<ChartData<"bar">>(() => {
     return {
-        labels: Object.keys(props.courseStatusCounts),
+        labels: Object.keys(props.courseStatusCounts).map(key => key.toUpperCase()),
         datasets: [
             {
                 label: 'Number of Courses',
