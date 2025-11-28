@@ -26,7 +26,6 @@ class CreateCourseAction
         if (isset($data['users'])) {
             $this->courseRepository->syncUsers($course, $data['users']);
         }
-
         $this->courseRepository->attachAllDeliverables($course);
 
         return $course;

@@ -1,8 +1,8 @@
 <template>
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-base-200/80 bg-opacity-50 pointer-events-none" @click.self="$emit('close')">
-        <div class="glass rounded-lg p-6 w-full max-w-md mx-4 pointer-events-auto">
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-base-100/80 bg-opacity-50 pointer-events-none" @click.self="$emit('close')">
+        <div class="border border-primary bg-base-100 rounded-lg p-6 w-full max-w-md mx-4 pointer-events-auto">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl text-primary-content font-semibold">Create Course</h2>
+                <h2 class="text-xl text-base-content font-semibold">Create Course</h2>
                 <button @click="$emit('close')" class="text-primary-content hover:text-error">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -11,34 +11,41 @@
             </div>
             <form @submit.prevent="$emit('create-course', courseData)">
                 <div class="mb-4">
-                    <label for="prefix" class="block text-sm font-medium text-primary-content">Course Prefix</label>
+                    <label for="prefix" class="block text-sm font-medium text-base-content">Course Prefix</label>
                     <input v-model="courseData.prefix" type="text" id="prefix" class="mt-1 block w-full border-b border-secondary shadow-sm p-2" required />
                 </div>
                 <div class="mb-4">
-                    <label for="number" class="block text-sm font-medium text-primary-content">Course Number</label>
+                    <label for="number" class="block text-sm font-medium text-base-content">Course Number</label>
                     <input v-model="courseData.number" type="text" id="number" class="mt-1 block w-full border-b border-secondary rounded- shadow-sm p-2" required />
                 </div>
                 <div class="mb-4">
-                    <label for="title" class="block text-sm font-medium text-primary-content">Course Title</label>
+                    <label for="title" class="block text-sm font-medium text-base-content">Course Title</label>
                     <input v-model="courseData.title" type="text" id="title" class="mt-1 block w-full border-b border-secondary shadow-sm p-2" required />
                 </div>
                 <div class="mb-4">
-                    <label for="objectives" class="mb-4 block text-sm font-medium text-primary-content">Course Objectives</label>
+                    <label for="cycle" class="block text-sm font-medium text-base-content">Development Cycle</label>
+                    <select v-model="courseData.development_cycle" id="cycle" class="mt-1 block w-full border-b border-secondary shadow-sm p-2">
+                        <option :value="null">Select a cycle</option>
+                        <option v-for="cycle in developmentCycles" :key="cycle.id" :value="cycle.id">{{ cycle.name }}</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="objectives" class="mb-4 block text-sm font-medium text-base-content">Course Objectives</label>
                 <div v-for="(objective, index) in courseData.objectives" :key="index" class="mb-2 flex items-center gap-2">
                     <p class="mb-0">{{objective.number}}.</p>
                     <input v-model="objective.objective" type="text" :id="'objective-' + index" class="mt-1 block w-full border border-secondary rounded-md shadow-sm p-2" />
-                    <button type="button" @click="courseData.objectives.splice(index, 1)" class="bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" >
+                    <button type="button" @click="courseData.objectives.splice(index, 1)" class="bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" >
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 </div>
-                <button type="button" @click="createObjective" class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" >Add Objective</button>
+                <button type="button" @click="createObjective" class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" >Add Objective</button>
                 </div>
 
                 <div class="mb-4">
-                    <label for="users" class="block text-sm font-medium text-primary-content mb-4"> Users</label>
-                    <div v-for="user in courseData.users" :key="user.id" class="text-primary-content">
+                    <label for="users" class="block text-sm font-medium text-base-content mb-4"> Users</label>
+                    <div v-for="user in courseData.users" :key="user.id" class="text-base-content">
                         {{user.first_name}} {{user.last_name }}
                         <select v-model="user.role" class="ml-2 border border-secondary rounded-md shadow-sm p-1">
                             <option value="Designer">Designer</option>
@@ -47,17 +54,17 @@
                             <option value="Builder">Builder</option>
                         </select>
                     </div>
-                    <button type="button" @click ="addUser" class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" >Add User</button>
+                    <button type="button" @click ="addUser" class="mt-4 bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" >Add User</button>
                     <select v-if="addingUser" @change="updateUsers" v-model="selectedUserId" id="users" class="mt-1 block w-full border border-secondary rounded-md shadow-sm p-2" >
-                        <option v-for="user in users" :key="user.id" :value="user.id">
+                        <option class="text-base-content" v-for="user in users" :key="user.id" :value="user.id">
                             {{ user.first_name }} {{ user.last_name }}
                         </option>
                     </select>
 
                 </div>
                 <div class="flex gap-2">
-                    <button @click="handleCreateCourse" class="bg-success text-success-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" >Create Course</button>
-                    <button type="button" @click="$emit('close')" class="bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" >Cancel</button>
+                    <button @click="handleCreateCourse" class="bg-success text-success-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" >Create Course</button>
+                    <button type="button" @click="$emit('close')" class="bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" >Cancel</button>
                 </div>
             </form>
         </div>
@@ -87,7 +94,14 @@ interface CourseData {
     title: string;
     objectives: Objective[];
     users: User[];
+    development_cycle: number | null;
 }
+
+interface DevelopmentCycle {
+    id: number;
+    name: string;
+}
+
 const handleCreateCourse = () => {
     if (courseData.value.prefix && courseData.value.number && courseData.value.title) {
         // Emit the create-course event with the course data
@@ -105,7 +119,8 @@ const handleCreateCourse = () => {
             number: '',
             title: '',
             objectives: [],
-            users: []
+            users: [],
+            development_cycle: null
         };
     } else {
         alert('Please fill in all required fields.');
@@ -143,12 +158,14 @@ const toRoman = (num: number): string => {
 };
 
 const users = ref<User[]>([]);
+const developmentCycles = ref<DevelopmentCycle[]>([]);
 const courseData = ref<CourseData>({
     prefix: '',
     number: '',
     title: '',
     objectives: [],
-    users: []
+    users: [],
+    development_cycle: null
 });
 const addingUser = ref(false);
 const selectedUserId = ref<number | null>(null);
@@ -184,6 +201,7 @@ onMounted(async () => {
         });
         const data = await response.json();
         users.value = data.users;
+        developmentCycles.value = data.cycles || [];
     } catch (error) {
         console.error('Failed to fetch users:', error);
     }

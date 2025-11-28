@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use App\Models\Course;
+use App\Observers\CourseObserver;
+use App\Models\CourseDeliverable;
+use App\Observers\CourseDeliverableObserver;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -32,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
         ]);
         
         \App\Models\CourseDiscussion::observe(\App\Observers\CourseDiscussionObserver::class);
+        Course::observe(CourseObserver::class);
+        CourseDeliverable::observe(CourseDeliverableObserver::class);
     }
 
 }

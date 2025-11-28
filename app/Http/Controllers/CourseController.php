@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Services\CourseService;
+use App\Models\Deliverable;
 use Illuminate\Http\Request;
 use App\Notifications\CourseAssigned;
 use Inertia\Inertia;
@@ -34,6 +35,7 @@ class CourseController extends Controller
             'title' => 'required|string|max:255',
             'objectives' => 'nullable|array',
             'users' => 'nullable|array',
+            'development_cycle'=>'nullable|integer',
         ]);
 
        $course = $this->courseService->createCourse($request->all());
@@ -44,7 +46,7 @@ class CourseController extends Controller
            }
        }
 
-        return to_route('dashboard');
+        return back()->with('success', 'Course created successfully.');
     }
 
     public function show(Course $course)
@@ -95,4 +97,19 @@ class CourseController extends Controller
 
         return to_route('dashboard');
     }
+
+    public function updateDeliverable(Request $request, Course $course, Deliverable $deliverable)
+    {
+        $request->validate([
+            'is_done' => 'required|boolean',
+        ]);
+
+        $this->courseService->updateCourseDeliverable($course, $deliverable, [
+            'is_done' => $request->input('is_done'),
+            'date_completed' => $request->input('is_done') ? now() : null,
+        ]);
+
+        return back();
+    }
+
 }

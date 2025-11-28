@@ -69,7 +69,7 @@
                                     class="size-8 overflow-hidden rounded-full"
                                 >
                                     <AvatarImage
-                                        v-if="auth.user.avatar"
+                                        v-if="auth.user?.avatar"
                                         :src="auth.user.avatar"
                                         :alt="auth.user.first_name"
                                     />
@@ -127,9 +127,9 @@ const rightNavItems: NavItem[] = [
 ];
 
 const userInitials = computed(() => {
-    const firstName = auth.value.user?.first_name;
-    const lastName = auth.value.user?.last_name;
-    const email = auth.value.user?.email;
+    const firstName = auth.value?.user?.first_name;
+    const lastName = auth.value?.user?.last_name;
+    const email = auth.value?.user?.email;
     
     if (firstName && lastName) {
         return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();

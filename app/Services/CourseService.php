@@ -43,7 +43,16 @@ class CourseService
     {
         return $this->courseRepository->countActiveCourses();
     }
+    public function courseStatusCounts()
+    {
+        return $this->courseRepository->courseStatusCounts();
+    }
 
+    public function countPendingCourses()
+    {
+        return $this->courseRepository->countPendingCourses();
+    }
+    
 public function getAllCourses()
     {
         return $this->courseRepository->getAllForAdmin(['users:id,first_name,last_name']);
@@ -51,7 +60,7 @@ public function getAllCourses()
 
     public function getCourseWithDetails(Course $course)
     {
-        return $this->courseRepository->getById($course, ['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions.objectives', 'modules.materials.objectives', 'modules.needs.objectives', 'users', 'modules.items.itemable', 'objectives']);
+        return $this->courseRepository->getById($course, ['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions.objectives', 'modules.materials.objectives', 'modules.needs.objectives', 'users', 'modules.items.itemable', 'objectives', 'deliverables']);
     }
     public function getCourseForMap(Course $course)
     {
@@ -65,5 +74,10 @@ public function getAllCourses()
     public function deleteCourse(Course $course)
     {
         return (new DeleteCourseAction($this->courseRepository))->execute($course);
+    }
+
+    public function updateCourseDeliverable(Course $course, $deliverable, array $pivotData)
+    {
+        return $this->courseRepository->updatePivot($course, $deliverable, $pivotData);
     }
 }

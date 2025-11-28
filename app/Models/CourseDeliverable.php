@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class CourseDeliverable extends Pivot
@@ -9,23 +10,20 @@ class CourseDeliverable extends Pivot
  public $incrementing = true;   
  protected $table = 'course_deliverable';
 
- protected $dates = [
-   'default_due_date',
-   'override_due_date',
+ protected $casts = [
+    'is_done' => 'boolean',
+    'due_date' => 'date',
+    'date_completed' => 'date',
  ];
 
- public function course()
+ public function deliverable(): BelongsTo
  {
-    return $this->belongsTo(Course::class);
+    return $this->belongsTo(Deliverable::class);
  }
 
-   public function deliverable()
-   {
-      return $this->belongsTo(Deliverable::class);
-   }
-public function getActualDueDateAttribute()
+ public function course(): BelongsTo
  {
-    return $this->override_due_date ?? $this->default_due_date;
+    return $this->belongsTo(Course::class);
  }
 
  public function scopeNeedsAttention($query)

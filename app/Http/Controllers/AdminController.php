@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Services\CourseService;
+use App\Services\ActivityService;
 use App\Models\Course;
 use Illuminate\Http\Request;
-
+use App\Models\User;
 use App\Services\DeliverableService;
 use App\Services\DevelopmentCycleService;
 use Inertia\Inertia;
@@ -15,22 +16,30 @@ class AdminController extends Controller
   protected $adminSettingService;
   protected $deliverableService;
   protected $developmentCycleService;
-  public function __construct(CourseService $courseService,  DeliverableService $deliverableService, DevelopmentCycleService $developmentCycleService)
+  protected $activityService;
+  
+  public function __construct(CourseService $courseService, DeliverableService $deliverableService, DevelopmentCycleService $developmentCycleService, ActivityService $activityService)
   {
     $this->courseService = $courseService;
     $this->developmentCycleService = $developmentCycleService;
     $this->deliverableService = $deliverableService;
+    $this->activityService = $activityService;
   }
   
   public function index()
   {
-    $activeCoursesCount = $this->courseService->countActiveCourses();
-    return Inertia::render('admin/Dashboard', ['activeCoursesCount' => $activeCoursesCount]);
+    return Inertia::render('admin/Dashboard', [
+      'courseStatusCounts' => $this->courseService->courseStatusCounts(),
+      'pendingCoursesCount' => $this->courseService->countPendingCourses(),
+      'activeCoursesCount' => $this->courseService->countActiveCourses(),
+      'recentActivities' => $this->activityService->getRecentActivities(10),
+    ]);
   }
   public function courses()
   {
     $courses = $this->courseService->getAllCourses();
-    return Inertia::render('admin/Courses', ['courses' => $courses]);
+    $developmentCycles = $this->developmentCycleService->getAllDevelopmentCycles();
+    return Inertia::render('admin/Courses', ['courses' => $courses, 'developmentCycles' => $developmentCycles]);
   }
   public function settings()
   {
@@ -55,5 +64,11 @@ class AdminController extends Controller
     ]);
 
     return back()->with('success', 'Settings updated successfully.');
+  }
+
+  public function users()
+  {
+    $users = User::all();
+    return Inertia::render('admin/Users', ['users' => $users]);
   }
 }

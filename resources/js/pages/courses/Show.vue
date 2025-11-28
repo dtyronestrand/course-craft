@@ -10,8 +10,26 @@
 
 <Delete @delete="handleDelete"/>
 </div>
+<h3>Deliverables</h3>
+<table class="table-auto w-full mb-4">
+    <thead>
+        <tr>
+            <th class="text-left p-2">Deliverable</th>
+            <th class="text-left p-2">Due Date</th>
+            <th class="text-left p-2">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="(deliverable, index) in page.props.course.deliverables" :key="index">
+            <td class="p-2">{{ deliverable.name }}</td>
+            <td class="p-2">{{ deliverable.pivot.due_date ? new Date(deliverable.pivot.due_date).toLocaleDateString() : 'N/A' }}</td>
+            <td class="p-2"><input type="checkbox" v-model="deliverable.pivot.is_done" @change="updateDeliverableStatus(deliverable)"/></td>
+        </tr>
+    </tbody>
+</table>
     </div>
     <div class="bg-base-300 border  p-8">
+    {{ page.props.course.deliverables }}
  <div v-for="(user, index) in page.props.course.users" :key="index">
  <p>{{ user.pivot.role }}: {{ user.first_name }} {{ user.last_name  }}</p>
  </div>
@@ -23,8 +41,8 @@
     </div>
     <div>
     <component :is="currentDisplay" :numberOfModules="page.props.numberOfModules" :course="page.props.course" v-if="currentDisplay"/>
-    <div v-if="page.props.auth.user.hasGoogleAccess" >
-<button @click="exportToDrive" :disabled="isExporting" class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] translate-y-[-2px] active:shadow-none active:translate-y-0" ><span v-if="isExporting">Creating Document...</span><span v-else>Export to Google Drive</span></button>
+    <div v-if="page.props.auth.user?.hasGoogleAccess" >
+<button @click="exportToDrive" :disabled="isExporting" class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" ><span v-if="isExporting">Creating Document...</span><span v-else>Export to Google Drive</span></button>
 <div v-if="exportError" class="mt-2 text-sm text-error">Error: {{ exportError }}</div>
 <div v-if="exportSuccessUrl" class="mt-2 text-sm text-success">Successfully exported! <a :href="exportSuccessUrl" target="_blank" class="underline">Open Document</a></div> 
 </div>
@@ -53,6 +71,7 @@ interface Course {
     objectives: { number: string; objective: string; }[];
     users: { id: number; first_name: string; last_name: string; pivot: { role: string; } }[];
     course_modules: any[];
+    deliverables: { id: number; name: string; pivot: { due_date: string | null; is_done: boolean; date_completed: string | null; } }[];
 }
 
 interface PageProps {
@@ -177,6 +196,15 @@ async function exportToDrive() {
     isExporting.value = false;
   }
 }
+
+const updateDeliverableStatus = (deliverable: any) => {
+    router.put(`/courses/${page.props.course.id}/deliverables/${deliverable.id}`, {
+        is_done: deliverable.pivot.is_done,
+    }, {
+        preserveScroll: true,
+        only: ['course'],
+    });
+};
 </script>
 
 <style scoped>

@@ -154,6 +154,7 @@
     import {ref, computed} from 'vue';
     import{Bell, CheckCircle2, Settings as SettingsIcon} from 'lucide-vue-next';
     import {Button} from '@/components/ui/button';
+    import {Badge} from '@/components/ui/badge';
     import {DropdownMenu, DropdownMenuContent, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
     import {ScrollArea} from '@/components/ui/scroll-area';
     import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';

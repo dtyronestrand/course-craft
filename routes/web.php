@@ -26,13 +26,15 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/courses/create', function () {
     $users = User::select('id', 'first_name', 'last_name')->get();
+    $cycles = \App\Models\DevelopmentCycle::select('id', 'name')->get();
     
     if (request()->wantsJson()) {
-        return response()->json(['users' => $users]);
+        return response()->json(['users' => $users, 'cycles' => $cycles]);
     }
     
     return inertia('Dashboard', [
-        'users' => $users
+        'users' => $users,
+        'cycles' => $cycles
     ]);
 })->name('courses.create');
 
@@ -61,7 +63,7 @@ Route::delete('/course_assignments/{courseAssignment}', [\App\Http\Controllers\C
 Route::post('/course_discussions', [\App\Http\Controllers\CourseDiscussionController::class, 'store'])->name('course.discussion.store');
 Route::put('/course_discussions/{courseDiscussion}', [\App\Http\Controllers\CourseDiscussionController::class, 'update'])->name('course.discussion.update');
 Route::delete('/course_discussions/{courseDiscussion}', [\App\Http\Controllers\CourseDiscussionController::class, 'destroy'])->name('course.discussion.destroy');
-
+Route::put('/courses/{course}/deliverables/{deliverable}', [\App\Http\Controllers\CourseController::class, 'updateDeliverable'])->name('course.deliverable.update');
 Route::post('/course_quizzes', [\App\Http\Controllers\CourseQuizController::class, 'store'])->name('course.quiz.store');
 Route::put('/course_quizzes/{courseQuiz}', [\App\Http\Controllers\CourseQuizController::class, 'update'])->name('course.quiz.update');
 Route::delete('/course_quizzes/{courseQuiz}', [\App\Http\Controllers\CourseQuizController::class, 'destroy'])->name('course.quiz.destroy');
@@ -74,10 +76,12 @@ Route::middleware([\App\Http\Middleware\isAdminMiddleWare::class])->group(functi
     Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/settings', [\App\Http\Controllers\AdminController::class, 'settings'])->name('admin.settings');
     Route::post('/admin/settings', [\App\Http\Controllers\AdminController::class, 'store'])->name('admin.settings.store');
+    Route::get('/admin/users', [\App\Http\Controllers\AdminController::class, 'users'])->name('admin.users');
 });
 
 Route::post('/admin/deliverables', [\App\Http\Controllers\DeliverableController::class, 'store'])->name('admin.deliverables.store');
 Route::delete('/admin/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableController::class, 'destroy'])->name('admin.deliverables.destroy');
+
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

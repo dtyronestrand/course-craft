@@ -16,9 +16,9 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
             $table->foreignId('deliverable_id')->constrained()->onDelete('cascade');
-            $table->date('default_due_date')->nullable();
-            $table->date('override_due_date')->nullable();
+            $table->date('due_date')->nullable();
             $table->boolean('is_done')->default(false);
+            $table->date('date_completed')->nullable();
             $table->integer('missed_due_date_count')->default(0);
         });
     }

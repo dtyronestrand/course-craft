@@ -22,7 +22,23 @@ class CourseRepository
     
     public function countActiveCourses()
     {
-        return Course::where('status', 'active')->count();
+        return Course::whereNotIn('status', ['pending', 'completed'])->count();
+    }
+    public function courseStatusCounts()
+    {
+        return Course::selectRaw('status, COUNT(*) as count')
+            ->whereHas('developmentCycle', function ($query) {
+                $query->where('start_date', '<=', now())
+                      ->where('end_date', '>=', now());
+            })
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
+    }
+    
+    public function countPendingCourses()
+    {
+        return Course::where('status', 'pending')->count();
     }
 
     public function create(array $data)
@@ -31,10 +47,8 @@ class CourseRepository
             'prefix' => $data['prefix'],
             'number' => $data['number'],
             'title' => $data['title'],
-            'start' => $data['start'],
-            'end' => $data['end'] ?? null,
-            'status' => $data['status'] ?? 'active',
-            'development_cycle_id' => $data['development_cycle_id'] ?? null,
+       
+            'development_cycle_id' => $data['development_cycle'] ?? null,
         ]);
     }
 
@@ -74,19 +88,24 @@ class CourseRepository
     public function attachAllDeliverables(Course $course)
     {
         $deliverables = Deliverable::all();
-        $developmentCycle = $course->developmentCycle;
+        $course->load('developmentCycle');
         
         $pivotData = [];
         foreach ($deliverables as $deliverable) {
             $pivotData[$deliverable->id] = [
-                'default_due_date' => $developmentCycle && $developmentCycle->start_date
-                    ? Carbon::parse($developmentCycle->start_date)->addDays($deliverable->template_days_offset)
+                'due_date' => $course->developmentCycle && $course->developmentCycle->start_date
+                    ? Carbon::parse($course->developmentCycle->start_date)->addDays($deliverable->template_days_offset)
                     : null,
                 'is_done' => false,
                 'missed_due_date_count' => 0,
             ];
         }
         
-        $course->deliverables()->attach($pivotData);
+        $course->deliverables()->sync($pivotData);
+    }
+
+    public function updatePivot(Course $course, $deliverable, array $pivotData)
+    {
+        return $course->deliverables()->updateExistingPivot($deliverable->id, $pivotData);
     }
 }

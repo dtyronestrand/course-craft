@@ -11,6 +11,8 @@ protected $fillable = [
         'bio',
         'is_admin',
         'allowed_roles',
+        'avatar',
+        'title',
     ];
 
     protected $casts = [
