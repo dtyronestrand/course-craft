@@ -43,7 +43,7 @@ class CourseRepository
             ->toArray();
     }
 
-    public function courseNeedsAttention
+ 
     public function countPendingCourses()
     {
         return Course::where('status', 'pending')->count();
