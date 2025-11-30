@@ -18,6 +18,54 @@ class CourseService
         $this->courseRepository = $courseRepository;
     }
 
+    public function createCourse(array $data)
+    {
+        return (new CreateCourseAction($this->courseRepository))->execute($data);
+    }
+
+     public function countActiveCourses()
+    {
+        return $this->courseRepository->countActiveCourses();
+    }
+       public function countPendingCourses()
+    {
+        return $this->courseRepository->countPendingCourses();
+    }
+      public function coursesNeedAttention()
+    {
+        return $this->courseRepository->coursesNeedAttention();
+    }
+
+    public function courseStatusCounts()
+    {
+        return $this->courseRepository->courseStatusCounts();
+    }
+  
+    public function coursesByPrefix()
+    {
+        return $this->courseRepository->coursesByPrefix();
+    }
+
+            public function deleteCourse(Course $course)
+    {
+        return (new DeleteCourseAction($this->courseRepository))->execute($course);
+    }
+    
+
+    public function getAllCourses()
+    {
+        return $this->courseRepository->getAllForAdmin(['users:id,first_name,last_name']);
+    }
+        public function getCourseForMap(Course $course)
+    {
+        return $this->courseRepository->getById($course, ['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions.objectives', 'modules.materials.objectives', 'modules.needs.objectives', 'users', 'objectives']);
+    }
+
+        public function getCourseForStoryboard(Course $course)
+    {
+        return $this->courseRepository->getById($course, ['modules.courseObjectives', 'modules.module_objectives', 'users', 'modules.items.itemable', 'objectives']);
+    }
+
     public function getCoursesForUser(User $user)
     {
         if ($user->is_admin) {
@@ -27,9 +75,13 @@ class CourseService
         return $this->courseRepository->getForUser($user);
     }
 
-    public function createCourse(array $data)
+    public function getCourseWithDetails(Course $course)
     {
-        return (new CreateCourseAction($this->courseRepository))->execute($data);
+        return $this->courseRepository->getById($course, ['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions.objectives', 'modules.materials.objectives', 'modules.needs.objectives', 'users', 'modules.items.itemable', 'objectives', 'deliverables']);
+    }
+    
+    public function getCourseForAdmin(Course $course) {
+        return $this->courseRepository->getById($course, ['deliverables', 'users']);
     }
     public function syncUsers(Course $course, array $users)
     {
@@ -39,46 +91,7 @@ class CourseService
     {
         return (new UpdateCourseAction($this->courseRepository))->execute($course, $data);
     }
-    public function countActiveCourses()
-    {
-        return $this->courseRepository->countActiveCourses();
-    }
-    public function courseStatusCounts()
-    {
-        return $this->courseRepository->courseStatusCounts();
-    }
-
-    public function countPendingCourses()
-    {
-        return $this->courseRepository->countPendingCourses();
-    }
-    public function coursesByPrefix()
-    {
-        return $this->courseRepository->coursesByPrefix();
-    }
-public function getAllCourses()
-    {
-        return $this->courseRepository->getAllForAdmin(['users:id,first_name,last_name']);
-    }
-
-    public function getCourseWithDetails(Course $course)
-    {
-        return $this->courseRepository->getById($course, ['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions.objectives', 'modules.materials.objectives', 'modules.needs.objectives', 'users', 'modules.items.itemable', 'objectives', 'deliverables']);
-    }
-    public function getCourseForMap(Course $course)
-    {
-        return $this->courseRepository->getById($course, ['modules.courseObjectives', 'modules.assessments.objectives', 'modules.module_objectives', 'modules.instructions.objectives', 'modules.materials.objectives', 'modules.needs.objectives', 'users', 'objectives']);
-    }
-    public function getCourseForStoryboard(Course $course)
-    {
-        return $this->courseRepository->getById($course, ['modules.courseObjectives', 'modules.module_objectives', 'users', 'modules.items.itemable', 'objectives']);
-    }
-
-    public function deleteCourse(Course $course)
-    {
-        return (new DeleteCourseAction($this->courseRepository))->execute($course);
-    }
-
+   
     public function updateCourseDeliverable(Course $course, $deliverable, array $pivotData)
     {
         return $this->courseRepository->updatePivot($course, $deliverable, $pivotData);

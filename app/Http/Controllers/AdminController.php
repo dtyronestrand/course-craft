@@ -34,6 +34,7 @@ class AdminController extends Controller
       'activeCoursesCount' => $this->courseService->countActiveCourses(),
       'recentActivities' => $this->activityService->getRecentActivities(10),
       'coursesByPrefix' => $this->courseService->coursesByPrefix(),
+      'coursesNeedingAttention' => $this->courseService->coursesNeedAttention(),
     ]);
   }
   public function courses()
@@ -48,7 +49,14 @@ class AdminController extends Controller
     $deliverables = $this->deliverableService->getAllDeliverables();
     return Inertia::render('admin/Settings', ['deliverables' => $deliverables, 'cycles' => $cycles]);
   }
-
+public function courseDetails(Course $course)
+  {
+    $course = $this->courseService->getCourseForAdmin($course);
+    return Inertia::render('admin/CourseDetails', [
+      'course' => $course,
+    
+    ]);
+  }
   public function store(Request $request)
   {
     $request->validate([

@@ -35,6 +35,20 @@ class CourseRepository
             ->pluck('count', 'status')
             ->toArray();
     }
+
+    public function coursesNeedAttention()
+    {
+        return Course::select('id', 'prefix', 'number', 'title')
+            ->whereHas('courseDeliverables', function ($query) {
+                $query->where('missed_due_date_count', '>', 0)
+                      ->where('is_done', 0);
+            })->with(['deliverables' => function ($query) {
+                $query->select('deliverables.id', 'deliverables.name')
+                      ->where('course_deliverable.missed_due_date_count', '>', 0)
+                      ->where('course_deliverable.is_done', 0);
+            }])->get();
+    }
+
     public function coursesByPrefix()
     {
         return Course::selectRaw('prefix, COUNT(*) as count')

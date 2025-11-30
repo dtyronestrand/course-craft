@@ -1,5 +1,6 @@
 <template>
     <AdminLayout>
+   
     <header class="flex flex-row px-8 justify-between mx-12 ">
     <div>
     <Search />
@@ -20,17 +21,27 @@
   </details> 
     </div>
     </header>
+     <div class="wrapper">
         <h1 class="text-7xl text-center mx-auto p-4 my-8 prose">{{ page.props.auth.user.first_name }}'s Dashboard</h1>
-<div class="grid grid-cols-4 grid-rows-13 gap-4 mx-12">
-<InfoCard title="Active Courses" :info="page.props.activeCoursesCount"/>
-<InfoCard title="Courses Needing Attention" :info="page.props.activeCoursesCount"/>
-<div class="col-span-2 row-span-2 bg-base-100 border border-primary text-neutral-content text-3xl rounded-2xl p-4 flex flex-col justify-between gap-8"><h2>Project Status Distribution</h2>
+<div class="grid grid-cols-4 gap-4 mx-12 ">
+
+<div class="text-xl col-span-2 bg-white/20 border-accent backdrop-blur-sm border-2 text-base-content rounded-xl p-4 ">
+<h2>Courses Needing Attention</h2>
+<ul class="list-disc list-inside mt-8">
+    <li v-for="course in page.props.coursesNeedingAttention" :key="course.id">
+        <Link :href="`/admin/courses/${course.id}/ `" class="text-primary hover:underline">{{ course.prefix }} {{ course.number }}</Link> 
+    </li>
+    </ul>
+</div>
+<div class="text-xl col-span-2 bg-base-100/30 border-accent backdrop-blur-md border-2 text-base-content  rounded-xl p-4 "><h2>Project Status Distribution</h2>
+<p class="text-md">Total Active Courses: {{ page.props.activeCoursesCount }}</p>
 <CourseStatusChart class="flex-1" :courseStatusCounts="statusCounts"/>
 </div>
-<div class="col-span-2 row-span-2 bg-base-100 text-base-content border border-primary text-3xl rounded-2xl p-4"><h2>Recent Activities</h2><ActivityFeed :initialActivities="page.props.recentActivities"/></div>
-<div class="col-span-2 row-span-2 bg-base-100 text-base-content border border-primary text-3xl rounded-2xl p-4"><h2>Courses By Department</h2>{{ page.props.coursesByPrefix }}</div>
+<div class="col-span-2  bg-base-100 text-base-content border border-primary text-xl rounded-2xl p-4"><h2>Recent Activities</h2><ActivityFeed :initialActivities="page.props.recentActivities"/></div>
+<div class="col-span-2 bg-base-100 text-base-content border border-primary text-xl rounded-2xl p-4"><h2>Courses By Department</h2><CoursesByDepartmentChart :coursesByDepartment="page.props.coursesByPrefix"/></div>
 </div>
 
+    </div>
 </AdminLayout>
 </template>
 
@@ -43,7 +54,7 @@ import Search from '@/components/Search.vue';
 import { useInitials } from '@/composables/useInitials';
 import { computed } from 'vue';
 import NotificationCenter from '@/components/NotificationCenter.vue';
-import InfoCard from '@/components/Admin/Dashboard/InfoCard.vue';
+import CoursesByDepartmentChart from '@/components/Admin/Dashboard/CoursesByDepartmentChart.vue';
 import ActivityFeed from '@/components/Admin/Dashboard/ActivityFeed.vue';
 import CourseStatusChart from '@/components/Admin/Dashboard/CourseStatusChart.vue';
 interface Activity {
@@ -62,16 +73,33 @@ const page = usePage<PageProps & {
     recentActivities: Activity[];
     statusCounts: Record<string, number>;
     coursesByPrefix: Record<string, number>;
+    coursesNeedingAttention: any[];
 }>();
 const { getInitials } = useInitials();
 const logout = ()=>{
   router.post('/logout');
 }
 const statusCounts = computed(()=>{
- return {...page.props.courseStatusCounts, 'Pending': page.props.pendingCoursesCount};
+ return {'Pending': page.props.pendingCoursesCount, ...page.props.courseStatusCounts};
 })
+
+
 </script>
 
 <style scoped>
 
+
+.wrapper{
+
+
+background: radial-gradient(at 88% 4%, #962720 0px, transparent 50%), radial-gradient(at 62% 12%, #77231b 0px, transparent 50%), radial-gradient(at 66% 50%, #591d17 0px, transparent 50%) #ffcf00;;
+mix-blend-mode: var(--_gradient-blend-mode);
+
+    
+
+}
+.frosted-backdrop {
+backdrop-filter: blur(var(--_gradient-blur)) contrast(100%) brightness(100%);
+-webkit-backdrop-filter: blur(var(--_gradient-blur)) contrast(100%) brightness(100%);
+}
 </style>

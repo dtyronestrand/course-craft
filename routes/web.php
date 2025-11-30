@@ -12,7 +12,7 @@ Route::get('/google/redirect', [GoogleAuthController::class, 'redirect'])->name(
 Route::get('/google/callback', [GoogleAuthController::class, 'callback'])->name('google.callback');
 
 
-Route::get('dashboard', [\App\Http\Controllers\CourseController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [\App\Http\Controllers\CourseController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -73,6 +73,7 @@ Route::put('/module_wrapUps/{moduleWrapUp}', [\App\Http\Controllers\ModuleWrapUp
 Route::delete('/module_wrapUps/{moduleWrapUp}', [\App\Http\Controllers\ModuleWrapUpController::class, 'destroy'])->name('module.wrapup.destroy');
 Route::middleware([\App\Http\Middleware\isAdminMiddleWare::class])->group(function () {
     Route::get('/admin/courses', [\App\Http\Controllers\AdminController::class, 'courses'])->name('admin.courses');
+    Route::get('/admin/courses/{course}', [\App\Http\Controllers\AdminController::class, 'courseDetails'])->name('admin.course.details');
     Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/settings', [\App\Http\Controllers\AdminController::class, 'settings'])->name('admin.settings');
     Route::post('/admin/settings', [\App\Http\Controllers\AdminController::class, 'store'])->name('admin.settings.store');
