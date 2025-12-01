@@ -78,6 +78,7 @@ Route::middleware([\App\Http\Middleware\isAdminMiddleWare::class])->group(functi
     Route::get('/admin/settings', [\App\Http\Controllers\AdminController::class, 'settings'])->name('admin.settings');
     Route::post('/admin/settings', [\App\Http\Controllers\AdminController::class, 'store'])->name('admin.settings.store');
     Route::get('/admin/users', [\App\Http\Controllers\AdminController::class, 'users'])->name('admin.users');
+    Route::post('/admin/settings', [\App\Http\Controllers\AdminSettingsController::class, 'store'])->name('admin.settings.store');
 });
 
 Route::post('/admin/deliverables', [\App\Http\Controllers\DeliverableController::class, 'store'])->name('admin.deliverables.store');

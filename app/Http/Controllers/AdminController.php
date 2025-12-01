@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Services\CourseService;
 use App\Services\ActivityService;
 use App\Models\Course;
+use App\Models\AdminSetting;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Services\DeliverableService;
@@ -48,7 +49,8 @@ class AdminController extends Controller
   {
     $cycles = $this->developmentCycleService->getAllDevelopmentCycles();
     $deliverables = $this->deliverableService->getAllDeliverables();
-    return Inertia::render('admin/Settings', ['deliverables' => $deliverables, 'cycles' => $cycles]);
+    $capacity = AdminSetting::first()?->capacity ?? 5;
+    return Inertia::render('admin/Settings', ['deliverables' => $deliverables, 'cycles' => $cycles, 'capacity' => $capacity]);
   }
 public function courseDetails(Course $course)
   {

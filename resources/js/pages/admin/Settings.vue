@@ -26,9 +26,12 @@
 </div>
 <div class="glass-effect rounded-xl p-6 border border-primary/70 shadow-lg shadow-primary/20">
 <h2 class="text-3xl font-bold text-primary">Designer Capacity</h2>
-<input type="number" class="p-2 bg-primary/10 mt-8 w-min border border-primary/50" placeholder="0"/>
+<div class="flex flex-col gap-4">
+<input v-model="capacity" type="number" class="p-2 bg-primary/10 mt-8 w-min border border-primary/50" placeholder="0"/>
+<button class="btn w-max text-info bg-info/20 border-info shadow-md shadow-info-20" @click="updateCapacity">Update Capacity</button>
 </div>
-        <Deliverables :deliverables="(page.props as any).deliverables || []" class="col-span-2 row-span-3"/>
+</div>
+        <Deliverables :deliverables="(page.props as any).deliverables || []" />
     </div>
     <AddCycleModal :show="showModal" @close="showModal = false" />
     </div>
@@ -39,11 +42,16 @@
 import Deliverables from '@/components/Admin/Settings/Deliverables.vue';
 import AddCycleModal from '@/components/Admin/Settings/AddCycleModal.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
-import { usePage } from '@inertiajs/vue3';
+import { usePage, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const page = usePage();
 const showModal = ref(false);
+const capacity = ref((page.props as any).capacity);
+const updateCapacity = ()=> {
+router.post('/admin/settings', { capacity: capacity.value });
+router.reload({ only: ['capacity'] });
+}
 </script>
 
 <style scoped>

@@ -120,8 +120,5 @@ const statusCounts = computed(()=>{
 <style scoped>
 
 
-.frosted-backdrop {
-backdrop-filter: blur(var(--_gradient-blur)) contrast(100%) brightness(100%);
--webkit-backdrop-filter: blur(var(--_gradient-blur)) contrast(100%) brightness(100%);
-}
+
 </style>

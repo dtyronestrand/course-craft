@@ -1,9 +1,9 @@
 <template>
   <div
-    class="col-span-2 row-span-3 bg-base-100 text-base-content rounded-2xl p-4 border border-primary"
+    class="glass-effect rounded-xl p-6 flex flex-col gap-6 border border-primary/70 shadow-lg shadow-primary/20"
   >
-    <h2 class="text-3xl">Deliverables</h2>
-    <button class="btn btn-info" @click="addDeliverable">Add Deliverable</button>
+    <h2 class="text-3xl text-primary font-bold">Deliverables</h2>
+    <button class="btn bg-info/10 border-info text-info shadow-md shadow-info/10 w-max" @click="addDeliverable">Add Deliverable</button>
 
     <form class="table w-full mt-4">
       <table>
@@ -18,7 +18,7 @@
           <tr v-for="(deliverable, index) in deliverables" :key="index">
             <td><input type="text" v-model="deliverable.name" /></td>
             <td><input type="number" v-model="deliverable.template_days_offset" /></td>
-            <td><button class="btn btn-error" @click="() => removeDeliverable(index)">Remove</button></td>
+            <td><button class="btn bg-error/10 text-error border-error  shadow-md shadow-error " @click="() => removeDeliverable(index)">Remove</button></td>
           </tr>
         </tbody>
       </table>
