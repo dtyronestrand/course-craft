@@ -35,6 +35,7 @@ class AdminController extends Controller
       'recentActivities' => $this->activityService->getRecentActivities(10),
       'coursesByPrefix' => $this->courseService->coursesByPrefix(),
       'coursesNeedingAttention' => $this->courseService->coursesNeedAttention(),
+      'courses' => $this->courseService->getAllCourses(),
     ]);
   }
   public function courses()

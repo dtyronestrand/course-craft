@@ -1,6 +1,6 @@
 <template>
-    <div class="space-y-4">
-        <div v-for="activity in activities" :key="activity.id" class="flex gap-3 items-start p-3 hover:bg-base-200 rounded-lg transition-colors">
+    <div class="grow space-y-6 overflow-y-auto pr-2 -mr-2">
+        <div v-for="activity in activities" :key="activity.id" class="flex gap-4 hover:bg-base-200 rounded-lg transition-colors">
         <div class="avatar placeholder">
         <div class="flex items-center bg-primary text-primary-content rounded-full w-10 h-10">
         <p class="text-sm mx-auto">{{ activity.user.initials }}</p>
@@ -15,6 +15,7 @@
         No recent activity
         </div>
     </div>
+
 </template>
 
 <script setup lang="ts">

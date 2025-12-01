@@ -2,9 +2,9 @@
 <div class="drawer lg:drawer-open">
 <input id="sidebar" type="checkbox" class="drawer-toggle"/>
 <div class="drawer-content flex flex-col w-full overflow-x-hidden">
-<div class="w-full max-w-full">
+<main class="flex-1 flex gap-6 ml-4">
 <slot />
-</div>
+</main>
 <label for="sidebar" class="btn drawer-button lg:hidden">Open Sidebar</label>
 </div>
 <div class="drawer-side">
