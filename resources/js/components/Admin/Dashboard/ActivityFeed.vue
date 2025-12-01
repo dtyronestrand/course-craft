@@ -2,7 +2,7 @@
     <div class="grow space-y-6 overflow-y-auto pr-2 -mr-2">
         <div v-for="activity in activities" :key="activity.id" class="flex gap-4 hover:bg-base-200 rounded-lg transition-colors">
         <div class="avatar placeholder">
-        <div class="flex items-center bg-primary text-primary-content rounded-full w-10 h-10">
+        <div class="flex items-center bg-primary/10 border border-primary shadow-sm shadow-primary/20 frosted-backdrop text-primary rounded-full w-10 h-10">
         <p class="text-sm mx-auto">{{ activity.user.initials }}</p>
         </div>
         </div>

@@ -23,4 +23,12 @@ class AdminSettingsController extends Controller
 
         return back()->with('success', 'Admin settings updated successfully.');
     }
+
+    public function getCapacity()
+    {
+        $adminSetting = AdminSetting::first();
+        $capacity = $adminSetting ? $adminSetting->capacity : null;
+
+        return response()->json(['capacity' => $capacity]);
+    }
 }

@@ -1,4 +1,5 @@
 import '../css/app.css';
+import axios from 'axios';
 
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
@@ -16,6 +17,9 @@ configureEcho({
     enabledTransports: ['ws'],
 });
 
+// Configure axios for Sanctum SPA authentication
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 

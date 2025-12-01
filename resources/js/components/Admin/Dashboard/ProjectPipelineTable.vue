@@ -56,10 +56,10 @@ const defaultColumns = [
         cell: (info)  => {
         const status = info.getValue();
         const style = status === 'pending' 
-            ? 'bg-info/20 border border-info shadow-md shadow-info/20 px-3 py-1 rounded-full text-center text-info  font-bold inline-block'
+            ? 'bg-info/20 border border-info shadow-md frosted-backdrop shadow-info/20 px-3 py-1 rounded-full text-center text-info  font-bold inline-block'
             : status === 'completed'
-            ? 'bg-success px-3 py-1 rounded-full text-center text-success-content inline-block'
-            : 'bg-warning/20 border border-warning shadow-md shadow-warning/20 px-3 py-1 rounded-full text-center text-warning font-bold inline-block';
+            ? 'bg-success px-3 py-1 froted-backdrop rounded-full text-center text-success-content inline-block'
+            : 'bg-warning/20 border frosted-backdrop border-warning shadow-md shadow-warning/20 px-3 py-1 rounded-full text-center text-warning font-bold inline-block';
         return h('span', {class:style}, status.charAt(0).toUpperCase() + status.slice(1));
     }
 }),

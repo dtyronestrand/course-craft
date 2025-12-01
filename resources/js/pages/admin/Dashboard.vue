@@ -49,6 +49,7 @@ Avg Course Completion Time (Days)
 <h2 class="text-sm uppercase font-semibold text-success">Team Capacity</h2>
 <Users class="w-10 h-10 text-success"/>
 </div>
+<TeamCapacityChart class="flex-1 mt-4" />
 </div>
 </div>
 <div class="flex gap-6">
@@ -87,6 +88,7 @@ import {TriangleAlert, ChartColumnBig, SquareChartGantt, Users, ListFilter} from
 import ActivityFeed from '@/components/Admin/Dashboard/ActivityFeed.vue';
 import CourseStatusChart from '@/components/Admin/Dashboard/CourseStatusChart.vue';
 import ProjectPipelineTable from '@/components/Admin/Dashboard/ProjectPipelineTable.vue';
+import TeamCapacityChart from '@/components/Admin/Dashboard/TeamCapacityChart.vue';
 interface Activity {
     id: number;
     user: {name: string; initials: string;};

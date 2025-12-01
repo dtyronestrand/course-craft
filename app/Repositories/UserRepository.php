@@ -10,4 +10,9 @@ class UserRepository
     {
         return $user->update($data);
     }
+
+    public function workload()
+    {
+        return User::select('first_name', 'last_name')->withCount('courses')->get();
+    }
 }

@@ -2,7 +2,7 @@
   <AdminLayout>
     <div class="mx-12">
     <h1 class="text-7xl mb-8">Users</h1>
-    <button class="btn btn-info">Add New User</button>
+    <button class="frosted-backdrop btn bg-info/10 border-info text-info shadow-md shadow-info/10 w-max" >Add New User</button>
     <div class="grid grid-cols-3 gap-4 mt-8">
         <div v-for="user in (page.props.users as User[])" :key="user.id" class="max-w-md w-full bg-base-100/10 backdrop-blur-lg runded-3xl tranform hover:scale-[1.02] transition-tranform duration-500 ease-in-out p-8 relative overflow-hidden border border-primary/20">
             <div class="absolute -top-20 -right-20 w-40 h-40 bg-primary rounded-full mix-blend-multiply filter blur-xl opacity-70"></div>

@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\AdminSetting;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Services\UserService;
 use App\Services\DeliverableService;
 use App\Services\DevelopmentCycleService;
 use Inertia\Inertia;
@@ -18,13 +19,15 @@ class AdminController extends Controller
   protected $deliverableService;
   protected $developmentCycleService;
   protected $activityService;
+  protected $userService;
   
-  public function __construct(CourseService $courseService, DeliverableService $deliverableService, DevelopmentCycleService $developmentCycleService, ActivityService $activityService)
+  public function __construct(CourseService $courseService, DeliverableService $deliverableService, DevelopmentCycleService $developmentCycleService, ActivityService $activityService, UserService $userService)
   {
     $this->courseService = $courseService;
     $this->developmentCycleService = $developmentCycleService;
     $this->deliverableService = $deliverableService;
     $this->activityService = $activityService;
+    $this->userService = $userService;
   }
   
   public function index()
@@ -83,4 +86,11 @@ public function courseDetails(Course $course)
     $users = User::all();
     return Inertia::render('admin/Users', ['users' => $users]);
   }
+
+  public function userWorkloads()
+  {
+    $workloads = $this->userService->getUsersWorkloads();
+    return response()->json($workloads);
+  }
+
 }

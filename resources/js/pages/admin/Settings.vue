@@ -5,7 +5,7 @@
     <div class="grid grid-cols-2 gap-8 p-4">
 <div class="glass-effect rounded-xl p-6 border border-primary/70 shadow-lg shadow-primary/20">
 <h2 class="text-3xl text-primary font-bold">Development Cycles</h2>
-<button @click="showModal = true" class="btn bg-info/20 border-info text-info shadow-md shadow-info/20 my-4">Add New Cycle</button>
+<button @click="showModal = true" class="btn frosted-backdrop bg-info/20 border-info text-info shadow-md shadow-info/20 my-4">Add New Cycle</button>
 <div class="grow">
 <table class="w-full">
 <thead class="text-left border-b border-primary ">
@@ -27,8 +27,8 @@
 <div class="glass-effect rounded-xl p-6 border border-primary/70 shadow-lg shadow-primary/20">
 <h2 class="text-3xl font-bold text-primary">Designer Capacity</h2>
 <div class="flex flex-col gap-4">
-<input v-model="capacity" type="number" class="p-2 bg-primary/10 mt-8 w-min border border-primary/50" placeholder="0"/>
-<button class="btn w-max text-info bg-info/20 border-info shadow-md shadow-info-20" @click="updateCapacity">Update Capacity</button>
+<input v-model="capacity" type="number" class="frosted-backdrop p-2 bg-primary/20 mt-8 w-min border border-primary/50" placeholder="0"/>
+<button class="frosted-backdrop btn w-max text-info bg-info/20 border-info shadow-md shadow-info-20" @click="updateCapacity">Update Capacity</button>
 </div>
 </div>
         <Deliverables :deliverables="(page.props as any).deliverables || []" />
