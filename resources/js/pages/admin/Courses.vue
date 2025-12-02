@@ -2,8 +2,12 @@
 <AdminLayout>
 <div class="flex flex-col w-full p-8 align-center">
             <h1 class="text-7xl  block text-center my-8">All Courses</h1>
-            <button class="btn btn-info mb-6 self-end" @click="isCreateCourseModalOpen = true">Create New Course</button>
+            <button class="btn bg-info/20 border border-info text-info shadow-md shadow-info/20 frosted-backdrop mb-6 self-end" @click="isCreateCourseModalOpen = true">Create New Course</button>
   <CoursesTable  :courses="page.props.courses as any[]"/>
+  <div class="flex flex-row gap-4">
+  
+  
+  </div>
 
 
 </div>
