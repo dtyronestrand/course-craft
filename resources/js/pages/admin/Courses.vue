@@ -12,7 +12,7 @@
   <CoursesTable  :courses="page.props.courses as any[]"/>
             </div>
   <div v-else class="flex flex-row gap-4">
-  
+  <CoursesGrid :courses="page.props.courses as any[]"/>
   
   </div>
 
@@ -29,6 +29,7 @@
 import { usePage, router } from '@inertiajs/vue3';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import CoursesTable from '@/components/Admin/Courses/CoursesTable.vue';
+import CoursesGrid from '@/components/Admin/Courses/CoursesGrid.vue';
 import {List, Grid2x2} from 'lucide-vue-next';
 import { ref } from 'vue';
 import CreateCourse from '@/components/Course/CreateCourse.vue';
