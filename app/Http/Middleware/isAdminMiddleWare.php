@@ -16,8 +16,7 @@ class isAdminMiddleWare
     public function handle(Request $request, Closure $next): Response
     {
         if(!$request->user() || !$request->user()->is_admin) {
-            abort(403, 'Unauthorized');
-            redirect()->route('home');
+            return redirect()->route('home');
         }
         return $next($request);
     }

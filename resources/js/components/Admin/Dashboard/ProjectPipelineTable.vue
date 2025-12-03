@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import {useVueTable, FlexRender, getCoreRowModel, createColumnHelper} from '@tanstack/vue-table';
+import {useVueTable, FlexRender, getCoreRowModel, getGroupedRowModel, createColumnHelper} from '@tanstack/vue-table';
 import { ref , h} from 'vue'
 
 interface Props {
@@ -74,6 +74,7 @@ const table = useVueTable({
     data: data.value,
     columns: defaultColumns,
     getCoreRowModel: getCoreRowModel(),
+    getGroupedRowModel: getGroupedRowModel(),
 })
 
 </script>
