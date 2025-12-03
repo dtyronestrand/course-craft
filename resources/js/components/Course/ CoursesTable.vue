@@ -1,6 +1,6 @@
 <template>
-    <div class="flex-1 p-[0.5rem] rounded-lg glass overflow-y-auto">
-    <div class="w-full overflow-x-auto mb-[20px] rounded-lg shadow-[0 2px 4px rgba(0, 0, 0, 0.1)]">
+    <div class="flex-1 p-2 rounded-lg glass overflow-y-auto">
+    <div class="w-full overflow-x-auto mb-5 rounded-lg shadow-[0 2px 4px rgba(0, 0, 0, 0.1)]">
     <table class="min-w-[600px] w-full border-collapse">
     <thead>
     <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
@@ -12,7 +12,7 @@
     </thead>
     <tbody>
         <tr v-for="row in table.getRowModel().rows" :key="row.id" >
-            <td v-for="cell in row.getVisibleCells()" :key="cell.id" class="p-[10px] border-b border-accent text-center">
+            <td v-for="cell in row.getVisibleCells()" :key="cell.id" class="p-2.5 border-b border-accent text-center">
                 <FlexRender :render="cell.column.columnDef.cell" :props=" cell.getContext()" />
             </td>
         </tr>
