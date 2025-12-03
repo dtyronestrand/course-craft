@@ -1,58 +1,93 @@
 <template>
-    <div class="max-w-none prose mt-4 border" v-if="!isEditing">
-    <details>
-      <summary class="flex flex-row justify-between items-center text-xl p-4 w-full border-b border-secondary bg-primary ">
-        <h4 class="text-primary-content">Discussion: {{ module.items[index].itemable?.title}} </h4>
-     <div class="flex flex-row gap-4">
-              <EditButton background="success" @click="isEditing = true" />
-       <DeleteButton @click="deleteDiscussion" />
-    </div>
-      </summary>
-      <div class="prose max-w-none">
-        <h5 class=" text-lg w-full p-4 bg-neutral border-b border-t">Prompt</h5>
-        <div class="p-4" v-html="module.items[index].itemable?.prompt"></div>
-      
-        <h5 class="text-lg w-full p-4 bg-neutral border-b border-t">Settings</h5>
-        <div class="p-4"> 
-            <p>Graded: {{ discussionSettings?.graded ? 'Yes' : 'No' }}</p>
-            <p v-if="discussionSettings?.graded">Point Value: {{ discussionSettings?.point_value }}</p>
-        </div>
-      </div>
-     
-    </details>
-    </div>
-<div v-else>
-    <form @submit.prevent="updateDiscussion"  class=" border border-secondary">
-    <input v-model="form.title" type="text" class="input  h-full p-4 bg-base-300 w-full max-w-md text-3xl mb-4 mt-2" />
-        <h4 class="p-4 text-2xl">Prompt</h4>
-        <TipTap v-model="form.prompt" />
-      
-        <h4 class="p-4 text-2xl">Settings</h4>
-        <div class="p-4">
-        <label for="graded">Graded</label>
-<input type="checkbox" v-model="form.settings.graded" id="graded" class="checkbox checkbox-bordered mx-4" />
+    <div class="prose mt-4 max-w-none border" v-if="!isEditing">
+        <details>
+            <summary
+                class="flex w-full flex-row items-center justify-between border-b border-secondary bg-primary p-4 text-xl"
+            >
+                <h4 class="text-primary-content">
+                    Discussion: {{ module.items[index].itemable?.title }}
+                </h4>
+                <div class="flex flex-row gap-4">
+                    <EditButton
+                        background="success"
+                        @click="isEditing = true"
+                    />
+                    <DeleteButton @click="deleteDiscussion" />
+                </div>
+            </summary>
+            <div class="prose max-w-none">
+                <h5 class="w-full border-t border-b bg-neutral p-4 text-lg">
+                    Prompt
+                </h5>
+                <div
+                    class="p-4"
+                    v-html="module.items[index].itemable?.prompt"
+                ></div>
 
-            <input v-if="form.settings.graded" v-model="form.settings.point_value" type="number" class="input input-bordered w-full mx-4 max-w-xs mb-4 mt-2" placeholder="Point Value" />
+                <h5 class="w-full border-t border-b bg-neutral p-4 text-lg">
+                    Settings
+                </h5>
+                <div class="p-4">
+                    <p>
+                        Graded: {{ discussionSettings?.graded ? 'Yes' : 'No' }}
+                    </p>
+                    <p v-if="discussionSettings?.graded">
+                        Point Value: {{ discussionSettings?.point_value }}
+                    </p>
+                </div>
+            </div>
+        </details>
+    </div>
+    <div v-else>
+        <form
+            @submit.prevent="updateDiscussion"
+            class="border border-secondary"
+        >
+            <input
+                v-model="form.title"
+                type="text"
+                class="input mt-2 mb-4 h-full w-full max-w-md bg-base-300 p-4 text-3xl"
+            />
+            <h4 class="p-4 text-2xl">Prompt</h4>
+            <TipTap v-model="form.prompt" />
 
+            <h4 class="p-4 text-2xl">Settings</h4>
+            <div class="p-4">
+                <label for="graded">Graded</label>
+                <input
+                    type="checkbox"
+                    v-model="form.settings.graded"
+                    id="graded"
+                    class="checkbox-bordered checkbox mx-4"
+                />
+
+                <input
+                    v-if="form.settings.graded"
+                    v-model="form.settings.point_value"
+                    type="number"
+                    class="input-bordered input mx-4 mt-2 mb-4 w-full max-w-xs"
+                    placeholder="Point Value"
+                />
+            </div>
+            <div class="flex flex-row gap-4 p-4">
+                <UpdateButton
+                    :itemType="props.module.items[index].itemable_type"
+                />
+                <CancelButton @click="isEditing = false" />
+            </div>
+        </form>
     </div>
-    <div class="flex flex-row gap-4 p-4">
-          <UpdateButton :itemType="props.module.items[index].itemable_type"/>
-           <CancelButton @click="isEditing=false"/>
-    </div>
-    </form>
-    </div>
- 
 </template>
 
 <script setup lang="ts">
-import { CourseModule } from "@/types";
-import { ref, computed } from "vue";
-import {useForm} from "@inertiajs/vue3";
-import TipTap from "@/components/TipTap.vue";
-import EditButton from "@/components/EditButton.vue";
-import DeleteButton from "@/components/DeleteButton.vue";
-import UpdateButton from "@/components/Course/Module/Items/Buttons/UpdateButton.vue";
-import CancelButton from "../Buttons/CancelButton.vue";
+import UpdateButton from '@/components/Course/Module/Items/Buttons/UpdateButton.vue';
+import DeleteButton from '@/components/DeleteButton.vue';
+import EditButton from '@/components/EditButton.vue';
+import TipTap from '@/components/TipTap.vue';
+import { CourseModule } from '@/types';
+import { useForm } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
+import CancelButton from '../Buttons/CancelButton.vue';
 
 const props = defineProps<{
     module: CourseModule;
@@ -70,22 +105,27 @@ const form = useForm({
     title: props.module.items[props.index].itemable?.title || '',
     prompt: props.module.items[props.index].itemable?.prompt || '',
     settings: (props.module.items[props.index].itemable?.settings as any) || {
-    point_value: 0, graded: false},
+        point_value: 0,
+        graded: false,
+    },
 });
 
 const updateDiscussion = () => {
-    form.put(`/course_discussions/${props.module.items[props.index].itemable_id}`, {
-        onSuccess: () => {
-            isEditing.value = false;
-        }
-    });
+    form.put(
+        `/course_discussions/${props.module.items[props.index].itemable_id}`,
+        {
+            onSuccess: () => {
+                isEditing.value = false;
+            },
+        },
+    );
 };
 
 const deleteDiscussion = () => {
-    form.delete(`/course_discussions/${props.module.items[props.index].itemable_id}`);
+    form.delete(
+        `/course_discussions/${props.module.items[props.index].itemable_id}`,
+    );
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -40,6 +40,7 @@ class AdminController extends Controller
       'coursesByPrefix' => $this->courseService->coursesByPrefix(),
       'coursesNeedingAttention' => $this->courseService->coursesNeedAttention(),
       'courses' => $this->courseService->getAllCourses(),
+      'avgCompletionTime' => $this->courseService->averageCompletionRate(),
     ]);
   }
   public function courses()

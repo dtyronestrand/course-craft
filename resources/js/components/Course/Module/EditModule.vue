@@ -1,12 +1,11 @@
 <template>
     <div class="mx-32 flex gap-4 border bg-base-300 p-8">
-        
         <form
             v-if="props.parent === 'map'"
             @submit.prevent="handleSubmit"
             class="w-full"
         >
-          <div class="mb-4 flex flex-row gap-4">
+            <div class="mb-4 flex flex-row gap-4">
                 <label class="label text-2xl" for="number"
                     >Module {{ form.number }}:</label
                 >
@@ -45,7 +44,9 @@
                         :key="index"
                         class="mb-2 flex flex-row flex-nowrap gap-4"
                     >
-                    {{ form.number }}.{{ form.module_objectives[index].number }}
+                        {{ form.number }}.{{
+                            form.module_objectives[index].number
+                        }}
 
                         <input
                             class="input w-full pl-4"
@@ -123,7 +124,7 @@
                 Add Assessment
             </button>
             <div class="flex flex-col">
-                <label class="label my-4 text-2xl">
+                <label class="my-4 label text-2xl">
                     <span class="label-text">Instructional Activities:</span>
                 </label>
                 <div
@@ -134,18 +135,21 @@
                     <input
                         v-model="form.course_instructions[index].title"
                         placeholder="Activity"
-                        class="input-bordered input w-full "
+                        class="input-bordered input w-full"
                     />
-                <label class="label mt-2">
-                    <span class="label-text">Aligned Module Objectives:</span>
-                </label>
-              
-                <ModuleObjectiveDropDown
-                    :objectives="objectives"
-                    v-model="
-                        form.course_instructions[index].aligned_module_objectives
-                    "
-                />
+                    <label class="label mt-2">
+                        <span class="label-text"
+                            >Aligned Module Objectives:</span
+                        >
+                    </label>
+
+                    <ModuleObjectiveDropDown
+                        :objectives="objectives"
+                        v-model="
+                            form.course_instructions[index]
+                                .aligned_module_objectives
+                        "
+                    />
                     <button
                         type="button"
                         class="btn w-24 text-error-content btn-sm btn-error"
@@ -157,11 +161,13 @@
                 <button
                     type="button"
                     class="btn my-4 w-max text-info-content btn-sm btn-info"
-                    @click="form.course_instructions.push({
-                         title: '',
-                         type: '',
-                         aligned_module_objectives: [],
-                    })"
+                    @click="
+                        form.course_instructions.push({
+                            title: '',
+                            type: '',
+                            aligned_module_objectives: [],
+                        })
+                    "
                 >
                     Add Activity
                 </button>
@@ -212,7 +218,7 @@
             >
                 Add Material
             </button>
-              <div class="flex flex-col">
+            <div class="flex flex-col">
                 <label class="my-4 label text-2xl">
                     <span class="label-text">Library Media Needs:</span>
                 </label>
@@ -234,7 +240,8 @@
                 <ModuleObjectiveDropDown
                     :objectives="objectives"
                     v-model="
-                        form.course_media_library_needs[index].aligned_module_objectives
+                        form.course_media_library_needs[index]
+                            .aligned_module_objectives
                     "
                 />
                 <button
@@ -342,7 +349,7 @@
 </template>
 
 <script setup lang="ts">
-import {  CourseModule, ModuleObjective } from '@/types';
+import { CourseModule, ModuleObjective } from '@/types';
 import { useForm } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import ModuleObjectiveDropDown from './ModuleObjectiveDropDown.vue';
@@ -356,7 +363,7 @@ interface Props {
         }[];
         modules: CourseModule[];
     };
-  module: CourseModule | null;
+    module: CourseModule | null;
     parent: string;
     numberOfModules: number;
 }
@@ -374,25 +381,55 @@ const form = useForm({
     number: props.module?.order_index,
     module_objectives: (props.module?.module_objectives ??
         []) as ModuleObjective[],
-    course_objectives: props.module?.course_objectives?.map(obj => obj.number) ?? [],
-    course_assessments: props.module?.assessments?.map(assessment => ({
-        ...assessment,
-        aligned_module_objectives: (assessment as any).objectives?.map((obj: any) => obj.number) || []
-    })) || [],
-    course_instructions: (props.module?.instructions?.map(instruction => ({
-        title: typeof instruction === 'string' ? instruction : (instruction as any).title,
-        type: typeof instruction === 'string' ? '' : ((instruction as any).type || ''),
-        aligned_module_objectives: typeof instruction === 'string' ? [] : ((instruction as any).objectives?.map((obj: any) => obj.number) || [])
-    })) ?? []) as Array<{ title: string; type: string; aligned_module_objectives: string[] }>,
-    course_materials: (props.module?.materials?.map(material => 
-        typeof material === 'string' 
+    course_objectives:
+        props.module?.course_objectives?.map((obj) => obj.number) ?? [],
+    course_assessments:
+        props.module?.assessments?.map((assessment) => ({
+            ...assessment,
+            aligned_module_objectives:
+                (assessment as any).objectives?.map((obj: any) => obj.number) ||
+                [],
+        })) || [],
+    course_instructions: (props.module?.instructions?.map((instruction) => ({
+        title:
+            typeof instruction === 'string'
+                ? instruction
+                : (instruction as any).title,
+        type:
+            typeof instruction === 'string'
+                ? ''
+                : (instruction as any).type || '',
+        aligned_module_objectives:
+            typeof instruction === 'string'
+                ? []
+                : (instruction as any).objectives?.map(
+                      (obj: any) => obj.number,
+                  ) || [],
+    })) ?? []) as Array<{
+        title: string;
+        type: string;
+        aligned_module_objectives: string[];
+    }>,
+    course_materials: (props.module?.materials?.map((material) =>
+        typeof material === 'string'
             ? { title: material, aligned_module_objectives: [] }
-            : { title: (material as any).title, aligned_module_objectives: (material as any).objectives?.map((obj: any) => obj.number) || [] }
+            : {
+                  title: (material as any).title,
+                  aligned_module_objectives:
+                      (material as any).objectives?.map(
+                          (obj: any) => obj.number,
+                      ) || [],
+              },
     ) ?? []) as Array<{ title: string; aligned_module_objectives: string[] }>,
-    course_media_library_needs: (props.module?.needs?.map(need => 
-        typeof need === 'string' 
+    course_media_library_needs: (props.module?.needs?.map((need) =>
+        typeof need === 'string'
             ? { title: need, aligned_module_objectives: [] }
-            : { title: (need as any).title, aligned_module_objectives: (need as any).objectives?.map((obj: any) => obj.number) || [] }
+            : {
+                  title: (need as any).title,
+                  aligned_module_objectives:
+                      (need as any).objectives?.map((obj: any) => obj.number) ||
+                      [],
+              },
     ) ?? []) as Array<{ title: string; aligned_module_objectives: string[] }>,
     course_id: props.course.id,
 });

@@ -1,11 +1,6 @@
 <template>
     <div class="mx-32 flex gap-4 border bg-base-300 p-8">
-    
-       <form
-          
-            @submit.prevent="handleSubmit"
-            class="w-full"
-        >
+        <form @submit.prevent="handleSubmit" class="w-full">
             <div class="mb-4 flex flex-row gap-4">
                 <label class="label text-2xl" for="number"
                     >Module {{ form.number }}:</label
@@ -46,7 +41,7 @@
                     :key="index"
                     class="mb-2 flex flex-row flex-nowrap gap-4"
                 >
-                {{ form.number }}.{{ form.module_objectives[index].number }}
+                    {{ form.number }}.{{ form.module_objectives[index].number }}
 
                     <input
                         class="input w-full pl-4"
@@ -56,7 +51,7 @@
                     />
                     <button
                         type="button"
-                        class="bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" 
+                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-[0.9375em] border-[0.125em] border-secondary bg-error px-[1.5em] py-[0.25em] text-center font-bold text-error-content duration-300 will-change-transform outline-none hover:bg-secondary hover:text-secondary-content active:translate-y-0 active:shadow-none disabled:pointer-events-none"
                         @click="form.module_objectives.splice(index, 1)"
                     >
                         Remove
@@ -65,7 +60,7 @@
             </ol>
             <button
                 type="button"
-                class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" 
+                class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-[0.9375em] border-[0.125em] border-secondary bg-info px-[1.5em] py-[0.25em] text-center font-bold text-info-content duration-300 will-change-transform outline-none hover:bg-secondary hover:text-secondary-content active:translate-y-0 active:shadow-none disabled:pointer-events-none"
                 @click="
                     form.module_objectives.push({
                         number: `${form.module_objectives.length + 1}`,
@@ -102,7 +97,7 @@
                 />
                 <button
                     type="button"
-                  class="self-start bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" 
+                    class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none self-start rounded-[0.9375em] border-[0.125em] border-secondary bg-error px-[1.5em] py-[0.25em] text-center font-bold text-error-content duration-300 will-change-transform outline-none hover:bg-secondary hover:text-secondary-content active:translate-y-0 active:shadow-none disabled:pointer-events-none"
                     @click="form.course_assessments.splice(index, 1)"
                 >
                     Remove
@@ -111,7 +106,7 @@
 
             <button
                 type="button"
-                class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" 
+                class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-[0.9375em] border-[0.125em] border-secondary bg-info px-[1.5em] py-[0.25em] text-center font-bold text-info-content duration-300 will-change-transform outline-none hover:bg-secondary hover:text-secondary-content active:translate-y-0 active:shadow-none disabled:pointer-events-none"
                 @click="
                     form.course_assessments.push({
                         title: '',
@@ -123,7 +118,7 @@
                 Add Assessment
             </button>
             <div class="flex flex-col">
-                <label class="label my-4 text-2xl">
+                <label class="my-4 label text-2xl">
                     <span class="label-text">Instructional Activities:</span>
                 </label>
             </div>
@@ -137,20 +132,21 @@
                     placeholder="Activity"
                     class="input-bordered input w-full max-w-xs"
                 />
-     
-            <label class="label mt-2">
-                <span class="label-text">Aligned Module Objectives:</span>
-            </label>
 
-            <ModuleObjectiveDropDown
-                :objectives="objectives"
-                v-model="
-                    form.course_instructions[index].aligned_module_objectives
-                "
-            />
+                <label class="label mt-2">
+                    <span class="label-text">Aligned Module Objectives:</span>
+                </label>
+
+                <ModuleObjectiveDropDown
+                    :objectives="objectives"
+                    v-model="
+                        form.course_instructions[index]
+                            .aligned_module_objectives
+                    "
+                />
                 <button
                     type="button"
-                  class="self-start bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" 
+                    class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none self-start rounded-[0.9375em] border-[0.125em] border-secondary bg-error px-[1.5em] py-[0.25em] text-center font-bold text-error-content duration-300 will-change-transform outline-none hover:bg-secondary hover:text-secondary-content active:translate-y-0 active:shadow-none disabled:pointer-events-none"
                     @click="form.course_instructions.splice(index, 1)"
                 >
                     Remove
@@ -158,11 +154,13 @@
             </div>
             <button
                 type="button"
-               class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" 
-                @click="form.course_instructions.push({
-                     title: '',
-                     aligned_module_objectives: [],
-                })"
+                class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-[0.9375em] border-[0.125em] border-secondary bg-info px-[1.5em] py-[0.25em] text-center font-bold text-info-content duration-300 will-change-transform outline-none hover:bg-secondary hover:text-secondary-content active:translate-y-0 active:shadow-none disabled:pointer-events-none"
+                @click="
+                    form.course_instructions.push({
+                        title: '',
+                        aligned_module_objectives: [],
+                    })
+                "
             >
                 Add Activity
             </button>
@@ -193,7 +191,7 @@
                 />
                 <button
                     type="button"
-                    class="self-start bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" 
+                    class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none self-start rounded-[0.9375em] border-[0.125em] border-secondary bg-error px-[1.5em] py-[0.25em] text-center font-bold text-error-content duration-300 will-change-transform outline-none hover:bg-secondary hover:text-secondary-content active:translate-y-0 active:shadow-none disabled:pointer-events-none"
                     @click="form.course_materials.splice(index, 1)"
                 >
                     Remove
@@ -202,7 +200,7 @@
 
             <button
                 type="button"
-                class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" 
+                class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-[0.9375em] border-[0.125em] border-secondary bg-info px-[1.5em] py-[0.25em] text-center font-bold text-info-content duration-300 will-change-transform outline-none hover:bg-secondary hover:text-secondary-content active:translate-y-0 active:shadow-none disabled:pointer-events-none"
                 @click="
                     form.course_materials.push({
                         title: '',
@@ -212,7 +210,7 @@
             >
                 Add Material
             </button>
-              <div class="flex flex-col">
+            <div class="flex flex-col">
                 <label class="my-4 label text-2xl">
                     <span class="label-text">Library Media Needs:</span>
                 </label>
@@ -234,12 +232,13 @@
                 <ModuleObjectiveDropDown
                     :objectives="objectives"
                     v-model="
-                        form.course_media_library_needs[index].aligned_module_objectives
+                        form.course_media_library_needs[index]
+                            .aligned_module_objectives
                     "
                 />
                 <button
                     type="button"
-                   class="self-start bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" 
+                    class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none self-start rounded-[0.9375em] border-[0.125em] border-secondary bg-error px-[1.5em] py-[0.25em] text-center font-bold text-error-content duration-300 will-change-transform outline-none hover:bg-secondary hover:text-secondary-content active:translate-y-0 active:shadow-none disabled:pointer-events-none"
                     @click="form.course_media_library_needs.splice(index, 1)"
                 >
                     Remove
@@ -248,7 +247,7 @@
 
             <button
                 type="button"
-              class="bg-info text-info-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" 
+                class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-[0.9375em] border-[0.125em] border-secondary bg-info px-[1.5em] py-[0.25em] text-center font-bold text-info-content duration-300 will-change-transform outline-none hover:bg-secondary hover:text-secondary-content active:translate-y-0 active:shadow-none disabled:pointer-events-none"
                 @click="
                     form.course_media_library_needs.push({
                         title: '',
@@ -258,28 +257,31 @@
             >
                 Add Media/Library Need
             </button>
-            <div class="flex flex-row gap-4 mt-8">
-                <button type="submit" class="bg-success text-success-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" >Save</button>
+            <div class="mt-8 flex flex-row gap-4">
+                <button
+                    type="submit"
+                    class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-[0.9375em] border-[0.125em] border-secondary bg-success px-[1.5em] py-[0.25em] text-center font-bold text-success-content duration-300 will-change-transform outline-none hover:bg-secondary hover:text-secondary-content active:translate-y-0 active:shadow-none disabled:pointer-events-none"
+                >
+                    Save
+                </button>
                 <button
                     type="button"
-                  class="bg-error text-error-content appearance-none border-[0.125em] border-secondary rounded-[0.9375em] box-border cursor-pointer inline-block font-bold m-0 min-height-[3.75em] min-width-0 outline-none py-[0.25em] px-[1.5em] text-center decoration-none transition-[all duration-300 cubic-bezier(.23,1, 0.32,1)] user-select-none touch-manipulation will-change-transform disabled:pointer-events-none hover:text-secondary-content hover:bg-secondary hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] -translate-y-0.5 active:shadow-none active:translate-y-0" 
+                    class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-[0.9375em] border-[0.125em] border-secondary bg-error px-[1.5em] py-[0.25em] text-center font-bold text-error-content duration-300 will-change-transform outline-none hover:bg-secondary hover:text-secondary-content active:translate-y-0 active:shadow-none disabled:pointer-events-none"
                     @click="emit('close')"
                 >
                     Cancel
                 </button>
             </div>
         </form>
-      
     </div>
 </template>
 
 <script setup lang="ts">
-
 import { useForm } from '@inertiajs/vue3';
 
+import { Course_Assessment, ModuleObjective } from '@/types';
+import { computed } from 'vue';
 import ModuleObjectiveDropDown from './ModuleObjectiveDropDown.vue';
-import {computed} from 'vue';
-import { ModuleObjective, Course_Assessment } from '@/types';
 interface Props {
     course: {
         id: number;
@@ -305,24 +307,32 @@ interface Props {
 const props = defineProps<Props>();
 const emit = defineEmits(['close']);
 
-
-
 const form = useForm({
     title: '',
     number: props.numberOfModules + 1,
     module_objectives: [] as ModuleObjective[],
     course_objectives: [],
     course_assessments: [] as Course_Assessment[],
-    course_instructions: [] as {title: string; aligned_module_objectives: string[]}[],
-    course_materials: [] as { title: string; aligned_module_objectives: string[] }[],
-    course_media_library_needs: [] as { title: string; aligned_module_objectives: string[] }[],
+    course_instructions: [] as {
+        title: string;
+        aligned_module_objectives: string[];
+    }[],
+    course_materials: [] as {
+        title: string;
+        aligned_module_objectives: string[];
+    }[],
+    course_media_library_needs: [] as {
+        title: string;
+        aligned_module_objectives: string[];
+    }[],
     course_id: props.course.id,
 });
 
 const objectives = computed(() => {
     const existingObjectives =
-        props.course.modules?.flatMap((module) => module.objectives).filter(obj => obj !== undefined) ||
-        [];
+        props.course.modules
+            ?.flatMap((module) => module.objectives)
+            .filter((obj) => obj !== undefined) || [];
     return [...existingObjectives, ...form.module_objectives];
 });
 

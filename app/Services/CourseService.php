@@ -8,6 +8,7 @@ use App\Actions\Courses\DeleteCourseAction;
 use App\Models\Course;
 use App\Models\User;
 use App\Repositories\CourseRepository;
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
 class CourseService
 {
@@ -95,5 +96,22 @@ class CourseService
     public function updateCourseDeliverable(Course $course, $deliverable, array $pivotData)
     {
         return $this->courseRepository->updatePivot($course, $deliverable, $pivotData);
+    }
+    public function averageCompletionRate()
+    {
+        $courses = $this->courseRepository->getCurrentCycleCompletedCourses();
+        if ($courses->isEmpty()) {
+            return 'No data';
+        } else {
+            $daysToComplete = [];
+            foreach($courses as $course) {
+               $start = \Carbon\Carbon::parse($course->start);
+               $completion = \Carbon\Carbon::parse($course->completion_date);
+               $daysTaken = $start->diffInDays($completion);
+              return $daysToComplete[] = $daysTaken;
+            }
+            $averageDays = array_sum($daysToComplete) / count($daysToComplete);
+            return round($averageDays, 2) . ' days';
+        }
     }
 }

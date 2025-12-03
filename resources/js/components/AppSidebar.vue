@@ -14,9 +14,13 @@ import {
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { LayoutGrid, PersonStanding, Settings, ArrowRightToLine} from 'lucide-vue-next';
+import {
+    ArrowRightToLine,
+    LayoutGrid,
+    PersonStanding,
+    Settings,
+} from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
-
 
 const mainNavItems: NavItem[] = [
     {
@@ -33,16 +37,15 @@ const mainNavItems: NavItem[] = [
         title: 'Settings',
         href: '/admin/settings',
         icon: Settings,
-    }
+    },
 ];
 
 const footerNavItems: NavItem[] = [
     {
-       title: 'Log Out',
-       href: '/logout',
-       icon: ArrowRightToLine,
+        title: 'Log Out',
+        href: '/logout',
+        icon: ArrowRightToLine,
     },
-
 ];
 </script>
 

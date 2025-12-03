@@ -1,15 +1,15 @@
 <template>
- <New>
-    <BasicInfo :course="course"/>
-    <MapComponent :numberOfModules="numberOfModules" :course="course"/>
-</New>
+    <New>
+        <BasicInfo :course="course" />
+        <MapComponent :numberOfModules="numberOfModules" :course="course" />
+    </New>
 </template>
 
 <script setup lang="ts">
 import BasicInfo from '@/components/Course/BasicInfo.vue';
-import New from '@/layouts/New.vue';
-import {Course} from "@/types";
 import MapComponent from '@/components/Course/Map.vue';
+import New from '@/layouts/New.vue';
+import { Course } from '@/types';
 
 defineProps<{
     course: Course;
@@ -17,6 +17,4 @@ defineProps<{
 }>();
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

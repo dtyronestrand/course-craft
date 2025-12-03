@@ -5,187 +5,179 @@
 
 @plugin "daisyui";
 
-
-
 @plugin "daisyui/theme" {
-  name: "winter";
-  default: true;
+    name: 'winter';
+    default: true;
 
-  --color-base-100: oklch(20% 0.08 209);
-  --color-base-200: oklch(15% 0.08 209);
-  --color-base-300: oklch(10% 0.08 209);
-  --color-base-content: oklch(90% 0.076 70.697);
-  --color-primary: oklch(92% 0.2653 125);
-  --color-primary-content: oklch(50% 0.2653 125);
-  --color-secondary: oklch(83.27% 0.0764 298.3);
-  --color-secondary-content: oklch(43.27% 0.0764 298.3);
-  --color-accent: oklch(43% 0 0);
-  --color-accent-content: oklch(98% 0 0);
-  --color-neutral: oklch(30% 0.08 209);
-  --color-neutral-content: oklch(90% 0.076 70.697);
-  --color-info: oklch(74% 0.16 232.661);
-  --color-info-content: oklch(29% 0.066 243.157);
-  --color-success: oklch(79% 0.209 151.711);
-  --color-success-content: oklch(26% 0.065 152.934);
-  --color-warning: oklch(84.8% 0.1962 84.62);
-  --color-warning-content: oklch(44.8% 0.1962 84.62);
-  --color-error: oklch(65% 0.1985 24.22);
-  --color-error-content: oklch(27% 0.1985 24.22);
-  --radius-selector: 2rem;
-  --radius-field: 0.25rem;
-  --radius-box: 0.5rem;
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
-  --border: 1px;
-  --depth: 1;
-  --noise: 0;
+    --color-base-100: oklch(20% 0.08 209);
+    --color-base-200: oklch(15% 0.08 209);
+    --color-base-300: oklch(10% 0.08 209);
+    --color-base-content: oklch(90% 0.076 70.697);
+    --color-primary: oklch(92% 0.2653 125);
+    --color-primary-content: oklch(50% 0.2653 125);
+    --color-secondary: oklch(83.27% 0.0764 298.3);
+    --color-secondary-content: oklch(43.27% 0.0764 298.3);
+    --color-accent: oklch(43% 0 0);
+    --color-accent-content: oklch(98% 0 0);
+    --color-neutral: oklch(30% 0.08 209);
+    --color-neutral-content: oklch(90% 0.076 70.697);
+    --color-info: oklch(74% 0.16 232.661);
+    --color-info-content: oklch(29% 0.066 243.157);
+    --color-success: oklch(79% 0.209 151.711);
+    --color-success-content: oklch(26% 0.065 152.934);
+    --color-warning: oklch(84.8% 0.1962 84.62);
+    --color-warning-content: oklch(44.8% 0.1962 84.62);
+    --color-error: oklch(65% 0.1985 24.22);
+    --color-error-content: oklch(27% 0.1985 24.22);
+    --radius-selector: 2rem;
+    --radius-field: 0.25rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
 }
 
-
-
-
-
-@plugin "daisyui/theme"
-{
- name:"my";
- default:false;
+@plugin "daisyui/theme" {
+    name: 'my';
+    default: false;
 
     --_gradient-blend-mode: normal;
     --_gradient-blur: 40px;
-    --color-base-100: oklch(0% 0 0);           /* Base 1 (Background): #000000 */
-  --color-base-200: oklch(15% 0 0);           /* Base 2 (Slightly Lighter Gray) */
-  --color-base-300: oklch(30% 0 0);          /* Base 3 (Lighter Gray) */
-  --color-base-content: oklch(100% 0 0);     /* Base Content (Text on background): White */
+    --color-base-100: oklch(0% 0 0); /* Base 1 (Background): #000000 */
+    --color-base-200: oklch(15% 0 0); /* Base 2 (Slightly Lighter Gray) */
+    --color-base-300: oklch(30% 0 0); /* Base 3 (Lighter Gray) */
+    --color-base-content: oklch(
+        100% 0 0
+    ); /* Base Content (Text on background): White */
 
-  /* --- MAIN PALETTE --- */
-  --color-primary: oklch(91% 0.17 96);        /* Primary: #FFCF00 */
-  --color-primary-content: oklch(0% 0 0);      /* Primary Content: Black */
+    /* --- MAIN PALETTE --- */
+    --color-primary: oklch(91% 0.17 96); /* Primary: #FFCF00 */
+    --color-primary-content: oklch(0% 0 0); /* Primary Content: Black */
 
-  --color-secondary: oklch(74.30% 0.1072 192.78);     /* Secondary:  Foutain Blue */
-  --color-secondary-content: oklch(0% 0 0);    /* Secondary Content: Black */
+    --color-secondary: oklch(
+        74.3% 0.1072 192.78
+    ); /* Secondary:  Foutain Blue */
+    --color-secondary-content: oklch(0% 0 0); /* Secondary Content: Black */
 
-  --color-accent: oklch(31% 0.05 231);        /* Accent: #224757 */
-  --color-accent-content: oklch(100% 0 0);     /* Accent Content: White */
+    --color-accent: oklch(31% 0.05 231); /* Accent: #224757 */
+    --color-accent-content: oklch(100% 0 0); /* Accent Content: White */
 
-  --color-neutral: oklch(60% 0 0);           /* Neutral: #CDCDCD */
-  --color-neutral-content: oklch(100% 0 0);      /* Neutral Content: Black */
+    --color-neutral: oklch(60% 0 0); /* Neutral: #CDCDCD */
+    --color-neutral-content: oklch(100% 0 0); /* Neutral Content: Black */
 
-  /* --- UTILITY COLORS --- */
-  --color-info: oklch(65% 0.1 240);          /* Info: Medium Blue */
-  --color-info-content: oklch(0% 0 0);        /* Info Content: Black */
+    /* --- UTILITY COLORS --- */
+    --color-info: oklch(65% 0.1 240); /* Info: Medium Blue */
+    --color-info-content: oklch(0% 0 0); /* Info Content: Black */
 
-  --color-success: oklch(65% 0.1 140);       /* Success: Medium Green */
-  --color-success-content: oklch(0% 0 0);      /* Success Content: Black */
+    --color-success: oklch(65% 0.1 140); /* Success: Medium Green */
+    --color-success-content: oklch(0% 0 0); /* Success Content: Black */
 
-  --color-warning: oklch(75% 0.15 96);       /* Warning: Darker Yellow/Gold */
-  --color-warning-content: oklch(0% 0 0);      /* Warning Content: Black */
+    --color-warning: oklch(75% 0.15 96); /* Warning: Darker Yellow/Gold */
+    --color-warning-content: oklch(0% 0 0); /* Warning Content: Black */
 
-  --color-error: oklch(55% 0.15 30);         /* Error: Medium Red */
-  --color-error-content: oklch(100% 0 0);      /* Error Content: White */
+    --color-error: oklch(55% 0.15 30); /* Error: Medium Red */
+    --color-error-content: oklch(100% 0 0); /* Error Content: White */
 
-  /* --- RADIUS & SIZE OVERRIDES --- */
-  --radius-selector: 0.5rem;
-  --radius-field: 0.5rem;
-  --radius-box: 1rem;
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
-  --border: 1px;
-  --depth: 1;
-  --noise: 0;
+    /* --- RADIUS & SIZE OVERRIDES --- */
+    --radius-selector: 0.5rem;
+    --radius-field: 0.5rem;
+    --radius-box: 1rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
 
-  /* --- Modern Daisy UI Aliases (optional, but good practice) --- */
-  --rounded-box: 1rem;
-  --rounded-btn: 0.5rem;
-  --rounded-badge: 1.9rem;
-  --animation-btn: 0.25s;
-  --animation-input: 0.2s;
-  --btn-focus-scale: 0.95;
-  --border-btn: 1px;
-  --tab-border: 1px;
-  --tab-radius: 0.5rem;
- 
-  }
-
-
-
-
+    /* --- Modern Daisy UI Aliases (optional, but good practice) --- */
+    --rounded-box: 1rem;
+    --rounded-btn: 0.5rem;
+    --rounded-badge: 1.9rem;
+    --animation-btn: 0.25s;
+    --animation-input: 0.2s;
+    --btn-focus-scale: 0.95;
+    --border-btn: 1px;
+    --tab-border: 1px;
+    --tab-radius: 0.5rem;
+}
 
 @plugin "daisyui/theme" {
-  name: "secondy";
-  default: false;
-  --color-base-100: oklch(12% 0.042 264.695);
-  --color-base-200: oklch(20% 0.042 265.755);
-  --color-base-300: oklch(27% 0.041 260.031);
-  --color-base-content: oklch(96% 0.007 247.896);
-  --color-primary: oklch(44% 0.017 285.786);
-  --color-primary-content: oklch(98% 0 0);
-  --color-secondary: oklch(68% 0.162 75.834);
-  --color-secondary-content: oklch(98% 0.026 102.212);
-  --color-accent: oklch(0% 0 0);
-  --color-accent-content: oklch(100% 0 0);
-  --color-neutral: oklch(37% 0.044 257.287);
-  --color-neutral-content: oklch(98% 0.003 247.858);
-  --color-info: oklch(60% 0.126 221.723);
-  --color-info-content: oklch(98% 0.019 200.873);
-  --color-success: oklch(64% 0.2 131.684);
-  --color-success-content: oklch(98% 0.031 120.757);
-  --color-warning: oklch(64% 0.222 41.116);
-  --color-warning-content: oklch(98% 0.016 73.684);
-  --color-error: oklch(58% 0.253 17.585);
-  --color-error-content: oklch(96% 0.015 12.422);
-  --radius-selector: 1rem;
-  --radius-field: 0rem;
-  --radius-box: 0rem;
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
-  --border: 1px;
-  --depth: 1;
-  --noise: 0;
+    name: 'secondy';
+    default: false;
+    --color-base-100: oklch(12% 0.042 264.695);
+    --color-base-200: oklch(20% 0.042 265.755);
+    --color-base-300: oklch(27% 0.041 260.031);
+    --color-base-content: oklch(96% 0.007 247.896);
+    --color-primary: oklch(44% 0.017 285.786);
+    --color-primary-content: oklch(98% 0 0);
+    --color-secondary: oklch(68% 0.162 75.834);
+    --color-secondary-content: oklch(98% 0.026 102.212);
+    --color-accent: oklch(0% 0 0);
+    --color-accent-content: oklch(100% 0 0);
+    --color-neutral: oklch(37% 0.044 257.287);
+    --color-neutral-content: oklch(98% 0.003 247.858);
+    --color-info: oklch(60% 0.126 221.723);
+    --color-info-content: oklch(98% 0.019 200.873);
+    --color-success: oklch(64% 0.2 131.684);
+    --color-success-content: oklch(98% 0.031 120.757);
+    --color-warning: oklch(64% 0.222 41.116);
+    --color-warning-content: oklch(98% 0.016 73.684);
+    --color-error: oklch(58% 0.253 17.585);
+    --color-error-content: oklch(96% 0.015 12.422);
+    --radius-selector: 1rem;
+    --radius-field: 0rem;
+    --radius-box: 0rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
 }
 @layer base {
-  :root {
-    --sidebar:oklch(20% 0.042 265.755);
-    --sidebar-foreground: blue;
-    --_gradient-blend-mode: normal;
-    --_gradient-blur: 40px;
-  }
+    :root {
+        --sidebar: oklch(20% 0.042 265.755);
+        --sidebar-foreground: blue;
+        --_gradient-blend-mode: normal;
+        --_gradient-blur: 40px;
+    }
 }
 @layer utilities {
-            .frosted-backdrop {
-              backdrop-filter: blur(var(--_gradient-blur)) contrast(100%) brightness(100%);
-              -webkit-backdrop-filter: blur(var(--_gradient-blur)) contrast(100%) brightness(100%);
-            }
-            .glass-effect{
-                background: rgba(255,255,255,0.1);
-            
-              -webkit-backdrop-filter: blur(20px);
+    .frosted-backdrop {
+        backdrop-filter: blur(var(--_gradient-blur)) contrast(100%)
+            brightness(100%);
+        -webkit-backdrop-filter: blur(var(--_gradient-blur)) contrast(100%)
+            brightness(100%);
+    }
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.1);
 
-                backdrop-filter: blur(20px);
-             
-            }
-            .glass{
-                /* 1. BACKGROUND: We take your theme's base color and add transparency.
+        -webkit-backdrop-filter: blur(20px);
+
+        backdrop-filter: blur(20px);
+    }
+    .glass {
+        /* 1. BACKGROUND: We take your theme's base color and add transparency.
                   The `oklch(from ...)` syntax is a modern CSS feature to modify a color variable.
                   Here, we're setting the alpha/opacity to 15%.
                 */
-                background: oklch(from var(--color-base-300) l c h / 0.15);
+        background: oklch(from var(--color-base-300) l c h / 0.15);
 
-                /* 2. BLUR: This is the core of the effect. The backdrop-filter applies
+        /* 2. BLUR: This is the core of the effect. The backdrop-filter applies
                   the blur to whatever is behind the element.
                 */
-             
-                -webkit-backdrop-filter: blur(20px); /* For Safari compatibility */
-                   backdrop-filter: blur(20px);
-                /* 3. BORDER: A subtle border helps define the edges of the glass.
+
+        -webkit-backdrop-filter: blur(20px); /* For Safari compatibility */
+        backdrop-filter: blur(20px);
+        /* 3. BORDER: A subtle border helps define the edges of the glass.
                   We're using the base content color with 10% opacity.
                 */
-           
 
-                /* 4. SHADOW: A soft shadow lifts the element, giving it depth.
+        /* 4. SHADOW: A soft shadow lifts the element, giving it depth.
                 */
-                box-shadow: 0 8px 32px 0 oklch(from var(--color-primary) l c h / 0.3);
-            }
-        }
+        box-shadow: 0 8px 32px 0 oklch(from var(--color-primary) l c h / 0.3);
+    }
+}
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
@@ -194,13 +186,12 @@
   If we ever want to remove these styles, we need to add an explicit border
   color utility to any element that depends on these defaults.
 */
-html{
-  background-color: var(--color-base-300);
-  box-sizing:border-box;
+html {
+    background-color: var(--color-base-300);
+    box-sizing: border-box;
 }
 
 body {
-  overscroll-behavior: none;
-  scroll-behavior: smooth;
+    overscroll-behavior: none;
+    scroll-behavior: smooth;
 }
-

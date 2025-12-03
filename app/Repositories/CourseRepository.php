@@ -130,4 +130,12 @@ class CourseRepository
     {
         return $course->deliverables()->updateExistingPivot($deliverable->id, $pivotData);
     }
+    public function getCurrentCycleCompletedCourses()
+    {
+        $now = Carbon::now();
+        return Course::whereHas('developmentCycle', function ($query) use ($now) {
+            $query->where('start_date', '<=', $now)
+                  ->where('end_date', '>=', $now);
+        })->where('status', 'completed')->get();
+    }
 }

@@ -1,35 +1,45 @@
 <template>
-    <div v-if="selectedObjectivesList.length" class=" mb-4">
-        <ul class="list-disc list-inside">
+    <div v-if="selectedObjectivesList.length" class="mb-4">
+        <ul class="list-inside list-disc">
             <li v-for="(obj, index) in selectedObjectivesList" :key="index">
                 {{ obj }}
             </li>
         </ul>
     </div>
-    <details ref="dropdownRef" class="dropdown  cursor-pointer relative mb-4">
-    <summary  class="selected-items "  >
-   Select Module Objectives that align with this item.
-    </summary>
-    <div class="options-wrapper glass menu dropdown-content bg-base-200 rounded-box z-1 w-52 p-2 shadow-sm">
-    <div class="option hover:bg-primary p-4  border border-neutral box-border last:rounded-bl-lg last:rounded-br-lg" v-for="(objective, index) in props.objectives" :key="index">
-        <input type="checkbox" :value="objective.number" v-model="selectedObjectives" class="checkbox checkbox-primary mr-2">
-        <span>{{ objective.number }}: {{ objective.objective }}</span>
-         
-    </div>
-             <button
-                class="btn btn-success mt-2 w-full"
+    <details ref="dropdownRef" class="dropdown relative mb-4 cursor-pointer">
+        <summary class="selected-items">
+            Select Module Objectives that align with this item.
+        </summary>
+        <div
+            class="options-wrapper dropdown-content menu z-1 w-52 rounded-box glass bg-base-200 p-2 shadow-sm"
+        >
+            <div
+                class="option box-border border border-neutral p-4 last:rounded-br-lg last:rounded-bl-lg hover:bg-primary"
+                v-for="(objective, index) in props.objectives"
+                :key="index"
+            >
+                <input
+                    type="checkbox"
+                    :value="objective.number"
+                    v-model="selectedObjectives"
+                    class="checkbox mr-2 checkbox-primary"
+                />
+                <span>{{ objective.number }}: {{ objective.objective }}</span>
+            </div>
+            <button
+                class="btn mt-2 w-full btn-success"
                 type="button"
                 @click="closeDropdown"
             >
                 Done
             </button>
-    </div>
+        </div>
     </details>
 </template>
 
 <script setup lang="ts">
-import {ref, computed, watch} from 'vue';
-import {ModuleObjective} from "@/types";
+import { ModuleObjective } from '@/types';
+import { computed, ref, watch } from 'vue';
 const props = defineProps<{
     objectives: ModuleObjective[];
     modelValue?: string[];
@@ -38,25 +48,27 @@ const props = defineProps<{
 const selectedObjectives = ref<string[]>(props.modelValue || []);
 
 const emit = defineEmits<{
-    'update:modelValue': [objectives: string[]]
+    'update:modelValue': [objectives: string[]];
 }>();
 
 const selectedObjectivesList = computed(() => {
     return selectedObjectives.value;
 });
 
-watch(selectedObjectives, (newValue) => {
-    emit('update:modelValue', newValue);
-}, { deep: true });
+watch(
+    selectedObjectives,
+    (newValue) => {
+        emit('update:modelValue', newValue);
+    },
+    { deep: true },
+);
 
 const dropdownRef = ref<HTMLElement | null>(null);
-function closeDropdown(){
+function closeDropdown() {
     if (dropdownRef.value) {
         (dropdownRef.value as HTMLDetailsElement).open = false;
     }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

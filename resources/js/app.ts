@@ -1,11 +1,11 @@
-import '../css/app.css';
 import axios from 'axios';
+import '../css/app.css';
 
 import { createInertiaApp } from '@inertiajs/vue3';
+import { configureEcho } from '@laravel/echo-vue';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
-import { configureEcho } from '@laravel/echo-vue';
 
 configureEcho({
     broadcaster: 'reverb',
@@ -41,4 +41,3 @@ createInertiaApp({
 });
 
 // This will set light / dark mode on page load...
-

@@ -67,22 +67,20 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
-const rightNavItems: NavItem[] = [
-
-];
+const rightNavItems: NavItem[] = [];
 
 const userInitials = computed(() => {
     const firstName = auth.value.user?.first_name;
     const lastName = auth.value.user?.last_name;
     const email = auth.value.user?.email;
-    
+
     if (firstName && lastName) {
         return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
     }
     if (firstName) return firstName.charAt(0).toUpperCase();
     if (lastName) return lastName.charAt(0).toUpperCase();
     if (email) return email.charAt(0).toUpperCase();
-    
+
     return 'U';
 });
 </script>
@@ -108,9 +106,7 @@ const userInitials = computed(() => {
                                 >Navigation Menu</SheetTitle
                             >
                             <SheetHeader class="flex justify-start text-left">
-                                <AppLogoIcon
-                                    class="size-9 "
-                                />
+                                <AppLogoIcon class="size-9" />
                             </SheetHeader>
                             <div
                                 class="flex h-full flex-1 flex-col justify-between space-y-4 py-6"
@@ -158,9 +154,10 @@ const userInitials = computed(() => {
                 </Link>
 
                 <!-- Desktop Menu -->
-                <div style="box-shadow: 0 215px 0 -100px #52525c inset;">
-                
-                    <NavigationMenu class="bg-base-300 text-base-content py-3 flex justify-between">
+                <div style="box-shadow: 0 215px 0 -100px #52525c inset">
+                    <NavigationMenu
+                        class="flex justify-between bg-base-300 py-3 text-base-content"
+                    >
                         <NavigationMenuList
                             class="flex h-full items-stretch space-x-2"
                         >
@@ -276,7 +273,7 @@ const userInitials = computed(() => {
 
         <div
             v-if="props.breadcrumbs.length > 1"
-            class="flex w-full border-b border-sidebar-border/70"
+            class="border-sidebar-border/70 flex w-full border-b"
         >
             <div
                 class="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl"

@@ -1,24 +1,17 @@
 <template>
-<AdminLayout>
-<div class="flex flex-col mx-16 p-8">
-            <h1 class="text-7xl prose mb-8">Course Crafter Admin Dashboard</h1>
-       <CoursesTable :courses="page.props.courses as any[]" />
-</div>
-
-</AdminLayout>
-
-
-
+    <AdminLayout>
+        <div class="mx-16 flex flex-col p-8">
+            <h1 class="prose mb-8 text-7xl">Course Crafter Admin Dashboard</h1>
+            <CoursesTable :courses="page.props.courses as any[]" />
+        </div>
+    </AdminLayout>
 </template>
 
 <script setup lang="ts">
-
-import { usePage } from '@inertiajs/vue3';
-import AdminLayout from '@/layouts/AdminLayout.vue';
 import CoursesTable from '@/components/Admin/Courses/CoursesTable.vue';
+import AdminLayout from '@/layouts/AdminLayout.vue';
+import { usePage } from '@inertiajs/vue3';
 const page = usePage();
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

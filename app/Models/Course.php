@@ -15,6 +15,7 @@ class Course extends Model
         'end',
         'status',
         'development_cycle_id',
+        'completion_date',
     ];
 
 

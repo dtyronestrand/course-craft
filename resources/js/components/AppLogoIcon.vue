@@ -13,5 +13,5 @@ defineProps<Props>();
 </script>
 
 <template>
- <img :class="className" src="../lib/assets/CCLogo.png" alt="App Logo" />
+    <img :class="className" src="../lib/assets/CCLogo.png" alt="App Logo" />
 </template>

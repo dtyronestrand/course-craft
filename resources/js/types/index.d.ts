@@ -88,7 +88,7 @@ export interface Itemable {
         graded?: boolean;
         time_limit?: number;
         attempts?: number;
-    }
+    };
     questions?: {
         stem: string;
         type: string;
@@ -105,7 +105,6 @@ export interface ModuleItem {
     itemable_id: number;
     itemable: Itemable;
 }
-
 
 export interface CourseModule {
     id: number;
@@ -124,6 +123,6 @@ export interface CourseModule {
     items: ModuleItem[];
     overview: {
         content: string;
-    }
+    };
 }
 export type BreadcrumbItemType = BreadcrumbItem;

@@ -10,22 +10,19 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue';
 import TipTap from '@/components/TipTap.vue';
+import { ref } from 'vue';
 
 interface Props {
     question: {
         question: string;
         type: string | null;
-    }
+    };
     editing: boolean;
 }
 
 const props = defineProps<Props>();
-const  question = ref(props.question);
-
+const question = ref(props.question);
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
