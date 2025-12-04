@@ -55,7 +55,7 @@ class CourseService
 
     public function getAllCourses()
     {
-        return $this->courseRepository->getAllForAdmin(['users:id,first_name,last_name']);
+        return $this->courseRepository->getAllForAdmin(['users:id,first_name,last_name','delivrables']);
     }
         public function getCourseForMap(Course $course)
     {

@@ -36,10 +36,11 @@
                     </details>
                 </div>
             </header>
-            <div class="wrapper h-full p-2">
+       
+            <div class="wrapper frosted-backdrop h-full p-2">
                 <div class="mb-6 grid grid-cols-4 gap-6">
                     <div
-                        class="glass-effect rounded-xl border border-error/70 p-6 shadow-lg shadow-error/70"
+                        class="glass-effect rounded-xl border border-error/70 p-6 shadow-lg shadow-error/20"
                     >
                         <div class="flex items-start justify-between">
                             <h2
@@ -183,7 +184,7 @@ const page = usePage<
         pendingCoursesCount: number;
         recentActivities: Activity[];
         statusCounts: Record<string, number>;
-        coursesByPrefix: Record<string, number>;
+    
         coursesNeedingAttention: any[];
         avgCompletionTime: string;
         courses: any[];

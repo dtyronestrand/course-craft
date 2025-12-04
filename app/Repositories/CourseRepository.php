@@ -12,7 +12,7 @@ class CourseRepository
 {
     public function getAllForAdmin()
     {
-        return Course::all()->load(['users:id,first_name,last_name']);
+        return Course::all()->load(['deliverables','users:id,first_name,last_name']);
     }
 
     public function getForUser(User $user)

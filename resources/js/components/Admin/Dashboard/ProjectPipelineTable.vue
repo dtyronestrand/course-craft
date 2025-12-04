@@ -136,7 +136,7 @@ const defaultColumns = [
                         status === 'pending'
                             ? 'bg-info/20 border border-info shadow-md frosted-backdrop shadow-info/20 px-3 py-1 rounded-full text-center text-info  font-bold inline-block'
                             : status === 'completed'
-                              ? 'bg-success px-3 py-1 froted-backdrop rounded-full text-center text-success-content inline-block'
+                              ? 'bg-success px-3 py-1 frosted-backdrop rounded-full text-center text-success-content inline-block'
                               : 'bg-warning/20 border frosted-backdrop border-warning shadow-md shadow-warning/20 px-3 py-1 rounded-full text-center text-warning font-bold inline-block';
                     return h(
                         'span',
@@ -145,9 +145,21 @@ const defaultColumns = [
                     );
                 },
             }),
+            columnHelper.display({
+                id: 'progress',
+                header: () => h('span', 'Progress'),
+                cell: ({row}: any) => {
+                    const deliverables = row.original.deliverables || [];
+                    return h('div', deliverables.map((deliverable: any) => {
+                        const style = deliverable.pivot.is_done 
+                            ? 'bg-success/20 frostd-backdrop border border-success shadow-sm shadow-success rounded-full h-4 w-8 inline-block mr-1' 
+                            : 'bg-accent/40 rounded-full h-4 w-8 inline-block mr-1';
+                        return h('div', {class: style});
+                    }));
+                }
+            }),
         ],
     }),
-
     columnHelper.group({
         header: 'Team',
         columns: allRoles.value.map((role) =>
