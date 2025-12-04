@@ -152,9 +152,10 @@ const defaultColumns = [
                     const deliverables = row.original.deliverables || [];
                     return h('div', deliverables.map((deliverable: any) => {
                         const style = deliverable.pivot.is_done 
-                            ? 'bg-success/20 frostd-backdrop border border-success shadow-sm shadow-success rounded-full h-4 w-8 inline-block mr-1' 
-                            : 'bg-accent/40 rounded-full h-4 w-8 inline-block mr-1';
-                        return h('div', {class: style});
+                            ? 'tooltip bg-success/20 frosted-backdrop border border-success shadow-sm shadow-success rounded-full h-4 w-8 inline-block mr-1' 
+                            : 'tooltip bg-accent/40 rounded-full h-4 w-8 inline-block mr-1';
+                             const tip = deliverable.name;
+                        return h('div', {class: style, 'data-tip':tip});
                     }));
                 }
             }),

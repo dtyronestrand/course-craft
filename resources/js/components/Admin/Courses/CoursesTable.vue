@@ -43,7 +43,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="row in table.getRowModel().rows" :key="row.id">
+                    <tr v-for="row in table.getRowModel().rows" :key="row.id" class="cursor-pointer hover:bg-primary/5" @click="$inertia.visit(`/admin/courses/${row.original.id}`)">
                         <td
                             v-for="cell in row.getVisibleCells()"
                             :key="cell.id"
@@ -110,6 +110,7 @@ const columnsCourses = computed(() => [
         footer: (props) => props.column.id,
         columns: [
             columnHelper.accessor('prefix', {
+                header: ()=> h('span', 'Prefix'),
                 cell: (info) => info.getValue(),
                 footer: (props) => props.column.id,
             }),
