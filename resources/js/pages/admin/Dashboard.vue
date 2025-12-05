@@ -56,14 +56,15 @@
                                     .coursesNeedingAttention"
                                 :key="course.id"
                             >
-                                <Link
-                                    :href="`/admin/courses/${course.id}/ `"
+                                <button @click="openModal(course)"
                                     class="mt-2 text-5xl text-error hover:underline"
                                     >{{ course.prefix }}
-                                    {{ course.number }}</Link
+                                    {{ course.number }}</button
                                 >
+                   
                             </li>
                         </ul>
+                 
                     </div>
                     <div
                         class="glass-effect rounded-xl border border-primary/70 p-6 shadow-lg shadow-primary/20"
@@ -147,6 +148,12 @@
                 </div>
             </div>
         </div>
+        <CourseDetailsModal 
+            v-if="isModalOpened && selectedCourse" 
+            :isOpen="isModalOpened" 
+            :course="selectedCourse" 
+            @modal-close="closeModal" 
+        />
     </AdminLayout>
 </template>
 
@@ -162,12 +169,13 @@ import {
     TriangleAlert,
     Users,
 } from 'lucide-vue-next';
-import { computed } from 'vue';
-
+import { computed, ref } from 'vue';
+import CourseDetailsModal from '@/components/Admin/Courses/CourseDetailsModal.vue';
 import ActivityFeed from '@/components/Admin/Dashboard/ActivityFeed.vue';
 import CourseStatusChart from '@/components/Admin/Dashboard/CourseStatusChart.vue';
 import ProjectPipelineTable from '@/components/Admin/Dashboard/ProjectPipelineTable.vue';
 import TeamCapacityChart from '@/components/Admin/Dashboard/TeamCapacityChart.vue';
+
 interface Activity {
     id: number;
     user: { name: string; initials: string };
@@ -200,6 +208,19 @@ const statusCounts = computed(() => {
         ...page.props.courseStatusCounts,
     };
 });
+const isModalOpened = ref(false);
+const selectedCourse = ref<any>(null);
+
+const openModal = (course: any) => {
+    selectedCourse.value = course;
+    isModalOpened.value = true;
+};
+
+const closeModal = () => {
+    isModalOpened.value = false;
+    selectedCourse.value = null;
+};
+
 </script>
 
 <style scoped></style>

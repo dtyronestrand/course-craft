@@ -42,6 +42,15 @@ class AdminController extends Controller
       'avgCompletionTime' => $this->courseService->averageCompletionRate(),
     ]);
   }
+
+  public function calendar()
+  {
+    return Inertia::render('admin/Calendar', [
+      'courses' => $this->courseService->getAllCourses(),
+      'developmentCycles' => $this->developmentCycleService->getAllDevelopmentCycles(),
+    ]);
+  }
+
   public function courses()
   {
     $courses = $this->courseService->getAllCourses();

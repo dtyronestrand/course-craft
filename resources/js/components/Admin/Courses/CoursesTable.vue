@@ -43,7 +43,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="row in table.getRowModel().rows" :key="row.id" class="cursor-pointer hover:bg-primary/5" @click="$inertia.visit(`/admin/courses/${row.original.id}`)">
+                    <tr v-for="row in table.getRowModel().rows" :key="row.id" class="cursor-pointer hover:bg-primary/5" @click="openModal(row.original)">
                         <td
                             v-for="cell in row.getVisibleCells()"
                             :key="cell.id"
@@ -58,10 +58,17 @@
             </table>
         </div>
     </div>
+          <CourseDetailsModal 
+            v-if="isModalOpened && selectedCourse" 
+            :isOpen="isModalOpened" 
+            :course="selectedCourse" 
+            @modal-close="closeModal" 
+        />
 </template>
 
 <script setup lang="ts">
 import type { Course } from '@/types';
+import CourseDetailsModal from './CourseDetailsModal.vue';
 import {
     createColumnHelper,
     FlexRender,
@@ -76,7 +83,16 @@ interface Props {
     courses: Course[];
 }
 const props = defineProps<Props>();
-
+const isModalOpened = ref(false);
+const selectedCourse = ref<Course | null>(null);
+const closeModal = () => {
+    isModalOpened.value = false;
+    selectedCourse.value = null;
+};
+const openModal = (course: Course) => {
+    selectedCourse.value = course;
+    isModalOpened.value = true;
+};
 const allRoles = computed(() => {
     const roles = new Set<string>();
     props.courses.forEach((course) => {

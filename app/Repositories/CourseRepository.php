@@ -46,7 +46,7 @@ class CourseRepository
                 $query->select('deliverables.id', 'deliverables.name')
                       ->where('course_deliverable.missed_due_date_count', '>', 0)
                       ->where('course_deliverable.is_done', 0);
-            }])->get();
+            }])->with('users')->get();
     }
 
     public function coursesByPrefix()
