@@ -17,4 +17,9 @@ class UserService
     {
         return $this->userRepository->workload();
     }
+
+    public function getAllUsersForCalendar()
+    {
+        return $this->userRepository->getAllForCalendar();
+    }
 }

@@ -3,6 +3,7 @@
         v-for="user in usersWorkloads"
         :key="user.last_name"
         class="mb-4 flex items-center justify-between rounded-lg p-4 shadow-sm shadow-base-200/20"
+        v-bind="$attrs"
     >
         <div class="flex justify-between">
             <div class="placeholder avatar">

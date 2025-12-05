@@ -13,7 +13,7 @@ class DevelopmentCycleRepository
 
     public function findById($id)
     {
-        return DevelopmentCycle::find($id);
+        return DevelopmentCycle::find($id)->get();
     }
 
     public function create(array $data)

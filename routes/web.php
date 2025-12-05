@@ -72,18 +72,20 @@ Route::post('/module_wrapUps', [\App\Http\Controllers\ModuleWrapUpController::cl
 Route::put('/module_wrapUps/{moduleWrapUp}', [\App\Http\Controllers\ModuleWrapUpController::class, 'update'])->name('module.wrapup.update');
 Route::delete('/module_wrapUps/{moduleWrapUp}', [\App\Http\Controllers\ModuleWrapUpController::class, 'destroy'])->name('module.wrapup.destroy');
 Route::middleware([\App\Http\Middleware\isAdminMiddleWare::class])->group(function () {
-    Route::get('/admin/courses', [\App\Http\Controllers\AdminController::class, 'courses'])->name('admin.courses');
-    Route::get('/admin/courses/{course}', [\App\Http\Controllers\AdminController::class, 'courseDetails'])->name('admin.course.details');
-    Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
-    Route::get('/admin/settings', [\App\Http\Controllers\AdminController::class, 'settings'])->name('admin.settings');
-    Route::post('/admin/settings', [\App\Http\Controllers\AdminController::class, 'store'])->name('admin.settings.store');
-    Route::get('/admin/users', [\App\Http\Controllers\AdminController::class, 'users'])->name('admin.users');
-    Route::post('/admin/settings', [\App\Http\Controllers\AdminSettingsController::class, 'store'])->name('admin.settings.store');
-    Route::get('/admin/calendar', [\App\Http\Controllers\AdminController::class, 'calendar'])->name('admin.calendar');
+ 
 });
-
-Route::post('/admin/deliverables', [\App\Http\Controllers\DeliverableController::class, 'store'])->name('admin.deliverables.store');
-Route::delete('/admin/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableController::class, 'destroy'])->name('admin.deliverables.destroy');
+Route::prefix('admin')->middleware([\App\Http\Middleware\isAdminMiddleWare::class])->group(function() {
+   Route::get('/courses', [\App\Http\Controllers\AdminController::class, 'courses'])->name('admin.courses');
+    Route::get('/courses/{course}', [\App\Http\Controllers\AdminController::class, 'courseDetails'])->name('admin.course.details');
+    Route::get('/dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/settings', [\App\Http\Controllers\AdminController::class, 'settings'])->name('admin.settings');
+    Route::post('/settings', [\App\Http\Controllers\AdminController::class, 'store'])->name('admin.settings.store');
+    Route::get('/users', [\App\Http\Controllers\AdminController::class, 'users'])->name('admin.users');
+    Route::post('/settings', [\App\Http\Controllers\AdminSettingsController::class, 'store'])->name('admin.settings.store');
+    Route::get('/calendar', [\App\Http\Controllers\CalendarController::class, 'index'])->name('admin.calendar');
+Route::post('/deliverables', [\App\Http\Controllers\DeliverableController::class, 'store'])->name('admin.deliverables.store');
+Route::delete('/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableController::class, 'destroy'])->name('admin.deliverables.destroy');
+});
 
 
 require __DIR__.'/settings.php';

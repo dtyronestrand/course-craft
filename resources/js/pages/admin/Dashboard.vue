@@ -169,7 +169,7 @@ import {
     TriangleAlert,
     Users,
 } from 'lucide-vue-next';
-import { computed, ref } from 'vue';
+import { computed, ref , onRenderTracked} from 'vue';
 import CourseDetailsModal from '@/components/Admin/Courses/CourseDetailsModal.vue';
 import ActivityFeed from '@/components/Admin/Dashboard/ActivityFeed.vue';
 import CourseStatusChart from '@/components/Admin/Dashboard/CourseStatusChart.vue';
@@ -210,7 +210,7 @@ const statusCounts = computed(() => {
 });
 const isModalOpened = ref(false);
 const selectedCourse = ref<any>(null);
-
+let count = 0;
 const openModal = (course: any) => {
     selectedCourse.value = course;
     isModalOpened.value = true;

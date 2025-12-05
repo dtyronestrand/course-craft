@@ -7,6 +7,7 @@ use App\Repositories\DevelopmentCycleRepository;
 use App\Actions\DevelopmentCycles\CreateDevelopmentCycleAction;
 use App\Actions\DevelopmentCycles\UpdateDevelopmentCycleAction;
 use App\Actions\DevelopmentCycles\DeleteDevelopmentCycleAction;
+use App\Actions\DevelopmentCycles\CycleDueDatesAction;
 
 class DevelopmentCycleService
 {
@@ -16,7 +17,7 @@ class DevelopmentCycleService
     {
         $this->developmentCycleRepository = $developmentCycleRepository;
     }
-
+ 
     public function createDevelopmentCycle(array $data)
     {
       return (new CreateDevelopmentCycleAction($this->developmentCycleRepository))->execute($data);
@@ -26,7 +27,9 @@ class DevelopmentCycleService
     {
        return(new UpdateDevelopmentCycleAction($this->developmentCycleRepository))->execute($developmentCycle, $data);
     }
-
+    public function getCycleDueDates(int $cycleId) {
+        return (new CycleDueDatesAction($this->developmentCycleRepository))->execute($cycleId);
+    }
     public function deleteDevelopmentCycle(DevelopmentCycle $developmentCycle)
     {
         return (new DeleteDevelopmentCycleAction($this->developmentCycleRepository))->execute($developmentCycle);
