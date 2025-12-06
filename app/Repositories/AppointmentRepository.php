@@ -9,13 +9,16 @@ class AppointmentRepository
 {
 
 public function getForUser(User $user){
-   return $user->appointments;
+   return Appointment::where('host_id', $user->id)
+        ->orWhereHas('guests', function($query) use ($user) {
+            $query->where('users.id', $user->id);
+        })->orderBy('start_time', 'asc')->get();
 }
 
-public function store(array $data)
+public function store( array $data)
 {
     return Appointment::create([
-        'host_id' => $data['$user[id]'],
+        'host_id' => $data['user'],
         'subject' => $data['subject'],
         'start_time' => $data['start_time'],
         'end_time' => $data['end_time'],
@@ -37,7 +40,7 @@ public function syncGuests(Appointment $appointment, array $guestIds)
         }
         $appointment->guests()->attach($id);
     }
-    return $appointment->guests();
+    return $appointment->guests;
 }
 public function update(Appointment $appointment, array $data)
 {

@@ -3,8 +3,9 @@
         class="glass-effect flex-1 overflow-y-auto rounded-lg border border-primary/10 p-2 shadow-lg shadow-primary/10"
     >
         <div
-            class="shadow-[0 2px 4px rgba(0, 0, 0, 0.1)] mb-5 w-full overflow-x-auto rounded-lg"
+            class="shadow-[0 2px 4px rgba(0, 0, 0, 0.1)] mb-5 w-full overflow-hidden rounded-lg border border-[rgba(from_var(--color-primary)_R_G_B_/_0.5)]"
         >
+            <div class="overflow-x-auto">
             <table class="w-full">
                 <thead>
                     <tr
@@ -56,6 +57,7 @@
                     </tr>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
           <CourseDetailsModal 
@@ -183,7 +185,7 @@ const table = useVueTable({
 
 <style scoped>
 table {
-    border: 1px solid rgba(from var(--color-primary) R G B / 0.5);
+    border-collapse: collapse;
 }
 tbody {
     border-bottom: 1px solid rgba(from var(--color-primary) R G B / 0.2);

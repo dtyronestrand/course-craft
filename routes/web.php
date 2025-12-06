@@ -85,8 +85,10 @@ Route::prefix('admin')->middleware([\App\Http\Middleware\isAdminMiddleWare::clas
     Route::get('/calendar', [\App\Http\Controllers\CalendarController::class, 'index'])->name('admin.calendar');
 Route::post('/deliverables', [\App\Http\Controllers\DeliverableController::class, 'store'])->name('admin.deliverables.store');
 Route::delete('/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableController::class, 'destroy'])->name('admin.deliverables.destroy');
+
 });
 
+Route::post('/appointments', [\App\Http\Controllers\AppointmentController::class, 'store'])->name('appointments.store');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

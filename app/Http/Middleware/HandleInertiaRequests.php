@@ -51,6 +51,7 @@ class HandleInertiaRequests extends Middleware
                     'role' => $request->user()->role,
                     'hasGoogleAccess' => $request->user()->hasGoogleAccess(),
                     'is_admin' => $request->user()->is_admin,
+                    'notifications' => $request->user()->notifications,
                    
                 ] : null,
 

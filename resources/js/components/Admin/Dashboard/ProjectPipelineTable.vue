@@ -1,25 +1,25 @@
 <template>
-    <div class="flex-rom flex items-center gap-4">
+
         <DebouncedInput
             :modelValue="globalFilter ?? ''"
             @update:modelValue="(value: string) => (globalFilter = value)"
             placeholder="Search all columns..."
             class="w-w-max frosted-backdrop my-4 rounded border border-primary/10 bg-primary/10 px-4 py-2 text-primary shadow-sm shadow-primary"
         />
-    </div>
+
     <table class="w-full text-left text-sm">
         <thead>
             <tr
                 v-for="headerGroup in table.getHeaderGroups()"
                 :key="headerGroup.id"
-                class="border-b border-primary/20 text-xs text-primary uppercase"
+                class="text-sm text-base-content font-bold uppercase"
             >
                 <th
                     v-for="header in headerGroup.headers"
                     :key="header.id"
                     :colSpan="header.colSpan"
                     scope="col"
-                    class="px-4 py-3"
+                    class="px-4 py-3 border border-primary/60"
                 >
                     <div class="flex flex-row items-center">
                         <FlexRender
@@ -42,7 +42,7 @@
             <tr
                 v-for="row in table.getRowModel().rows"
                 :key="row.id"
-                class="border-b border-base-300"
+                class="border border-primary"
             >
                 <td
                     v-for="cell in row.getVisibleCells()"

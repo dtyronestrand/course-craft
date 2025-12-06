@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
             'discussion' => \App\Models\CourseDiscussion::class,
             'quiz' => \App\Models\CourseQuiz::class,
             'wrap_up' => \App\Models\ModuleWrapUp::class,
+            'user' => \App\Models\User::class,
         ]);
         
         \App\Models\CourseDiscussion::observe(\App\Observers\CourseDiscussionObserver::class);

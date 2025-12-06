@@ -38,8 +38,6 @@ class CalendarService
         return (new CycleDueDatesAction($this->devCycleRepo))->execute($cycleId);
     }
 
-    public function getUserAppointments($user) {
-        return (new GetAppointmentsAction($this->appointmentRepo))->execute($user);
-    }
+
     // Add calendar-related methods here
 }

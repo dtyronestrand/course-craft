@@ -2,6 +2,42 @@
     <div class="drawer lg:drawer-open">
         <input id="sidebar" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex w-full flex-col overflow-x-hidden">
+                    <header class="mx-12 flex items-center justify-between px-2 py-4">
+                <h1 class="text-3xl font-bold">
+                    {{ page.props.auth.user.first_name }}'s Dashboard
+                    {{ page.props.auth.user.notifications }}
+                </h1>
+                <div class="flex items-center gap-4">
+                    <div class="flex flex-row items-center gap-2">
+                        <NotificationCenter :notifications="page.props.auth.user.notifications"/>
+                    </div>
+                    <details class="dropdown">
+                        <summary
+                            class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-center font-bold text-primary-content"
+                        >
+                            {{
+                                getInitials(
+                                    page.props.auth.user.first_name,
+                                    page.props.auth.user.last_name,
+                                )
+                            }}
+                        </summary>
+                        <ul
+                            class="dropdown-content menu -left-20 z-1 w-42 rounded-box bg-base-100 p-2 shadow-sm"
+                        >
+                            <li><a>Profile</a></li>
+                            <li>
+                                <Link href="/admin/settings">Settings</Link>
+                            </li>
+                            <li>
+                                <button class="btn btn-ghost" @click="logout">
+                                    Logout
+                                </button>
+                            </li>
+                        </ul>
+                    </details>
+                </div>
+            </header>
             <main class="ml-4 flex flex-1 gap-6">
                 <slot />
             </main>
@@ -73,11 +109,18 @@
 <script setup lang="ts">
 import AppLogo from '@/components/AppLogo.vue';
 import Icon from '@/components/Icon.vue';
-import { Link, router } from '@inertiajs/vue3';
+import { Link, router, usePage } from '@inertiajs/vue3';
+import NotificationCenter from '@/components/NotificationCenter.vue';
+import { useInitials } from '@/composables/useInitials';
 
+
+const { getInitials } = useInitials();
+const page = usePage();
 const logout = () => {
     router.post('/logout');
 };
+
+
 </script>
 
 <style scoped></style>

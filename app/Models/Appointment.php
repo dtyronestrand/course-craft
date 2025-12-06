@@ -22,6 +22,6 @@ class Appointment extends Model
     // The guests (Many-to-Many)
     public function guests()
     {
-        return $this->belongsToMany(User::class, 'appointment_user');
+        return $this->belongsToMany(User::class, 'appointment_users');
     }
 }

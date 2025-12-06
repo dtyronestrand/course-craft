@@ -10,7 +10,21 @@ export interface BreadcrumbItem {
     title: string;
     href: string;
 }
-
+export interface Appointment {
+    id: string;
+    subject: string;
+    start_time: string;
+    end_time: string;
+    allDay: boolean;
+    extendedProps: {
+        type: string;
+        host: boolean;
+        host_name: string;
+        guests: string;
+        notes: string;
+    };
+    color: string;
+}
 export interface NavItem {
     title: string;
     href: NonNullable<InertiaLinkProps['href']>;
@@ -42,6 +56,7 @@ export interface User {
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
+    notifications: Array;
 }
 export interface Course {
     id: number;

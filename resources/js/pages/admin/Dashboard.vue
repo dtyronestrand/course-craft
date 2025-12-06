@@ -1,41 +1,7 @@
 <template>
     <AdminLayout>
         <div class="flex grow flex-col">
-            <header class="mx-12 flex items-center justify-between px-2 py-4">
-                <h1 class="text-3xl font-bold">
-                    {{ page.props.auth.user.first_name }}'s Dashboard
-                </h1>
-                <div class="flex items-center gap-4">
-                    <div class="flex flex-row items-center gap-2">
-                        <NotificationCenter />
-                    </div>
-                    <details class="dropdown">
-                        <summary
-                            class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-center font-bold text-primary-content"
-                        >
-                            {{
-                                getInitials(
-                                    page.props.auth.user.first_name,
-                                    page.props.auth.user.last_name,
-                                )
-                            }}
-                        </summary>
-                        <ul
-                            class="dropdown-content menu -left-20 z-1 w-42 rounded-box bg-base-100 p-2 shadow-sm"
-                        >
-                            <li><a>Profile</a></li>
-                            <li>
-                                <Link href="/admin/settings">Settings</Link>
-                            </li>
-                            <li>
-                                <button class="btn btn-ghost" @click="logout">
-                                    Logout
-                                </button>
-                            </li>
-                        </ul>
-                    </details>
-                </div>
-            </header>
+
        
             <div class="wrapper frosted-backdrop h-full p-2">
                 <div class="mb-6 grid grid-cols-4 gap-6">
@@ -158,18 +124,16 @@
 </template>
 
 <script setup lang="ts">
-import NotificationCenter from '@/components/NotificationCenter.vue';
-import { useInitials } from '@/composables/useInitials';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import type { PageProps } from '@inertiajs/core';
-import { Link, router, usePage } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
 import {
     ChartColumnBig,
     SquareChartGantt,
     TriangleAlert,
     Users,
 } from 'lucide-vue-next';
-import { computed, ref , onRenderTracked} from 'vue';
+import { computed, ref } from 'vue';
 import CourseDetailsModal from '@/components/Admin/Courses/CourseDetailsModal.vue';
 import ActivityFeed from '@/components/Admin/Dashboard/ActivityFeed.vue';
 import CourseStatusChart from '@/components/Admin/Dashboard/CourseStatusChart.vue';
@@ -198,10 +162,8 @@ const page = usePage<
         courses: any[];
     }
 >();
-const { getInitials } = useInitials();
-const logout = () => {
-    router.post('/logout');
-};
+
+
 const statusCounts = computed(() => {
     return {
         Pending: page.props.pendingCoursesCount,
@@ -210,7 +172,7 @@ const statusCounts = computed(() => {
 });
 const isModalOpened = ref(false);
 const selectedCourse = ref<any>(null);
-let count = 0;
+
 const openModal = (course: any) => {
     selectedCourse.value = course;
     isModalOpened.value = true;

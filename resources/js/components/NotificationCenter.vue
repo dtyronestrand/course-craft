@@ -98,7 +98,7 @@
                                                         : 'text-slate-700',
                                                 ]"
                                             >
-                                                {{ notification.title }}
+                                                {{ notification.subject }}
                                             </h4>
                                             <div
                                                 v-if="!notification.read"
@@ -162,7 +162,7 @@
                                                         : 'text-slate-700',
                                                 ]"
                                             >
-                                                {{ notification.title }}
+                                                {{ notification.subject }}
                                             </h4>
                                             <div
                                                 v-if="!notification.read"
@@ -219,11 +219,10 @@ import { computed, ref } from 'vue';
 
 interface Notification {
     id: string;
-    type: string;
-    title: string;
     message: string;
+    subject?: string;
     course?: string;
-    timestamp: string;
+    timestamp?: string;
     read: boolean;
     icon: any;
     iconColor: string;
