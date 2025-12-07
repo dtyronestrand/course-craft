@@ -74,7 +74,7 @@ class User extends Authenticatable
     }
     public function conversations()
     {
-        return $this->belongsToMany(Conversation::class, 'prticipants')->using(Participant::class)->withTimestamps();
+        return $this->belongsToMany(Conversation::class, 'participants')->using(Participant::class)->withTimestamps();
     }
         public function hostedAppointments()
     {

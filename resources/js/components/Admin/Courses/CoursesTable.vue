@@ -6,71 +6,75 @@
             class="shadow-[0 2px 4px rgba(0, 0, 0, 0.1)] mb-5 w-full overflow-hidden rounded-lg border border-[rgba(from_var(--color-primary)_R_G_B_/_0.5)]"
         >
             <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead>
-                    <tr
-                        v-for="headerGroup in table.getHeaderGroups()"
-                        :key="headerGroup.id"
-                    >
-                        <th
-                            v-for="header in headerGroup.headers"
-                            :key="header.id"
-                            :colSpan="header.colSpan"
-                            :class="
-                                header.column.getCanSort()
-                                    ? 'cursor-pointer select-none'
-                                    : ''
-                            "
-                            @click="
-                                header.column.getToggleSortingHandler()?.(
-                                    $event,
-                                )
-                            "
-                            scope="col"
+                <table class="w-full">
+                    <thead>
+                        <tr
+                            v-for="headerGroup in table.getHeaderGroups()"
+                            :key="headerGroup.id"
                         >
-                            <template v-if="!header.isPlaceholder">
-                                <FlexRender
-                                    :render="header.column.columnDef.header"
-                                    :props="header.getContext()"
-                                />
+                            <th
+                                v-for="header in headerGroup.headers"
+                                :key="header.id"
+                                :colSpan="header.colSpan"
+                                :class="
+                                    header.column.getCanSort()
+                                        ? 'cursor-pointer select-none'
+                                        : ''
+                                "
+                                @click="
+                                    header.column.getToggleSortingHandler()?.(
+                                        $event,
+                                    )
+                                "
+                                scope="col"
+                            >
+                                <template v-if="!header.isPlaceholder">
+                                    <FlexRender
+                                        :render="header.column.columnDef.header"
+                                        :props="header.getContext()"
+                                    />
 
-                                {{
-                                    { asc: ' 🔼', desc: ' 🔽' }[
-                                        header.column.getIsSorted() as string
-                                    ]
-                                }}
-                            </template>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="row in table.getRowModel().rows" :key="row.id" class="cursor-pointer hover:bg-primary/5" @click="openModal(row.original)">
-                        <td
-                            v-for="cell in row.getVisibleCells()"
-                            :key="cell.id"
+                                    {{
+                                        { asc: ' 🔼', desc: ' 🔽' }[
+                                            header.column.getIsSorted() as string
+                                        ]
+                                    }}
+                                </template>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            v-for="row in table.getRowModel().rows"
+                            :key="row.id"
+                            class="cursor-pointer hover:bg-primary/5"
+                            @click="openModal(row.original)"
                         >
-                            <FlexRender
-                                :render="cell.column.columnDef.cell"
-                                :props="cell.getContext()"
-                            />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            <td
+                                v-for="cell in row.getVisibleCells()"
+                                :key="cell.id"
+                            >
+                                <FlexRender
+                                    :render="cell.column.columnDef.cell"
+                                    :props="cell.getContext()"
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-          <CourseDetailsModal 
-            v-if="isModalOpened && selectedCourse" 
-            :isOpen="isModalOpened" 
-            :course="selectedCourse" 
-            @modal-close="closeModal" 
-        />
+    <CourseDetailsModal
+        v-if="isModalOpened && selectedCourse"
+        :isOpen="isModalOpened"
+        :course="selectedCourse"
+        @modal-close="closeModal"
+    />
 </template>
 
 <script setup lang="ts">
 import type { Course } from '@/types';
-import CourseDetailsModal from './CourseDetailsModal.vue';
 import {
     createColumnHelper,
     FlexRender,
@@ -80,6 +84,7 @@ import {
     useVueTable,
 } from '@tanstack/vue-table';
 import { computed, h, ref } from 'vue';
+import CourseDetailsModal from './CourseDetailsModal.vue';
 
 interface Props {
     courses: Course[];
@@ -128,7 +133,7 @@ const columnsCourses = computed(() => [
         footer: (props) => props.column.id,
         columns: [
             columnHelper.accessor('prefix', {
-                header: ()=> h('span', 'Prefix'),
+                header: () => h('span', 'Prefix'),
                 cell: (info) => info.getValue(),
                 footer: (props) => props.column.id,
             }),

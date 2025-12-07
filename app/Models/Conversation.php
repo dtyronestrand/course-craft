@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Conversation extends Model
 {
-protected $fillable =['subject'];
+protected $fillable =['type', 'subject'];
 
 public function messages()
 {
@@ -15,5 +16,9 @@ public function messages()
 public function participants()
 {
     return $this->belongsToMany(User::class, 'participants');
+}
+public function participantsInConversation()
+{
+    return $this->participants()->where('user_id', '!=', Auth::id())->get();
 }
 }

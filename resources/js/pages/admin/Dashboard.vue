@@ -1,8 +1,6 @@
 <template>
     <AdminLayout>
         <div class="flex grow flex-col">
-
-       
             <div class="wrapper frosted-backdrop h-full p-2">
                 <div class="mb-6 grid grid-cols-4 gap-6">
                     <div
@@ -22,15 +20,14 @@
                                     .coursesNeedingAttention"
                                 :key="course.id"
                             >
-                                <button @click="openModal(course)"
+                                <button
+                                    @click="openModal(course)"
                                     class="mt-2 text-5xl text-error hover:underline"
-                                    >{{ course.prefix }}
-                                    {{ course.number }}</button
                                 >
-                   
+                                    {{ course.prefix }} {{ course.number }}
+                                </button>
                             </li>
                         </ul>
-                 
                     </div>
                     <div
                         class="glass-effect rounded-xl border border-primary/70 p-6 shadow-lg shadow-primary/20"
@@ -68,7 +65,7 @@
                         </p>
                     </div>
                     <div
-                        class="glass-effect rounded-xl border border-success/70 p-4 shadow-lg shadow-success/20"
+                        class="glass-effect flex max-h-80 flex-col overflow-auto rounded-xl border border-success/70 p-4 shadow-lg shadow-success/20"
                     >
                         <div class="flex items-start justify-between">
                             <h2
@@ -78,7 +75,7 @@
                             </h2>
                             <Users class="h-10 w-10 text-success" />
                         </div>
-                        <TeamCapacityChart class="mt-4 flex-1" />
+                        <TeamCapacityChart class="mt-4" />
                     </div>
                 </div>
                 <div class="flex gap-6">
@@ -114,16 +111,21 @@
                 </div>
             </div>
         </div>
-        <CourseDetailsModal 
-            v-if="isModalOpened && selectedCourse" 
-            :isOpen="isModalOpened" 
-            :course="selectedCourse" 
-            @modal-close="closeModal" 
+        <CourseDetailsModal
+            v-if="isModalOpened && selectedCourse"
+            :isOpen="isModalOpened"
+            :course="selectedCourse"
+            @modal-close="closeModal"
         />
     </AdminLayout>
 </template>
 
 <script setup lang="ts">
+import CourseDetailsModal from '@/components/Admin/Courses/CourseDetailsModal.vue';
+import ActivityFeed from '@/components/Admin/Dashboard/ActivityFeed.vue';
+import CourseStatusChart from '@/components/Admin/Dashboard/CourseStatusChart.vue';
+import ProjectPipelineTable from '@/components/Admin/Dashboard/ProjectPipelineTable.vue';
+import TeamCapacityChart from '@/components/Admin/Dashboard/TeamCapacityChart.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import type { PageProps } from '@inertiajs/core';
 import { usePage } from '@inertiajs/vue3';
@@ -134,11 +136,6 @@ import {
     Users,
 } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
-import CourseDetailsModal from '@/components/Admin/Courses/CourseDetailsModal.vue';
-import ActivityFeed from '@/components/Admin/Dashboard/ActivityFeed.vue';
-import CourseStatusChart from '@/components/Admin/Dashboard/CourseStatusChart.vue';
-import ProjectPipelineTable from '@/components/Admin/Dashboard/ProjectPipelineTable.vue';
-import TeamCapacityChart from '@/components/Admin/Dashboard/TeamCapacityChart.vue';
 
 interface Activity {
     id: number;
@@ -156,13 +153,12 @@ const page = usePage<
         pendingCoursesCount: number;
         recentActivities: Activity[];
         statusCounts: Record<string, number>;
-    
+
         coursesNeedingAttention: any[];
         avgCompletionTime: string;
         courses: any[];
     }
 >();
-
 
 const statusCounts = computed(() => {
     return {
@@ -182,7 +178,6 @@ const closeModal = () => {
     isModalOpened.value = false;
     selectedCourse.value = null;
 };
-
 </script>
 
 <style scoped></style>

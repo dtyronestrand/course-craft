@@ -89,6 +89,6 @@ Route::delete('/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableC
 });
 
 Route::post('/appointments', [\App\Http\Controllers\AppointmentController::class, 'store'])->name('appointments.store');
-
+Route::get('conversations/{conversation}', [\App\Http\Controllers\ConversationsController::class, 'index'])->name('conversations.show');
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

@@ -1,5 +1,5 @@
 <template>
-    <div v-for="course in props.courses" :key="course.id" class="w-full">
+    <div v-for="course in props.courses" :key="course.id" class="w-100">
         <div class="glass-effect rounded-xl border border-primary/50 p-4">
             <div class="flex items-center gap-4">
                 <div
@@ -17,12 +17,8 @@
                                 :key="user.id"
                                 class="p-1 leading-none"
                             >
-                                <p
-                                    class="text-xs font-medium text-base-content"
-                                >
-                                    {{ user.first_name }} {{ user.last_name }}:
-                                    {{ user.pivot.role }}
-                                </p>
+                                {{ user.first_name }} {{ user.last_name }}:
+                                {{ user.pivot.role }}
                             </li>
                         </ul>
                     </div>

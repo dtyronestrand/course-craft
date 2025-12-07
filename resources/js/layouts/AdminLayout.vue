@@ -2,14 +2,16 @@
     <div class="drawer lg:drawer-open">
         <input id="sidebar" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex w-full flex-col overflow-x-hidden">
-                    <header class="mx-12 flex items-center justify-between px-2 py-4">
+            <header class="mx-12 flex items-center justify-between px-2 py-4">
                 <h1 class="text-3xl font-bold">
-                    {{ page.props.auth.user.first_name }}'s Dashboard
-                    {{ page.props.auth.user.notifications }}
+                    {{ page.props.auth.user.first_name }}
+                    {{ page.props.auth.user.last_name }}
                 </h1>
                 <div class="flex items-center gap-4">
                     <div class="flex flex-row items-center gap-2">
-                        <NotificationCenter :notifications="page.props.auth.user.notifications"/>
+                        <NotificationCenter
+                            :notifications="page.props.auth.user.notifications"
+                        />
                     </div>
                     <details class="dropdown">
                         <summary
@@ -109,18 +111,15 @@
 <script setup lang="ts">
 import AppLogo from '@/components/AppLogo.vue';
 import Icon from '@/components/Icon.vue';
-import { Link, router, usePage } from '@inertiajs/vue3';
 import NotificationCenter from '@/components/NotificationCenter.vue';
 import { useInitials } from '@/composables/useInitials';
-
+import { Link, router, usePage } from '@inertiajs/vue3';
 
 const { getInitials } = useInitials();
 const page = usePage();
 const logout = () => {
     router.post('/logout');
 };
-
-
 </script>
 
 <style scoped></style>

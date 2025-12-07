@@ -1,25 +1,24 @@
 <template>
-
-        <DebouncedInput
-            :modelValue="globalFilter ?? ''"
-            @update:modelValue="(value: string) => (globalFilter = value)"
-            placeholder="Search all columns..."
-            class="w-w-max frosted-backdrop my-4 rounded border border-primary/10 bg-primary/10 px-4 py-2 text-primary shadow-sm shadow-primary"
-        />
+    <DebouncedInput
+        :modelValue="globalFilter ?? ''"
+        @update:modelValue="(value: string) => (globalFilter = value)"
+        placeholder="Search all columns..."
+        class="w-w-max frosted-backdrop my-4 rounded border border-primary/10 bg-primary/10 px-4 py-2 text-primary shadow-sm shadow-primary"
+    />
 
     <table class="w-full text-left text-sm">
         <thead>
             <tr
                 v-for="headerGroup in table.getHeaderGroups()"
                 :key="headerGroup.id"
-                class="text-sm text-base-content font-bold uppercase"
+                class="text-sm font-bold text-base-content uppercase"
             >
                 <th
                     v-for="header in headerGroup.headers"
                     :key="header.id"
                     :colSpan="header.colSpan"
                     scope="col"
-                    class="px-4 py-3 border border-primary/60"
+                    class="border border-primary/60 px-4 py-3"
                 >
                     <div class="flex flex-row items-center">
                         <FlexRender
@@ -148,16 +147,19 @@ const defaultColumns = [
             columnHelper.display({
                 id: 'progress',
                 header: () => h('span', 'Progress'),
-                cell: ({row}: any) => {
+                cell: ({ row }: any) => {
                     const deliverables = row.original.deliverables || [];
-                    return h('div', deliverables.map((deliverable: any) => {
-                        const style = deliverable.pivot.is_done 
-                            ? 'tooltip bg-success/20 frosted-backdrop border border-success shadow-sm shadow-success rounded-full h-4 w-8 inline-block mr-1' 
-                            : 'tooltip bg-accent/40 rounded-full h-4 w-8 inline-block mr-1';
-                             const tip = deliverable.name;
-                        return h('div', {class: style, 'data-tip':tip});
-                    }));
-                }
+                    return h(
+                        'div',
+                        deliverables.map((deliverable: any) => {
+                            const style = deliverable.pivot.is_done
+                                ? 'tooltip bg-success/20 frosted-backdrop border border-success shadow-sm shadow-success rounded-full h-4 w-8 inline-block mr-1'
+                                : 'tooltip bg-accent/40 rounded-full h-4 w-8 inline-block mr-1';
+                            const tip = deliverable.name;
+                            return h('div', { class: style, 'data-tip': tip });
+                        }),
+                    );
+                },
             }),
         ],
     }),
