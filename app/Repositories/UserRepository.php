@@ -13,7 +13,7 @@ class UserRepository
 
     public function workload()
     {
-        return User::select('id', 'first_name', 'last_name')->with('profile')->withCount('courses')->get();
+        return User::select('id', 'first_name', 'last_name')->with('courses')->with('profile')->withCount('courses')->get();
     }
 
     public function getAllForCalendar()

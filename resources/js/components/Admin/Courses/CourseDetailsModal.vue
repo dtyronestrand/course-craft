@@ -111,7 +111,7 @@
 <script setup lang="ts">
 import { useInitials } from '@/composables/useInitials';
 import { onClickOutside } from '@vueuse/core';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 const { getInitials } = useInitials();
 import { router } from '@inertiajs/vue3';
 import type {Course} from '@/types'
@@ -119,7 +119,7 @@ import axios from 'axios';
 const props = defineProps<{
     isOpen: boolean;
     course: any;
-    developmentCycles: any[];
+   
 }>();
 const localCourse = ref<Course>(props.course);
 const emit = defineEmits(['modal-close']);
@@ -129,6 +129,7 @@ const showAddUser = ref(false);
 const selectedUserId = ref<number | null>(null);
 const selectedRole = ref('Designer');
 const availableUsers = ref<any[]>([]);
+const developmentCycles = ref<any[]>([]);
 
 const addUser = () => {
     if (!selectedUserId.value) return;
@@ -155,6 +156,14 @@ const loadAvailableUsers = async () => {
     availableUsers.value = response.data.filter((user: any) => !existingUserIds.has(user.id));
 };
 
+const loadDevelopmentCycles = async () => {
+    const response = await axios.get('/api/development-cycles');
+    developmentCycles.value = response.data;
+};
+
+onMounted(() => {
+    loadDevelopmentCycles();
+});
 const handleShowAddUser = async () => {
     await loadAvailableUsers();
     showAddUser.value = true;

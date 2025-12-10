@@ -140,16 +140,14 @@ import {
     getPaginationRowModel,
 } from '@tanstack/vue-table';
 import {h, ref, computed} from 'vue';
+import { Course } from '@/types';
 interface Props {
         users: {
         id: number;
         first_name: string;
         last_name: string;
        courses_count: number;
-       profile: {
-            avatar: string | null;
-            title: string | null;
-        };
+        courses: Course[];
        }[];
     };
 

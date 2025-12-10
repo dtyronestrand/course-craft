@@ -14,3 +14,5 @@ Route::middleware('auth:sanctum')->get('/users', [AdminController::class, 'userW
 Route::middleware('auth:sanctum')->get('/capacity', [AdminSettingsController::class, 'getCapacity']);
 
 Route::middleware('auth:sanctum')->get('/allUsers', [AdminController::class, 'allUsers']);
+
+Route::middleware('auth:sanctum')->get('/development-cycles', [AdminSettingsController::class, 'getDevelopmentCycles']);

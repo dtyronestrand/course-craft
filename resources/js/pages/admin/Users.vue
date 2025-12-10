@@ -1,6 +1,6 @@
 <template>
     <AdminLayout>
-       
+     
         <UsersTable :users="page.props.users" />
     </AdminLayout>
 </template>
@@ -11,16 +11,14 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
 import { usePage } from '@inertiajs/vue3';
 import UsersTable from '@/components/Admin/Users/UsersTable.vue';
 import type { PageProps as InertiaPageProps } from '@inertiajs/core';
+import { Course } from '@/types';
 
 interface User {
     id: number;
     first_name: string;
     last_name: string;
     courses_count: number;
-    profile: {
-        avatar: string | null;
-        title: string | null;
-    };
+courses: Course[];
 }
 
 interface PageProps extends InertiaPageProps {

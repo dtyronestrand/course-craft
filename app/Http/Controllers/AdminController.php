@@ -109,4 +109,8 @@ public function courseDetails(Course $course)
       return response()->json($users);
   }
 
+  public function getDevelopmentCycles(){
+      $cycles = $this->developmentCycleService->getAllDevelopmentCycles();
+      return response()->json($cycles);
+  }
 }
