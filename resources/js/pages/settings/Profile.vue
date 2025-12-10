@@ -57,11 +57,23 @@ const user = page.props.auth.user;
                             :default-value="user.first_name"
                             required
                             autocomplete="name"
-                            placeholder="Full name"
+                            placeholder="First Name"
                         />
                         <InputError class="mt-2" :message="errors.name" />
                     </div>
-
+                              <div class="grid gap-2">
+                        <Label for="name">Last Name</Label>
+                        <Input
+                            id="name"
+                            class="mt-1 block w-full"
+                            name="name"
+                            :default-value="user.last_name"
+                            required
+                            autocomplete="family-name"
+                            placeholder="Last name"
+                        />
+                        <InputError class="mt-2" :message="errors.name" />
+                    </div>
                     <div class="grid gap-2">
                         <Label for="email">Email address</Label>
                         <Input
@@ -76,7 +88,17 @@ const user = page.props.auth.user;
                         />
                         <InputError class="mt-2" :message="errors.email" />
                     </div>
-
+                    <div class="grid gap-2">
+                    <Label for="bio">Bio</Label>
+                    <textarea
+                        id="bio"
+                        name="bio"
+                        class="mt-1 block w-full rounded-md border border-neutral-300 bg-white px-3 py-2 shadow-sm placeholder:text-neutral-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:placeholder:text-neutral-500 dark:focus:border-primary"
+                        :default-value="user.profile.bio"
+                        placeholder="A short bio about yourself"
+                        rows="3"
+                    ></textarea>
+                    </div>
                     <div v-if="mustVerifyEmail && !user.email_verified_at">
                         <p class="text-muted-foreground -mt-4 text-sm">
                             Your email address is unverified.

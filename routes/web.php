@@ -44,6 +44,7 @@ Route::get('courses/{course}', [\App\Http\Controllers\CourseController::class, '
 Route::get('courses/{course}/map', [\App\Http\Controllers\CourseController::class, 'map'])->name('courses.map');
 Route::get('courses/{course}/storyboard', [\App\Http\Controllers\CourseController::class, 'storyboard'])->name('courses.storyboard');
 Route::post('/courses', [\App\Http\Controllers\CourseController::class, 'store'])->name('courses.store');
+Route::post('/courses/{course}/update', [\App\Http\Controllers\CourseController::class, 'update'])->name('courses.update');
 
 Route::post('/course_modules', [\App\Http\Controllers\CourseModuleController::class, 'store'])->name('course_modules.store');
 Route::put('/course_modules/{courseModule}', [\App\Http\Controllers\CourseModuleController::class, 'update'])->name('course_modules.update');
@@ -89,6 +90,8 @@ Route::delete('/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableC
 });
 
 Route::post('/appointments', [\App\Http\Controllers\AppointmentController::class, 'store'])->name('appointments.store');
-Route::get('conversations/{conversation}', [\App\Http\Controllers\ConversationsController::class, 'index'])->name('conversations.show');
+Route::get('conversations/{conversation}', [\App\Http\Controllers\ConversationsController::class, 'show'])->name('conversations.show');
+Route::get('profiles/{user}', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profiles.show');
+
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

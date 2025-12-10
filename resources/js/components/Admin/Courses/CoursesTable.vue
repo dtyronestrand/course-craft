@@ -3,7 +3,7 @@
         class="glass-effect flex-1 overflow-y-auto rounded-lg border border-primary/10 p-2 shadow-lg shadow-primary/10"
     >
         <div
-            class="shadow-[0 2px 4px rgba(0, 0, 0, 0.1)] mb-5 w-full overflow-hidden rounded-lg border border-[rgba(from_var(--color-primary)_R_G_B_/_0.5)]"
+            class="shadow-[0 2px 4px rgba(0, 0, 0, 0.1)] mb-5 w-full overflow-hidden rounded-lg border border-[rgba(from_var(--color-primary)_R_G_B_/0.5)]"
         >
             <div class="overflow-x-auto">
                 <table class="w-full">
@@ -69,7 +69,9 @@
         v-if="isModalOpened && selectedCourse"
         :isOpen="isModalOpened"
         :course="selectedCourse"
+        :developmentCycles="props.developmentCycles"
         @modal-close="closeModal"
+   
     />
 </template>
 
@@ -88,6 +90,7 @@ import CourseDetailsModal from './CourseDetailsModal.vue';
 
 interface Props {
     courses: Course[];
+    developmentCycles: Array<any>;
 }
 const props = defineProps<Props>();
 const isModalOpened = ref(false);

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Profile;
 
 class RegisteredUserController extends Controller
 {
@@ -45,6 +46,10 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+
+        Profile::create([
+            'user_id' => $user->id,
+        ]);
 
         Auth::login($user);
 

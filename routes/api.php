@@ -12,3 +12,5 @@ Route::get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->get('/users', [AdminController::class, 'userWorkloads']);
 
 Route::middleware('auth:sanctum')->get('/capacity', [AdminSettingsController::class, 'getCapacity']);
+
+Route::middleware('auth:sanctum')->get('/allUsers', [AdminController::class, 'allUsers']);

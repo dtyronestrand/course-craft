@@ -14,6 +14,10 @@ class CourseRepository
     {
         return Course::all()->load(['deliverables','users:id,first_name,last_name']);
     }
+    public function getAllWithRelations()
+    {
+        return Course::with(['developmentCycle','deliverables','users:id,first_name,last_name'])->get();
+    }
 
     public function getForUser(User $user)
     {
@@ -83,7 +87,7 @@ class CourseRepository
     {
         $course->users()->detach();
         foreach ($users as $user) {
-            $course->users()->attach($user['id'], ['role' => $user['role']]);
+            $course->users()->attach($user['id'], ['role' => $user['pivot']['role']]);
         }
         return $course->users;
     }

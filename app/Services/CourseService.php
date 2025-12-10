@@ -23,6 +23,10 @@ class CourseService
     {
         return (new CreateCourseAction($this->courseRepository))->execute($data);
     }
+    public function getAllWithRelations()
+    {
+        return $this->courseRepository->getAllWithRelations();
+    }
 
      public function countActiveCourses()
     {

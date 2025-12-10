@@ -22,4 +22,9 @@ class UserService
     {
         return $this->userRepository->getAllForCalendar();
     }
+
+    public function getUserProfile($user)
+    {
+        return $this->userRepository->getUserProfile($user);
+    }
 }

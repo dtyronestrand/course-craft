@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Course;
 use App\Models\User;
+use App\Models\Deliverable;
 use Illuminate\Support\Arr;
 
 class CourseSeeder extends Seeder
@@ -21,16 +22,26 @@ class CourseSeeder extends Seeder
      Course::factory()
      ->count(5)
      ->create()
+     ->each(function($course){
+        $course->developmentCycle()->associate(\App\Models\DevelopmentCycle::inRandomOrder()->first());
+        $course->save();
+        
+        $deliverables = Deliverable::all();
+        $pivotData = [];
+        foreach($deliverables as $deliverable){
+            $pivotData[$deliverable->id] = [
+                'due_date' => $course->developmentCycle->start_date->addDays($deliverable->template_days_offset)
+            ];
+        }
+        $course->deliverables()->attach($pivotData);
+     })
      ->each(function($course) use ($users, $roles){
         $usersToAttach = $users->shuffle()->take(rand(1, 4));
         $pivotData = [];
         $assignedRoles = Arr::shuffle($roles);
         foreach($usersToAttach as $index => $user){
-            $role = $assignedRoles[$index];
+            $role = $assignedRoles[$index % count($roles)];
             $pivotData[$user->id] = ['role' => $role];
-            if ($index >= count($roles) - 1) {
-                break;
-            }
         }
         $course->users()->attach($pivotData);
     });

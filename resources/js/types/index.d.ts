@@ -49,6 +49,7 @@ export interface User {
     first_name: string;
     last_name: string;
     email: string;
+    is_admin: boolean;
     avatar?: string;
     pivot?: {
         role: string;
@@ -57,6 +58,12 @@ export interface User {
     created_at: string;
     updated_at: string;
     notifications: Array;
+    profile: {
+        id: number;
+        bio: string| null;
+        avatar: string | null;
+        title: string | null;
+    }
 }
 export interface Course {
     id: number;
@@ -73,6 +80,15 @@ export interface Course {
     created_at: string;
     updated_at: string;
     modules: Module[];
+    development_cycle_id: number | null;
+    development_cycle: {
+        id: number;
+        name: string;
+        start_date: string;
+        end_date: string;
+        
+    }
+    deliverables: Array;
 }
 
 export interface Course_Assessment {

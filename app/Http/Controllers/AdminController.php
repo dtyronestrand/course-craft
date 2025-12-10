@@ -53,7 +53,7 @@ class AdminController extends Controller
 
   public function courses()
   {
-    $courses = $this->courseService->getAllCourses();
+    $courses = $this->courseService->getAllWithRelations();
     $developmentCycles = $this->developmentCycleService->getAllDevelopmentCycles();
     return Inertia::render('admin/Courses', ['courses' => $courses, 'developmentCycles' => $developmentCycles]);
   }
@@ -92,14 +92,21 @@ public function courseDetails(Course $course)
 
   public function users()
   {
-    $users = User::all();
-    return Inertia::render('admin/Users', ['users' => $users]);
+    $users = $this->userService->getUsersWorkloads();
+
+    return Inertia::render('admin/Users', ['users' => $users, ]);
   }
 
   public function userWorkloads()
   {
     $workloads = $this->userService->getUsersWorkloads();
     return response()->json($workloads);
+  }
+
+  public function allUsers()
+  {
+      $users = User::select('id', 'first_name', 'last_name')->get();
+      return response()->json($users);
   }
 
 }
