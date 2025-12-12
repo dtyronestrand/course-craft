@@ -8,13 +8,13 @@
                 <div class="space-x-2">
                     <button
                         @click="changeMonth(-1)"
-                        class="rounded  bg-primary/30 px-4 py-2 text-primary-content  border border-primary hover:bg-primary/50 active:bg-primary"
+                        class="rounded  bg-primary px-4 py-2 text-primary-content  border border-primary hover:bg-primary/30 active:bg-primary/50"
                     >
                         &larr; Prev
                     </button>
                     <button
                         @click="changeMonth(1)"
-                class="rounded  bg-primary/30 px-4 py-2 text-primary-content border border-primary hover:bg-primary/50 active:bg-primary"
+                class="rounded  bg-primary px-4 py-2 text-primary-content border border-primary hover:bg-primary/30 active:bg-primary/50"
                     >
                         Next &rarr;
                     </button>
@@ -93,6 +93,7 @@
                     <ViewAppointmentDetails
                         :show="viewAppointmentDetailsModal"
                         :appointment="selectedAppointment"
+                        :users="props.users"
                         @close="viewAppointmentDetailsModal = false"
                     />
                 </div>

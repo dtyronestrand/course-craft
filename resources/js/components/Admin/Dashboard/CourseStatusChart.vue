@@ -1,7 +1,7 @@
 <template>
-    <div>
+    
         <Bar id="course-status" :data="chartData" :options="chartOptions" />
-    </div>
+
 </template>
 
 <script setup lang="ts">

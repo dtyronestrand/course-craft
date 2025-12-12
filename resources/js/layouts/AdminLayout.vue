@@ -1,8 +1,8 @@
 <template>
     <div class="drawer lg:drawer-open">
         <input id="sidebar" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content flex w-full flex-col overflow-x-hidden">
-            <header class="mx-12 flex items-center justify-between px-2 py-4">
+        <div class="drawer-content flex w-full flex-col items-center justify-center overflow-x-hidden">
+            <header class="bg-primary text-primary-content w-full flex items-center justify-between mx-4 px-4 py-4">
                 <h1 class="text-3xl font-bold">
                     {{ page.props.auth.user.first_name }}
                     {{ page.props.auth.user.last_name }}
@@ -15,7 +15,7 @@
                     </div>
                     <details class="dropdown">
                         <summary
-                            class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-center font-bold text-primary-content"
+                            class="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-center font-bold text-accent-content"
                         >
                             {{
                                 getInitials(
@@ -47,19 +47,19 @@
                 >Open Sidebar</label
             >
         </div>
-        <div class="drawer-side">
+        <div class="drawer-side border-r border-primary bg-base-100">
             <label
                 for="sidebar"
                 aria-label="close sidebar"
                 class="drawer-overlay"
             ></label>
             <div
-                class="align-center glass-effect flex w-80 flex-row items-center gap-4 p-4 text-base-content"
+                class="align-center flex w-80 flex-row items-center gap-4 p-2 text-base-content"
             >
                 <AppLogo class="m-0" />
             </div>
             <ul
-                class="glass-effect menu min-h-full w-80 p-4 text-2xl text-base-content"
+                class=" menu min-h-full w-80 p-4 text-2xl text-base-content"
             >
                 <li>
                     <Link href="/admin/dashboard"
