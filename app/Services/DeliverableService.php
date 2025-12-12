@@ -14,10 +14,14 @@ use App\Actions\Deliverables\UpdateCourseDeliverableAction;
 class DeliverableService
 {
     protected $deliverableRepository;
+    protected $createDeliverableAction;
 
-    public function __construct(DeliverableRepository $deliverableRepository)
-    {
+    public function __construct(
+        DeliverableRepository $deliverableRepository,
+        CreateDeliverableAction $createDeliverableAction
+    ) {
         $this->deliverableRepository = $deliverableRepository;
+        $this->createDeliverableAction = $createDeliverableAction;
     }
     public function getAllDeliverables()
     {
@@ -26,7 +30,7 @@ class DeliverableService
     
     public function createDeliverable(array $data)
     {
-        return (new CreateDeliverableAction($this->deliverableRepository))->execute($data);
+        return $this->createDeliverableAction->execute($data);
     }
 
     public function updateDeliverable(Deliverable $deliverable, array $data)
