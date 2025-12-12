@@ -1,17 +1,17 @@
 <template>
     <div
         v-if="show"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-neutral/80"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-base-300/80"
         @click.self="emit('close')"
     >
         <div
-            class="glass-effect w-full max-w-md rounded-lg border border-primary/20 p-6 shadow-md shadow-primary"
+            class="bg-base-100 w-full max-w-md rounded-lg border border-primary p-6 shadow-md shadow-primary"
         >
             <h3 class="mb-4 text-xl font-semibold text-primary">
                 Schedule New Appointment
             </h3>
             <form @submit.prevent="submit">
-                {{ test }}
+           
                 <div class="space-y-4">
                     <div>
                         <label
@@ -23,7 +23,7 @@
                             id="subject"
                             type="text"
                             v-model="form.subject"
-                            class="frosted-backdrop mt-1 block w-full rounded-md border border-primary bg-primary/10 p-2 text-base-content shadow-sm shadow-primary"
+                            class=" bg-base-200 border border-primary mt-1 block w-full rounded-md  p-2 text-base-content "
                             required
                         />
                         <div
@@ -44,7 +44,7 @@
                             id="start_time"
                             type="datetime-local"
                             v-model="form.start_time"
-                            class="frosted-backdrop mt-1 block w-full rounded-md border border-primary bg-primary/10 p-2 text-base-content shadow-sm shadow-primary"
+                            class=" bg-base-200 border border-primary mt-1 block w-full rounded-md  p-2 text-base-content "
                             required
                         />
                         <div
@@ -65,7 +65,7 @@
                             id="end_time"
                             type="datetime-local"
                             v-model="form.end_time"
-                            class="frosted-backdrop mt-1 block w-full rounded-md border border-primary bg-primary/10 p-2 text-base-content shadow-sm shadow-primary"
+                            class=" bg-base-200 border border-primary mt-1 block w-full rounded-md  p-2 text-base-content "
                             required
                         />
                         <div
@@ -105,7 +105,7 @@
                                 type="text"
                                 v-model="searchQuery"
                                 placeholder="Search users..."
-                                class="frosted-backdrop mt-1 block w-full rounded-md border border-primary bg-primary/10 p-2 text-base-content shadow-sm shadow-primary"
+                             class=" bg-base-200 border border-primary mt-1 block w-full rounded-md  p-2 text-base-content "
                             />
                             <div
                                 v-if="searchQuery && filteredUsers.length"
@@ -139,14 +139,14 @@
                     <button
                         type="button"
                         @click="emit('close')"
-                        class="frosted-backdrop rounded-md border border-error bg-error/10 px-4 py-2 text-error shadow-sm shadow-error hover:bg-error/30"
+                        class="rounded-md bg-error text-error-content px-4 py-2 hover:bg-error/30 active:bg-error/50"
                     >
                         Cancel
                     </button>
                     <button
                         type="submit"
                         :disabled="form.processing"
-                        class="frosted-backdrop rounded-md border border-success bg-success/10 px-4 py-2 text-success shadow-sm shadow-success hover:bg-success/30 disabled:bg-neutral/50 disabled:text-neutral/70"
+                        class="rounded-md bg-success px-4 py-2 text-success-content active:bg-success/50 hover:bg-success/30 disabled:bg-neutral/50 disabled:text-neutral/70"
                     >
                         {{
                             form.processing ? 'Saving...' : 'Create Appointment'
@@ -168,7 +168,7 @@ const props = defineProps<{
 }>();
 const page = usePage();
 const emit = defineEmits(['close']);
-const test = new Date().getTime().toString().slice(0, 16);
+
 
 const form = useForm({
     user: page.props.auth.user.id,

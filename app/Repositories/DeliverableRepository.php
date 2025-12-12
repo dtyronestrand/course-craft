@@ -13,7 +13,7 @@ class DeliverableRepository
     }
     public function getAll()
     {
-        return Deliverable::all();
+        return Deliverable::orderBy('template_days_offset')->get();
     }
     
     public function update(Deliverable $deliverable, array $data)

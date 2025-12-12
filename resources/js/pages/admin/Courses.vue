@@ -18,7 +18,7 @@
                     </button>
                 </div>
                 <button
-                    class="frosted-backdrop btn mb-6 self-end border border-info bg-info/20 text-info shadow-md shadow-info/20"
+                    class=" btn mb-6 self-end border border-primary bg-primary/30 text-primary-content hover:bg-primary/50 active:bg-primary "
                     @click="isCreateCourseModalOpen = true"
                 >
                     Create New Course

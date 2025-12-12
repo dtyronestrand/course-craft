@@ -8,7 +8,7 @@
         <div class="flex justify-evenly">
             <div class="placeholder avatar">
                 <div
-                    class="frosted-backdrop flex h-8 w-8 items-center rounded-full border border-primary bg-primary/10 text-primary shadow-sm shadow-primary/20"
+                    class="frosted-backdrop flex h-8 w-8 items-center rounded-full border border-success bg-succes/10 text-success shadow-sm shadow-success/20"
                 >
                     <p class="mx-auto text-sm">
                         {{ getInitials(user.first_name, user.last_name) }}
@@ -16,7 +16,7 @@
                 </div>
             </div>
             <progress
-                class="progress mx-4 w-50 place-self-center progress-primary"
+                class="progress mx-4 w-50 place-self-center progress-success"
                 :value="user.workload"
                 max="100"
             ></progress>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\DeliverableService;
+use App\Models\Deliverable;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -30,6 +31,18 @@ class DeliverableController extends Controller
         }
     }
     return redirect()->back()->with('success', 'Deliverables created successfully');
+    }
+
+    public function update(Request $request, Deliverable $deliverable)
+    {
+        $data = $request->validate([
+          
+            'name' => 'required|string|max:255',
+            'template_days_offset' => 'required|integer',
+        ]);
+
+        $this->deliverableService->updateDeliverable($deliverable, $data);
+        return redirect()->back()->with('success', 'Deliverable updated successfully');
     }
  public function destroy(\App\Models\Deliverable $deliverable)
     {

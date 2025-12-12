@@ -4,14 +4,14 @@
             <h1 class="col-span-3 mb-4 text-center text-7xl">Settings</h1>
             <div class="grid grid-cols-2 gap-8 p-4">
                 <div
-                    class="glass-effect rounded-xl border border-primary/70 p-6 shadow-lg shadow-primary/20"
+                    class="rounded-xl border border-primary p-6 shadow-lg shadow-primary bg-base-100 text-base-content"
                 >
                     <h2 class="text-3xl font-bold text-primary">
                         Development Cycles
                     </h2>
                     <button
                         @click="showModal = true"
-                        class="frosted-backdrop btn my-4 border-info bg-info/20 text-info shadow-md shadow-info/20"
+                        class="bg-primary btn my-4 border-primary text-primary-content hover:bg-primary/50 active:bg-primary/30"
                     >
                         Add New Cycle
                     </button>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div
-                    class="glass-effect rounded-xl border border-primary/70 p-6 shadow-lg shadow-primary/20"
+                    class="bg-base-100 rounded-xl border border-primary p-6 shadow-lg shadow-primary"
                 >
                     <h2 class="text-3xl font-bold text-primary">
                         Designer Capacity
@@ -48,11 +48,11 @@
                         <input
                             v-model="capacity"
                             type="number"
-                            class="frosted-backdrop mt-8 w-min border border-primary/50 bg-primary/20 p-2"
+                            class=" mt-8 w-min border border-primary bg-base-200 text-base-content p-2"
                             placeholder="0"
                         />
                         <button
-                            class="frosted-backdrop shadow-info-20 btn w-max border-info bg-info/20 text-info shadow-md"
+                            class="bg-primary max-w-max rounded-md p-2 border-primary text-primary-content hover:bg-primary/50 active:bg-primary/30"
                             @click="updateCapacity"
                         >
                             Update Capacity

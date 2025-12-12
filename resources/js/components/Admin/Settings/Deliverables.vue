@@ -1,10 +1,10 @@
 <template>
     <div
-        class="glass-effect flex flex-col gap-6 rounded-xl border border-primary/70 p-6 shadow-lg shadow-primary/20"
+        class="bg-base-100 flex flex-col gap-6 rounded-xl border border-primary p-6 shadow-lg shadow-primary"
     >
         <h2 class="text-3xl font-bold text-primary">Deliverables</h2>
         <button
-            class="frosted-backdrop btn w-max border-info bg-info/10 text-info shadow-md shadow-info/10"
+            class="bg-primary text-primary-content max-w-max btn border-primary " 
             @click="addDeliverable"
         >
             Add Deliverable
@@ -30,15 +30,27 @@
                             <input
                                 type="number"
                                 v-model="deliverable.template_days_offset"
+                                @change="deliverable.changed = true"
+                                @keydown.esc="deliverable.changed = false"
                             />
                         </td>
                         <td>
+                        <div class="flex flex-row gap-2 items-center">
+                            <button 
+                                v-if="deliverable.changed && deliverable.id"
+                                type="button"
+                                @click="updateDeliverables(deliverable)"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
+                            </button>
                             <button
-                                class="frosted-backdrop btn border-error bg-error/10 font-bold text-error shadow-md shadow-error"
+                                type="button"
+                                class="font-bold text-error"
                                 @click="() => removeDeliverable(index)"
                             >
                                 X
                             </button>
+                        </div>
                         </td>
                     </tr>
                 </tbody>
@@ -63,6 +75,7 @@ interface Props {
         id?: number;
         name: string;
         template_days_offset: number;
+        changed?: boolean;
     }[];
 }
 const props = defineProps<Props>();
@@ -109,6 +122,22 @@ const removeDeliverable = (index: number) => {
         deliverables.value.splice(index, 1);
     }
 };
+const updateDeliverables = (deliverable: Props['deliverables'][0]) => {
+    const form = useForm({
+        name: deliverable.name,
+        template_days_offset: deliverable.template_days_offset,
+    });
+    form.post(`/admin/deliverables/${deliverable.id}`, {
+        onSuccess: () => {
+            deliverable.changed = false;
+            router.reload();
+        },
+        onError: () => {
+            alert('Failed to update deliverables.');
+        },
+    });
+};
+
 </script>
 
 <style scoped></style>

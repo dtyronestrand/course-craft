@@ -3,7 +3,7 @@
         :modelValue="globalFilter ?? ''"
         @update:modelValue="(value: string) => (globalFilter = value)"
         placeholder="Search all columns..."
-        class="w-w-max frosted-backdrop my-4 rounded border border-primary/10 bg-primary/10 px-4 py-2 text-primary shadow-sm shadow-primary"
+        class="w-max frosted-backdrop my-4 rounded border border-primary/10 bg-primary/10 px-4 py-2 text-primary shadow-sm shadow-primary"
     />
 
     <table class="w-full text-left text-sm">

@@ -4,7 +4,7 @@
             <div class="wrapper frosted-backdrop h-full p-2">
                 <div class="mb-6 grid grid-cols-4 gap-6">
                     <div
-                        class="glass-effect rounded-xl border border-error/70 p-6 shadow-lg shadow-error/20"
+                        class="bg-base-100 frosted-background text-error rounded-xl border border-error/70 p-6 shadow-lg shadow-error/20"
                     >
                         <div class="flex items-start justify-between">
                             <h2
@@ -22,7 +22,7 @@
                             >
                                 <button
                                     @click="openModal(course)"
-                                    class="mt-2 text-5xl text-error hover:underline"
+                                    class="mt-2 text-2xl text-error hover:underline"
                                 >
                                     {{ course.prefix }} {{ course.number }}
                                 </button>
@@ -30,7 +30,7 @@
                         </ul>
                     </div>
                     <div
-                        class="glass-effect rounded-xl border border-primary/70 p-6 shadow-lg shadow-primary/20"
+                        class="bg-base-100 text-primary frosted-backdrop rounded-xl border border-primary/70 p-6 shadow-lg shadow-primary/20"
                     >
                         <div class="flex items-start justify-between">
                             <h2
@@ -50,7 +50,7 @@
                         />
                     </div>
                     <div
-                        class="glass-effect rounded-xl border border-info/70 p-6 shadow-lg shadow-info/20"
+                        class="bg-base-100 fosted-backdrop rounded-xl border border-info/70 p-6 shadow-lg shadow-info/20"
                     >
                         <div class="flex items-start justify-between">
                             <h2
@@ -60,12 +60,12 @@
                             </h2>
                             <SquareChartGantt class="h-10 w-10 text-info" />
                         </div>
-                        <p class="mt-4 text-5xl text-info">
+                        <p class="mt-4 text-2xl text-info">
                             {{ page.props.avgCompletionTime }}
                         </p>
                     </div>
                     <div
-                        class="glass-effect flex max-h-80 flex-col overflow-auto rounded-xl border border-success/70 p-4 shadow-lg shadow-success/20"
+                        class="bg-base-100 frosted-backdrop text-success flex max-h-80 flex-col rounded-xl border border-success/70 p-4 shadow-lg shadow-success/20"
                     >
                         <div class="flex items-start justify-between">
                             <h2
@@ -75,12 +75,14 @@
                             </h2>
                             <Users class="h-10 w-10 text-success" />
                         </div>
+                        <div class="overflow-auto">
                         <TeamCapacityChart class="mt-4" />
+                        </div>
                     </div>
                 </div>
                 <div class="flex gap-6">
                     <div
-                        class="glass-effect flex-1 rounded-xl border border-primary/70 p-6 shadow-lg shadow-primary/20"
+                        class="frosted-backdrop bg-base-100 flex-1 rounded-xl border border-neutral p-6 shadow-lg shadow-neutral/20"
                     >
                         <div class="flex items-start justify-between">
                             <h2
@@ -96,7 +98,7 @@
                     </div>
                     <aside class="w-80 shrink-0">
                         <div
-                            class="glass-effect flex h-full flex-col rounded-xl border border-info/70 p-6 shadow-lg shadow-info/20"
+                            class="bg-base-100 flex h-full flex-col rounded-xl border border-info/70 p-6 shadow-lg shadow-info/20"
                         >
                             <h2
                                 class="mb-6 text-xl font-semibold text-secondary"

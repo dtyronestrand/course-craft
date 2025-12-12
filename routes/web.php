@@ -85,6 +85,7 @@ Route::prefix('admin')->middleware([\App\Http\Middleware\isAdminMiddleWare::clas
     Route::post('/settings', [\App\Http\Controllers\AdminSettingsController::class, 'store'])->name('admin.settings.store');
     Route::get('/calendar', [\App\Http\Controllers\CalendarController::class, 'index'])->name('admin.calendar');
 Route::post('/deliverables', [\App\Http\Controllers\DeliverableController::class, 'store'])->name('admin.deliverables.store');
+Route::post('/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableController::class, 'update'])->name('admin.deliverables.update');
 Route::delete('/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableController::class, 'destroy'])->name('admin.deliverables.destroy');
 
 });
