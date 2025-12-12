@@ -91,6 +91,7 @@ Route::delete('/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableC
 });
 
 Route::post('/appointments', [\App\Http\Controllers\AppointmentController::class, 'store'])->name('appointments.store');
+Route::post('/appointments/{appointment}', [\App\Http\Controllers\AppointmentController::class, 'update'])->name('appointments.update');
 Route::get('conversations/{conversation}', [\App\Http\Controllers\ConversationsController::class, 'show'])->name('conversations.show');
 Route::get('profiles/{user}', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profiles.show');
 

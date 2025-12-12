@@ -30,4 +30,10 @@ class AppointmentController extends Controller
         }
         return back()->with('success', 'Appointment created successfully.');
     }
+
+    public function update(Request $request, $appointment)
+    {
+        $updatedAppointment = $this->appointmentService->updateAppointment($appointment, $request->all());
+        return back()->with('success', 'Appointment updated successfully.');
+    }
 }

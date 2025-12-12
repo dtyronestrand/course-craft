@@ -3,6 +3,7 @@
 namespace App\Services;
 use App\Actions\Appointments\CreateAppointmentAction;
 use App\Actions\Appointments\GetAppointmentsAction;
+use App\Actions\Appointments\UpdateAppointmentAction;
 use App\Repositories\AppointmentRepository;
 use Illuminate\Http\Request;
 
@@ -22,5 +23,9 @@ class AppointmentService
     }
         public function getUserAppointments($user) {
         return (new GetAppointmentsAction($this->appointmentRepository))->execute($user);
+    }
+    public function updateAppointment($appointment, array $data) {
+        $updateAppointmentAction = new UpdateAppointmentAction($this->appointmentRepository);
+        return $updateAppointmentAction->execute($appointment, $data);
     }
 }
