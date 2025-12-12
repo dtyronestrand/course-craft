@@ -23,9 +23,9 @@ public function created(DevelopmentCycle $cycle)
 
     foreach ($dueDates as $date) {
         $this->calendarService->addEvent([
-            'title' => 'Deliverable Due: ' . $date['deliverable_name'],
-            'start' => $date['due_date'],
-            'end' => $date['due_date'],
+            'subject' => 'Deliverable Due: ' . $date['deliverable_name'],
+            'start_time' => $date['due_date'],
+            'end_time' => $date['due_date'],
             'allDay' => true,
         ]);
     }

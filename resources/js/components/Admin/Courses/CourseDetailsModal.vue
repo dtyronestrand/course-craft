@@ -1,10 +1,10 @@
 <template>
     <div
         v-if="props.isOpen"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" @click.self="emit('modal-close')"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-base-300/80" @click.self="emit('modal-close')"
     >   
         <div
-            class="glass-effect pointer-events-auto w-full max-w-lg rounded-lg border border-primary p-6 shadow-lg shadow-primary"
+            class="bg-base-100 pointer-events-auto w-full max-w-lg rounded-lg border border-primary p-6 shadow-lg shadow-primary"
             ref="target"
         >
                 
@@ -15,15 +15,15 @@
                 <form class="flex flex-col flex-wrap gap-4"  @submit.prevent="updateCourse">
 <div class="flex flex-row justify-between items-center">
                 <label for="prefix">Course Prefix:</label>
-                    <input class="my-4 border-b border-primary/10 shadow-sm shadow-primary frosted-backdrop bg-primary/10" type="text" name="prefix" v-model="localCourse.prefix"/>
+                    <input class="my-4 px-4 border border-primary bg-base-200" type="text" name="prefix" v-model="localCourse.prefix"/>
 </div>
 <div class="items-center flex flex-row justify-between">
                     <label for="number">Course Number:</label>
-                    <input class="my-4 border-b border-primary/10 shadow-sm shadow-primary frosted-backdrop bg-primary/10" type="text" name="number" v-model="localCourse.number"/>
+                    <input class="my-4 px-4 border border-primary bg-base-200" type="text" name="number" v-model="localCourse.number"/>
 </div>
            
              <label for="title">Course Title:</label>
-                    <input class="mb-4 p-2 border-b border-primary/10 shadow-sm shadow-primary frosted-backdrop bg-primary/10" type="text" name="title" v-model="localCourse.title"/>
+                    <input class="my-4 px-4 border border-primary bg-base-200" type="text" name="title" v-model="localCourse.title"/>
               
    <div class="mb-4">
                     <label
@@ -34,7 +34,7 @@
                     <select
                         v-model="localCourse.development_cycle_id"
                         id="cycle"
-                        class="frosted-backdrop mt-1 block w-full border-b border-primary bg-primary/10 p-2 shadow-sm shadow-primary"
+                        class="my-4 px-4 border border-primary bg-base-200"
                     >
 <option :value="null">Select a cycle</option>
                         <option
@@ -63,42 +63,42 @@
                             </div>
                            <select
                             v-model="user.pivot!.role"
-                            class="frosted-backdrop ml-2 rounded-md border border-primary bg-primary/10 p-1 shadow-sm shadow-primary"
+                            class="my-4 px-4 border border-primary bg-base-200"
                         >
                             <option value="Designer">Designer</option>
                             <option value="SME">Subject Matter Expert</option>
                             <option value="Manager">Manager</option>
                             <option value="Builder">Builder</option>
                         </select>
-                        <button type="button" @click="localCourse.users.splice(index, 1)" class="btn btn-sm bg-error/10 frosted-backdrop border border-error text-error shdow-sm shadow-error">X</button>
+                        <button type="button" @click="localCourse.users.splice(index, 1)" class="font-bold text-error ">X</button>
                         </li>
         <li v-if="!showAddUser && localCourse.users.length < 4">
-            <button type="button" class="btn bg-info/10 frosted-backdrop text-info border border-info shadow-sm shadow-info" @click="handleShowAddUser">Add User</button>
+            <button type="button" class="btn btn-primary text-primary-content hover:bg-primary/30 active:bg-primary/50" @click="handleShowAddUser">Add User</button>
         </li>
         <li v-if="showAddUser" class="flex flex-col gap-2">
-            <select v-model="selectedUserId" class="frosted-backdrop rounded-md border border-primary bg-primary/10 p-1 shadow-sm shadow-primary">
+            <select v-model="selectedUserId" class="my-4 px-4 border border-primary bg-base-200">
                 <option :value="null">Select User</option>
                 <option v-for="user in availableUsers" :key="user.id" :value="user.id">
                     {{ user.first_name }} {{ user.last_name }}
                 </option>
             </select>
-            <select v-model="selectedRole" class="frosted-backdrop rounded-md border border-primary bg-primary/10 p-1 shadow-sm shadow-primary">
+            <select v-model="selectedRole" class="my-4 px-4 border border-primary bg-base-200">
                 <option value="Designer">Designer</option>
                 <option value="SME">Subject Matter Expert</option>
                 <option value="Manager">Manager</option>
                 <option value="Builder">Builder</option>
             </select>
             <div class="flex gap-2">
-                <button type="button" @click="addUser" class="btn btn-sm bg-success/10 frosted-backdrop text-success border border-success">Add</button>
-                <button type="button" @click="cancelAddUser" class="btn btn-sm bg-error/10 frosted-backdrop text-error border border-error">Cancel</button>
+                <button type="button" @click="addUser" class="btn btn-success text-success-content">Add</button>
+                <button type="button" @click="cancelAddUser" class="btn btn-error text-error-content ">Cancel</button>
             </div>
         </li>
                     </ul>
                     <div class="flex flex-row gap-4 mt-4">
-                    <button type="submit" class="mt-6 btn bg-success/10 frosted-backdrop text-success shadow-md shadow-success border border-success">
+                    <button type="submit" class="btn btn-success text-success-content hover:bg-success/30 active:bg-success/50">
                         Save Changes
                     </button>
-                    <button type="button" class="mt-6 btn bg-error/10 frosted-backdrop text-error shadow-md shadow-error border border-error" @click="emit('modal-close')">
+                    <button type="button" class="btn btn-error text-success-error hover:bg-error/30 active:bg-error/50" @click="emit('modal-close')">
                         Cancel
                     </button>
                     </div>

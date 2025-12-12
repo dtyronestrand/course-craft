@@ -1,12 +1,10 @@
 <template>
 <div
-        class="glass-effect flex-1 overflow-y-auto rounded-lg border border-primary/10 p-2 shadow-lg shadow-primary/10"
+        class="w-full overflow-y-auto rounded-lg border border-primary p-2 shadow-lg shadow-primary"
     >
-        <div
-            class="shadow-[0 2px 4px rgba(0, 0, 0, 0.1)] mb-5 w-full overflow-hidden rounded-lg border border-[rgba(from_var(--color-primary)_R_G_B_/0.5)]"
-        >
-            <div class="overflow-x-auto">
-                <table class="w-full">
+
+            <div class="mt-8 bg-base-100 border border-primary rounded-lg  overflow-x-auto">
+                <table class="w-full ">
                     <thead>
                         <tr
                             v-for="headerGroup in table.getHeaderGroups()"
@@ -66,28 +64,28 @@
         
       <div class="flex items-center gap-2 mt-4 ml-4">
         <button
-          class="border boder-primary bg-primary/10 text-primary shadow-sm shadow-primary frosted-backdrop rounded p-1"
+          class="btn bg-primary text-primary-content rounded p-1"
           @click="() => table.setPageIndex(0)"
           :disabled="!table.getCanPreviousPage()"
         >
           «
         </button>
         <button
-          class="border boder-primary bg-primary/10 text-primary shadow-sm shadow-primary frosted-backdrop rounded p-1"
+          class="btn bg-primary text-primary-content rounded p-1"
           @click="() => table.previousPage()"
           :disabled="!table.getCanPreviousPage()"
         >
           ‹
         </button>
         <button
-          class="border boder-primary bg-primary/10 text-primary shadow-sm shadow-primary frosted-backdrop rounded p-1"
+          class="btn bg-primary text-primary-content rounded p-1"
           @click="() => table.nextPage()"
           :disabled="!table.getCanNextPage()"
         >
           ›
         </button>
         <button
-          class="border boder-primary bg-primary/10 text-primary shadow-sm shadow-primary frosted-backdrop rounded p-1"
+          class="btn bg-primary text-primary-content rounded p-1"
           @click="() => table.setPageIndex(table.getPageCount() - 1)"
           :disabled="!table.getCanNextPage()"
         >
@@ -106,7 +104,7 @@
             type="number"
             :value="goToPageNumber"
             @change="handleGoToPage"
-            class="border p-1 rounded w-16"
+            class="border p-1 bg-base-200 text-base-content rounded w-16"
           />
         </span>
         <select
@@ -125,7 +123,7 @@
       <div>{{ table.getRowModel().rows.length }} Rows</div>
  
     </div>
-</div>
+
 </template>
 
 <script setup lang="ts">
@@ -235,13 +233,17 @@ tbody {
 
 th,
 td {
-    border-bottom: 1px solid rgba(from var(--color-primary) R G B / 0.2);
-    border-right: 1px solid rgba(from var(--color-primary) R G B / 0.2);
-    padding: 2px 4px;
+    border-bottom: 1px solid rgba(from var(--color-primary) R G B / 1);
+    border-right: 1px solid rgba(from var(--color-primary) R G B / 1);
+    padding-left: 16px;
 }
 th:last-child,
 td:last-child {
     border-right: none;
+}
+th:first-child,
+td:first-child {
+   border-left: 1px solid rgba(from var(--color-primary) R G B / 1);
 }
 tr:last-child td {
     border-bottom: 1px solid rgba(from var(--color-primary) R G B / 0.5);

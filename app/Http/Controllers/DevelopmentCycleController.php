@@ -28,4 +28,10 @@ class DevelopmentCycleController extends Controller
 
         return back()->with('success', 'Development Cycle created successfully.');
     }
+
+    public function index()
+    {
+        $cycles = $this->developmentCycleService->getAllDevelopmentCycles();
+        return response()->json($cycles);
+    }
 }

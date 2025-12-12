@@ -31,4 +31,6 @@ class AdminSettingsController extends Controller
 
         return response()->json(['capacity' => $capacity]);
     }
+
+    
 }

@@ -45,7 +45,7 @@
                             {{ page.props.activeCoursesCount }}
                         </p>
                         <CourseStatusChart
-                            class="mt-4 flex-1"
+                            class="mt-4 "
                             :courseStatusCounts="statusCounts"
                         />
                     </div>

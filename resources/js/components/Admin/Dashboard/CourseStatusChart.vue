@@ -1,5 +1,5 @@
 <template>
-    
+   
         <Bar id="course-status" :data="chartData" :options="chartOptions" />
 
 </template>
@@ -52,6 +52,8 @@ const chartOptions = {
             display: false,
         },
     },
+    responsive: true,
+    
 };
 </script>
 

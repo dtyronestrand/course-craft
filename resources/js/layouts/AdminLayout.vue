@@ -40,7 +40,7 @@
                     </details>
                 </div>
             </header>
-            <main class="ml-4 flex flex-1 gap-6">
+            <main class="w-full flex flex-1">
                 <slot />
             </main>
             <label for="sidebar" class="drawer-button btn lg:hidden"
