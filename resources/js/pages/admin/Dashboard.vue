@@ -4,7 +4,7 @@
             <div class="wrapper frosted-backdrop h-full p-2">
                 <div class="mb-6 grid grid-cols-4 gap-6">
                     <div
-                        class="bg-base-100 frosted-background text-error rounded-xl border border-error/70 p-6 shadow-lg shadow-error/20"
+                        class="frosted-background rounded-xl border border-error/70 bg-base-100 p-6 text-error shadow-lg shadow-error/20"
                     >
                         <div class="flex items-start justify-between">
                             <h2
@@ -30,7 +30,7 @@
                         </ul>
                     </div>
                     <div
-                        class="bg-base-100 text-primary frosted-backdrop rounded-xl border border-primary/70 p-6 shadow-lg shadow-primary/20"
+                        class="frosted-backdrop rounded-xl border border-primary/70 bg-base-100 p-6 text-primary shadow-lg shadow-primary/20"
                     >
                         <div class="flex items-start justify-between">
                             <h2
@@ -45,12 +45,12 @@
                             {{ page.props.activeCoursesCount }}
                         </p>
                         <CourseStatusChart
-                            class="mt-4 "
+                            class="mt-4"
                             :courseStatusCounts="statusCounts"
                         />
                     </div>
                     <div
-                        class="bg-base-100 fosted-backdrop rounded-xl border border-info/70 p-6 shadow-lg shadow-info/20"
+                        class="fosted-backdrop rounded-xl border border-info/70 bg-base-100 p-6 shadow-lg shadow-info/20"
                     >
                         <div class="flex items-start justify-between">
                             <h2
@@ -65,7 +65,7 @@
                         </p>
                     </div>
                     <div
-                        class="bg-base-100 frosted-backdrop text-success flex max-h-80 flex-col rounded-xl border border-success/70 p-4 shadow-lg shadow-success/20"
+                        class="frosted-backdrop flex max-h-80 flex-col rounded-xl border border-success/70 bg-base-100 p-4 text-success shadow-lg shadow-success/20"
                     >
                         <div class="flex items-start justify-between">
                             <h2
@@ -76,13 +76,13 @@
                             <Users class="h-10 w-10 text-success" />
                         </div>
                         <div class="overflow-auto">
-                        <TeamCapacityChart class="mt-4" />
+                            <TeamCapacityChart class="mt-4" />
                         </div>
                     </div>
                 </div>
                 <div class="flex gap-6">
                     <div
-                        class="frosted-backdrop bg-base-100 flex-1 rounded-xl border border-neutral p-6 shadow-lg shadow-neutral/20"
+                        class="frosted-backdrop flex-1 rounded-xl border border-neutral bg-base-100 p-6 shadow-lg shadow-neutral/20"
                     >
                         <div class="flex items-start justify-between">
                             <h2
@@ -98,7 +98,7 @@
                     </div>
                     <aside class="w-80 shrink-0">
                         <div
-                            class="bg-base-100 flex h-full flex-col rounded-xl border border-info/70 p-6 shadow-lg shadow-info/20"
+                            class="flex h-full flex-col rounded-xl border border-info/70 bg-base-100 p-6 shadow-lg shadow-info/20"
                         >
                             <h2
                                 class="mb-6 text-xl font-semibold text-secondary"

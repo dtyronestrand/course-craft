@@ -1,7 +1,11 @@
 <template>
     <div>
- <progess class="progress w-56" value="props.value*10" max="100"></progess> 
- <p>{{`${Math.round(value/10*100)}%`}}</p>
+        <progess
+            class="progress w-56"
+            value="props.value*10"
+            max="100"
+        ></progess>
+        <p>{{ `${Math.round((value / 10) * 100)}%` }}</p>
     </div>
 </template>
 
@@ -12,6 +16,4 @@ interface Props {
 const props = defineProps<Props>();
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

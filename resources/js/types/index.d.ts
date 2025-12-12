@@ -60,10 +60,10 @@ export interface User {
     notifications: Array;
     profile: {
         id: number;
-        bio: string| null;
+        bio: string | null;
         avatar: string | null;
         title: string | null;
-    }
+    };
 }
 export interface Course {
     id: number;
@@ -86,8 +86,7 @@ export interface Course {
         name: string;
         start_date: string;
         end_date: string;
-        
-    }
+    };
     deliverables: Array;
 }
 

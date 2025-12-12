@@ -1,8 +1,12 @@
 <template>
     <div class="drawer lg:drawer-open">
         <input id="sidebar" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content flex w-full flex-col items-center justify-center overflow-x-hidden">
-            <header class="bg-primary text-primary-content w-full flex items-center justify-between mx-4 px-4 py-4">
+        <div
+            class="drawer-content flex w-full flex-col items-center justify-center overflow-x-hidden"
+        >
+            <header
+                class="mx-4 flex w-full items-center justify-between bg-primary px-4 py-4 text-primary-content"
+            >
                 <h1 class="text-3xl font-bold">
                     {{ page.props.auth.user.first_name }}
                     {{ page.props.auth.user.last_name }}
@@ -40,7 +44,7 @@
                     </details>
                 </div>
             </header>
-            <main class="w-full flex flex-1">
+            <main class="flex w-full flex-1">
                 <slot />
             </main>
             <label for="sidebar" class="drawer-button btn lg:hidden"
@@ -58,9 +62,7 @@
             >
                 <AppLogo class="m-0" />
             </div>
-            <ul
-                class=" menu min-h-full w-80 p-4 text-2xl text-base-content"
-            >
+            <ul class="menu min-h-full w-80 p-4 text-2xl text-base-content">
                 <li>
                     <Link href="/admin/dashboard"
                         ><Icon name="LayoutGrid" /><span class="px-4"

@@ -18,14 +18,17 @@
                     </button>
                 </div>
                 <button
-                    class=" btn mb-6 self-end border border-primary bg-primary/30 text-primary-content hover:bg-primary/50 active:bg-primary "
+                    class="btn mb-6 self-end border border-primary bg-primary/30 text-primary-content hover:bg-primary/50 active:bg-primary"
                     @click="isCreateCourseModalOpen = true"
                 >
                     Create New Course
                 </button>
             </div>
             <div v-if="view === 'list'">
-                <CoursesTable :developmentCycles="page.props.developmentCycles as any" :courses="page.props.courses as any[]" />
+                <CoursesTable
+                    :developmentCycles="page.props.developmentCycles as any"
+                    :courses="page.props.courses as any[]"
+                />
             </div>
             <div v-else class="grid grid-cols-3 gap-4">
                 <CoursesGrid :courses="page.props.courses as any[]" />

@@ -1,7 +1,5 @@
 <template>
-   
-        <Bar id="course-status" :data="chartData" :options="chartOptions" />
-
+    <Bar id="course-status" :data="chartData" :options="chartOptions" />
 </template>
 
 <script setup lang="ts">
@@ -53,7 +51,6 @@ const chartOptions = {
         },
     },
     responsive: true,
-    
 };
 </script>
 

@@ -1,10 +1,10 @@
 <template>
     <div
-        class="bg-base-100 flex flex-col gap-6 rounded-xl border border-primary p-6 shadow-lg shadow-primary"
+        class="flex flex-col gap-6 rounded-xl border border-primary bg-base-100 p-6 shadow-lg shadow-primary"
     >
         <h2 class="text-3xl font-bold text-primary">Deliverables</h2>
         <button
-            class="bg-primary text-primary-content max-w-max btn border-primary " 
+            class="btn max-w-max border-primary bg-primary text-primary-content"
             @click="addDeliverable"
         >
             Add Deliverable
@@ -35,22 +35,35 @@
                             />
                         </td>
                         <td>
-                        <div class="flex flex-row gap-2 items-center">
-                            <button 
-                                v-if="deliverable.changed && deliverable.id"
-                                type="button"
-                                @click="updateDeliverables(deliverable)"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
-                            </button>
-                            <button
-                                type="button"
-                                class="font-bold text-error"
-                                @click="() => removeDeliverable(index)"
-                            >
-                                X
-                            </button>
-                        </div>
+                            <div class="flex flex-row items-center gap-2">
+                                <button
+                                    v-if="deliverable.changed && deliverable.id"
+                                    type="button"
+                                    @click="updateDeliverables(deliverable)"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="var(--color-success)"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="lucide lucide-check-icon lucide-check"
+                                    >
+                                        <path d="M20 6 9 17l-5-5" />
+                                    </svg>
+                                </button>
+                                <button
+                                    type="button"
+                                    class="font-bold text-error"
+                                    @click="() => removeDeliverable(index)"
+                                >
+                                    X
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -137,7 +150,6 @@ const updateDeliverables = (deliverable: Props['deliverables'][0]) => {
         },
     });
 };
-
 </script>
 
 <style scoped></style>

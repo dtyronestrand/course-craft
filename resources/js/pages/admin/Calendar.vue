@@ -8,22 +8,24 @@
                 <div class="space-x-2">
                     <button
                         @click="changeMonth(-1)"
-                        class="rounded  bg-primary px-4 py-2 text-primary-content  border border-primary hover:bg-primary/30 active:bg-primary/50"
+                        class="rounded border border-primary bg-primary px-4 py-2 text-primary-content hover:bg-primary/30 active:bg-primary/50"
                     >
                         &larr; Prev
                     </button>
                     <button
                         @click="changeMonth(1)"
-                class="rounded  bg-primary px-4 py-2 text-primary-content border border-primary hover:bg-primary/30 active:bg-primary/50"
+                        class="rounded border border-primary bg-primary px-4 py-2 text-primary-content hover:bg-primary/30 active:bg-primary/50"
                     >
                         Next &rarr;
                     </button>
                 </div>
             </div>
 
-            <div class="border border-primary overflow-hidden rounded-lg bg-base-100 shadow">
+            <div
+                class="overflow-hidden rounded-lg border border-primary bg-base-100 shadow"
+            >
                 <div
-                    class="bg-primary grid grid-cols-7 border border-primary py-2 font-semibold text-primary-content"
+                    class="grid grid-cols-7 border border-primary bg-primary py-2 font-semibold text-primary-content"
                 >
                     <div
                         class="pl-2"
@@ -52,7 +54,7 @@
                     <div
                         v-for="day in daysInMonth"
                         :key="'day-' + day"
-                        class="group relative h-32 border-r border-b border-primary p-2 text-base-content transition bg-base-200"
+                        class="group relative h-32 border-r border-b border-primary bg-base-200 p-2 text-base-content transition"
                     >
                         <div class="mb-1 font-bold">{{ day }}</div>
 
@@ -62,12 +64,12 @@
                                     appointment, index
                                 ) in getAppointmentsForDay(day)"
                                 :key="appointment.id"
-                                class="cursor-pointer truncate rounded p-1 text-xs "
+                                class="cursor-pointer truncate rounded p-1 text-xs"
                                 @click="viewAppointmentDetails(appointment)"
                                 :subject="appointment.subject"
                                 :class="
                                     index % 2 === 0
-                                        ? 'bg-accent text-acceent-content hover:bg-primary hover:text-primary-content'
+                                        ? 'text-acceent-content bg-accent hover:bg-primary hover:text-primary-content'
                                         : 'bg-secondary text-secondary-content hover:bg-primary hover:text-primary-content'
                                 "
                             >

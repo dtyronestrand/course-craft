@@ -8,7 +8,7 @@
         <div class="flex justify-evenly">
             <div class="placeholder avatar">
                 <div
-                    class="frosted-backdrop flex h-8 w-8 items-center rounded-full border border-success bg-succes/10 text-success shadow-sm shadow-success/20"
+                    class="frosted-backdrop bg-succes/10 flex h-8 w-8 items-center rounded-full border border-success text-success shadow-sm shadow-success/20"
                 >
                     <p class="mx-auto text-sm">
                         {{ getInitials(user.first_name, user.last_name) }}

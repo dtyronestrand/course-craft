@@ -1,72 +1,62 @@
 <template>
+    <table
+        class="w-full flex-1 border-collapse overflow-y-auto rounded-lg border border-primary bg-base-100 p-8 shadow-lg shadow-primary"
+    >
+        <thead>
+            <tr
+                v-for="headerGroup in table.getHeaderGroups()"
+                :key="headerGroup.id"
+            >
+                <th
+                    v-for="header in headerGroup.headers"
+                    :key="header.id"
+                    :colSpan="header.colSpan"
+                    :class="
+                        header.column.getCanSort()
+                            ? 'cursor-pointer select-none'
+                            : ''
+                    "
+                    @click="header.column.getToggleSortingHandler()?.($event)"
+                    scope="col"
+                >
+                    <template v-if="!header.isPlaceholder">
+                        <FlexRender
+                            :render="header.column.columnDef.header"
+                            :props="header.getContext()"
+                        />
 
-            
-                <table class="w-full border-collapse  bg-base-100 flex-1 overflow-y-auto rounded-lg border border-primary p-8 shadow-lg shadow-primary">
-                    <thead>
-                        <tr
-                            v-for="headerGroup in table.getHeaderGroups()"
-                            :key="headerGroup.id"
-                        >
-                            <th
-                                v-for="header in headerGroup.headers"
-                                :key="header.id"
-                                :colSpan="header.colSpan"
-                                :class="
-                                    header.column.getCanSort()
-                                        ? 'cursor-pointer select-none'
-                                        : ''
-                                "
-                                @click="
-                                    header.column.getToggleSortingHandler()?.(
-                                        $event,
-                                    )
-                                "
-                                scope="col"
-                            >
-                                <template v-if="!header.isPlaceholder">
-                                    <FlexRender
-                                        :render="header.column.columnDef.header"
-                                        :props="header.getContext()"
-                                    />
+                        {{
+                            { asc: ' 🔼', desc: ' 🔽' }[
+                                header.column.getIsSorted() as string
+                            ]
+                        }}
+                    </template>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                v-for="row in table.getRowModel().rows"
+                :key="row.id"
+                class="cursor-pointer hover:bg-primary/5"
+                @click="openModal(row.original)"
+            >
+                <td v-for="cell in row.getVisibleCells()" :key="cell.id">
+                    <FlexRender
+                        :render="cell.column.columnDef.cell"
+                        :props="cell.getContext()"
+                    />
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-                                    {{
-                                        { asc: ' 🔼', desc: ' 🔽' }[
-                                            header.column.getIsSorted() as string
-                                        ]
-                                    }}
-                                </template>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            v-for="row in table.getRowModel().rows"
-                            :key="row.id"
-                            class="cursor-pointer hover:bg-primary/5"
-                            @click="openModal(row.original)"
-                        >
-                            <td
-                                v-for="cell in row.getVisibleCells()"
-                                :key="cell.id"
-                            >
-                                <FlexRender
-                                    :render="cell.column.columnDef.cell"
-                                    :props="cell.getContext()"
-                                />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-   
-      
-   
     <CourseDetailsModal
         v-if="isModalOpened && selectedCourse"
         :isOpen="isModalOpened"
         :course="selectedCourse"
         :developmentCycles="props.developmentCycles"
         @modal-close="closeModal"
-   
     />
 </template>
 
