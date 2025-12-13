@@ -47,7 +47,7 @@ class Course extends Model
         return $this->belongsToMany(Deliverable::class, 'course_deliverable')
             ->using(CourseDeliverable::class)
             ->withPivot(['id', 'due_date', 'is_done', 'date_completed', 'missed_due_date_count'])
-            ->withTimestamps();
+            ->withTimestamps()->orderBy('course_deliverable.due_date', 'ASC');
     }
 
     public function courseDeliverables()

@@ -138,7 +138,7 @@ import {
     Users,
 } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
-
+import type { Course } from '@/types';
 interface Activity {
     id: number;
     user: { name: string; initials: string };
@@ -158,7 +158,7 @@ const page = usePage<
 
         coursesNeedingAttention: any[];
         avgCompletionTime: string;
-        courses: any[];
+        courses: Course[];
     }
 >();
 

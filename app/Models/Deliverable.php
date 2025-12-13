@@ -13,5 +13,5 @@ class Deliverable extends Model
 
 public function courseDeliverables()
 {
-    return $this->hasMany(CourseDeliverable::class);}
+    return $this->hasMany(CourseDeliverable::class)->orderBy('template_days_offset', 'ASC');}
 }
