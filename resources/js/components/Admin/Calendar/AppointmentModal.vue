@@ -10,7 +10,7 @@
             <h3 class="mb-4 text-xl font-semibold text-primary">
                 Schedule New Appointment
             </h3>
-            <form @submit.prevent="submit">
+            <form @submit.prevent="handleSubmit">
                 <div class="space-y-4">
                     <div>
                         <label
@@ -137,15 +137,16 @@
                 <div class="mt-6 flex justify-end space-x-3">
                     <button
                         type="button"
-                        @click="emit('close')"
-                        class="rounded-md bg-error px-4 py-2 text-error-content hover:bg-error/30 active:bg-error/50"
+                        @click="handleCancel"
+                        class="rounded-md bg-error px-4 py-2 text-error-content hover:bg-error/80 active:bg-error/90"
                     >
                         Cancel
                     </button>
                     <button
-                        type="submit"
+                        type="button"
+                        @click="handleSubmit"
                         :disabled="form.processing"
-                        class="rounded-md bg-success px-4 py-2 text-success-content hover:bg-success/30 active:bg-success/50 disabled:bg-neutral/50 disabled:text-neutral/70"
+                        class="rounded-md bg-success px-4 py-2 text-success-content hover:bg-success/80 active:bg-success/90 disabled:bg-neutral/50 disabled:text-neutral/70"
                     >
                         {{
                             form.processing ? 'Saving...' : 'Create Appointment'
@@ -160,6 +161,7 @@
 <script setup lang="ts">
 import { useForm, usePage } from '@inertiajs/vue3';
 import { computed, ref, watch } from 'vue';
+import dayjs from 'dayjs';
 const props = defineProps<{
     show: boolean;
     selectedDate: string;
@@ -206,25 +208,23 @@ watch(
     () => props.show,
     (isShown) => {
         if (isShown && props.selectedDate) {
-            const now = new Date();
-            const time = now.toLocaleTimeString('en-US', {
-                hour12: false,
-                hour: '2-digit',
-                minute: '2-digit',
-            });
-            const plusHour = new Date(now.getTime() + 60 * 60 * 1000);
-            const endTime = plusHour.toLocaleTimeString('en-US', {
-                hour12: false,
-                hour: '2-digit',
-                minute: '2-digit',
-            });
+            const now = dayjs();
+            const time = now.format('HH:mm');
+            const plusHour = now.add(1, 'hour');
+            const endTime = plusHour.format('HH:mm');
             form.start_time = `${props.selectedDate}T${time}`;
             form.end_time = `${props.selectedDate}T${endTime}`;
         }
     },
 );
 
-const submit = () => {
+const handleCancel = () => {
+    console.log('CANCEL BUTTON CLICKED');
+    emit('close');
+};
+
+const handleSubmit = () => {
+    console.log('SUBMIT BUTTON CLICKED');
     form.post('/appointments', {
         onSuccess: () => {
             form.reset();

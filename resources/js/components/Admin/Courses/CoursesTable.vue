@@ -35,11 +35,12 @@
             </tr>
         </thead>
         <tbody>
+        <Link         v-for="row in table.getRowModel().rows"
+                :key="row.id" :href="`/admin/course-details/${row.original.id}`">
             <tr
-                v-for="row in table.getRowModel().rows"
-                :key="row.id"
+        
                 class="cursor-pointer hover:bg-primary/5"
-                @click="openModal(row.original)"
+             
             >
                 <td v-for="cell in row.getVisibleCells()" :key="cell.id">
                     <FlexRender
@@ -48,6 +49,7 @@
                     />
                 </td>
             </tr>
+                </Link>
         </tbody>
     </table>
 
@@ -71,6 +73,7 @@ import {
     useVueTable,
 } from '@tanstack/vue-table';
 import { computed, h, ref } from 'vue';
+import {Link} from '@inertiajs/vue3';
 import CourseDetailsModal from './CourseDetailsModal.vue';
 
 interface Props {
@@ -84,10 +87,7 @@ const closeModal = () => {
     isModalOpened.value = false;
     selectedCourse.value = null;
 };
-const openModal = (course: Course) => {
-    selectedCourse.value = course;
-    isModalOpened.value = true;
-};
+
 const allRoles = computed(() => {
     const roles = new Set<string>();
     props.courses.forEach((course) => {

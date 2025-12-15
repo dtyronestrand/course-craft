@@ -31,11 +31,8 @@ class CourseRepository
     public function courseStatusCounts()
     {
         return Course::selectRaw('status, COUNT(*) as count')
-            ->whereHas('developmentCycle', function ($query) {
-                $query->where('start_date', '<=', now())
-                      ->where('end_date', '>=', now());
-            })
             ->groupBy('status')
+            ->get()
             ->pluck('count', 'status')
             ->toArray();
     }

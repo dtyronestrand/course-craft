@@ -20,7 +20,7 @@ class GetAppointmentsAction
         if($appointments && $appointments->isNotEmpty()) {
             return $appointments->map(function ($appointment) use ($userId) {
                 return [
-                    'id' => 'a-' . $appointment->id,
+                    'id' => $appointment->id,
                     'subject' => 'MEETING: ' . $appointment->subject,
                     'start_time' => $appointment->start_time->toIso8601String(),
                     'end_time' => $appointment->end_time->toIso8601String(),

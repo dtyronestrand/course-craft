@@ -18,6 +18,8 @@
                             localAppointment = JSON.parse(
                                 JSON.stringify(props.appointment),
                             );
+                            editStartTime = dayjs(props.appointment?.start_time).format('YYYY-MM-DDTHH:mm');
+                            editEndTime = dayjs(props.appointment?.end_time).format('YYYY-MM-DDTHH:mm');
                             editAppointment = true;
                         }
                     "
@@ -33,7 +35,7 @@
                 >
                     Start Time
                 </h4>
-                <p>{{ props.appointment.start_time }}</p>
+                <p>{{ dayjs(props.appointment.start_time).format('MM/DD/YYYY hh:mma') }}</p>
             </div>
 
             <div>
@@ -43,7 +45,7 @@
                 >
                     End Time
                 </h4>
-                <p>{{ props.appointment.end_time }}</p>
+                <p>{{ dayjs(props.appointment.end_time).format('MM/DD/YYYY hh:mma') }}</p>
             </div>
             <div>
                 <h4 class="mb-2 block text-sm font-medium text-primary">
@@ -81,7 +83,6 @@
                 <input
                     type="datetime-local"
                     v-model="editStartTime"
-                    @change="localAppointment!.start_time = editStartTime"
                 />
             </div>
             <div>
@@ -94,7 +95,6 @@
                 <input
                     type="datetime-local"
                     v-model="editEndTime"
-                    @change="localAppointment!.end_time = editEndTime"
                 />
             </div>
             <div class="mb-2 flex flex-wrap gap-2" v-if="editGuests.length">
@@ -143,16 +143,17 @@
             <div class="flex flex-row gap-4">
                 <button
                     class="btn mt-4 text-success-content btn-success hover:bg-success/30 active:bg-success/50"
-                    @click="
-                        editAppointment = false;
-                        emit('close');
-                    "
+                     @click="updateAppointment"
+             
                 >
                     Save
                 </button>
                 <button
                     class="btn mt-4 text-error-content btn-error hover:bg-error/30 active:bg-error/50"
-                    @click="updateAppointment"
+                          @click="
+                        editAppointment = false;
+                        emit('close');
+                    "
                 >
                     Cancel
                 </button>
@@ -164,7 +165,12 @@
 <script setup lang="ts">
 import type { Appointment } from '@/types';
 import { useForm } from '@inertiajs/vue3';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import { computed, ref, watch } from 'vue';
+
+dayjs.extend(utc);
+
 interface User {
     id: number;
     first_name: string;
@@ -196,26 +202,23 @@ watch(
     },
 );
 
-const formatForDatetimeLocal = (dateStr: string) => {
-    if (!dateStr) return '';
-    const date = new Date(dateStr);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
-};
+watch(
+    () => props.appointment,
+    (newVal) => {
+        localAppointment.value = newVal ? { ...newVal } : null;
+    },
+    { immediate: true },
+);
 
 watch(editAppointment, (isEdit) => {
     if (isEdit && localAppointment.value) {
-        editStartTime.value = formatForDatetimeLocal(
-            localAppointment.value.start_time,
+        editStartTime.value = dayjs(localAppointment.value.start_time).format(
+            'YYYY-MM-DDTHH:mm',
         );
-        editEndTime.value = formatForDatetimeLocal(
-            localAppointment.value.end_time,
+        editEndTime.value = dayjs(localAppointment.value.end_time).format(
+            'YYYY-MM-DDTHH:mm',
         );
-    }
+}
 });
 
 const editGuests = computed(() => {
@@ -273,11 +276,11 @@ const updateAppointment = () => {
     if (!localAppointment.value) return;
     const form = useForm({
         subject: localAppointment.value.subject,
-        start_time: localAppointment.value.start_time,
-        end_time: localAppointment.value.end_time,
+        start_time: dayjs(editStartTime.value).utc().format('YYYY-MM-DD HH:mm:ss'),
+        end_time: dayjs(editEndTime.value).utc().format('YYYY-MM-DD HH:mm:ss'),
         guests: editGuests.value.map((g) => g.id),
     });
-    form.post(`/admin/appointments/${localAppointment.value.id}`, {
+    form.post(`/appointments/${localAppointment.value.id}`, {
         onSuccess: () => {
             editAppointment.value = false;
             emit('close');

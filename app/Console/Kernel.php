@@ -11,6 +11,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('courses:activate')->dailyAt('15:55');
         $schedule->command('courses:markMissedDeadlines')->dailyAt('00:01');
+    
     }
 
     protected function commands(): void{

@@ -37,6 +37,7 @@
                                 class="text-sm font-semibold text-primary uppercase"
                             >
                                 Project Status Distribution
+                              
                             </h2>
                             <ChartColumnBig class="h-10 w-10 text-primary" />
                         </div>
@@ -137,7 +138,7 @@ import {
     TriangleAlert,
     Users,
 } from 'lucide-vue-next';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import type { Course } from '@/types';
 interface Activity {
     id: number;
@@ -152,7 +153,7 @@ const page = usePage<
     PageProps & {
         activeCoursesCount: number;
         courseStatusCounts: Record<string, number>;
-        pendingCoursesCount: number;
+    
         recentActivities: Activity[];
         statusCounts: Record<string, number>;
 
@@ -162,12 +163,7 @@ const page = usePage<
     }
 >();
 
-const statusCounts = computed(() => {
-    return {
-        Pending: page.props.pendingCoursesCount,
-        ...page.props.courseStatusCounts,
-    };
-});
+const statusCounts = ref(page.props.courseStatusCounts);
 const isModalOpened = ref(false);
 const selectedCourse = ref<any>(null);
 

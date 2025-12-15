@@ -1,7 +1,7 @@
 <template>
     <dialog ref="modal" class="modal">
         <div
-            class="modal-box border border-primary bg-base-100 p-4 text-base-content"
+            class="modal-box border border-primary bg-base-100 p-4 text-base-content shadow shadow-primary"
         >
             <h2 class="text-3xl">Add New Cycle</h2>
             <p class="text-sm">
@@ -13,28 +13,28 @@
             >
                 <label for="cycleName">Cycle</label>
                 <input
-                    class="border-b border-primary bg-accent text-accent-content"
+                    class="border-b border-primary bg-base-200 text-base-content"
                     type="text"
                     name="cycleName"
                     v-model="cycleName"
                 />
                 <label for="start">Start Date:</label>
                 <input
-                    class="border-b border-primary bg-accent text-accent-content"
+                    class="border-b border-primary bg-base-200 text-base-content"
                     type="date"
                     name="start"
                     v-model="cycleStart"
                 />
                 <label for="end">End Date:</label>
                 <input
-                    class="border-b border-primary bg-accent text-accent-content"
+                    class="border-b border-primary bg-base-200 text-base-content"
                     type="date"
                     name="end"
                     v-model="cycleEnd"
                 />
                 <div class="flex gap-2">
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <button type="button" class="btn btn-error" @click="close">
+                    <button type="submit" class="btn btn-success text-success-content hover:bg-succes/30 active:bg-success/50">Save</button>
+                    <button type="button" class="btn btn-error text-error-content hover:bg-error/30 active:bg-error/50"   @click="close">
                         Cancel
                     </button>
                 </div>

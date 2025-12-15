@@ -40,7 +40,16 @@
                     name="title"
                     v-model="localCourse.title"
                 />
-
+                <div class="mb-4">
+                <label for="notes"
+                class="block text-sm font-medium text-base-content"
+                >Notes</label>
+                <textarea
+                    v-model="localCourse.notes"
+                    id="notes"
+                    class="my-4 h-24 w-full border border-primary bg-base-200 px-4"
+                ></textarea>
+                </div>
                 <div class="mb-4">
                     <label
                         for="cycle"

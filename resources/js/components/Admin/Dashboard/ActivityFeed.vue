@@ -1,5 +1,5 @@
 <template>
-    <div class="-mr-2 grow space-y-6 overflow-y-auto pr-2">
+    <div class="-mr-2  space-y-6 overflow-y-auto pr-2">
         <div
             v-for="activity in activities"
             :key="activity.id"

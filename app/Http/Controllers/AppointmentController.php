@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\AppointmentService;
+use App\Models\Appointment;
 use Inertia\Inertia;
 use App\Notifications\AppointmentInvtation;
 class AppointmentController extends Controller
@@ -31,7 +32,7 @@ class AppointmentController extends Controller
         return back()->with('success', 'Appointment created successfully.');
     }
 
-    public function update(Request $request, $appointment)
+    public function update(Request $request, Appointment $appointment)
     {
         $updatedAppointment = $this->appointmentService->updateAppointment($appointment, $request->all());
         return back()->with('success', 'Appointment updated successfully.');

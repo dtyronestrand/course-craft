@@ -31,8 +31,8 @@
                                     :key="cycle.id"
                                 >
                                     <td>{{ cycle.name }}</td>
-                                    <td>{{ cycle.start_date }}</td>
-                                    <td>{{ cycle.end_date }}</td>
+                                    <td>{{ dayjs(cycle.start_date).format('MM/DD/YYYY') }}</td>
+                                    <td>{{ dayjs(cycle.end_date).format('MM/DD/YYYY') }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -50,13 +50,22 @@
                             type="number"
                             class="mt-8 w-min border border-primary bg-base-200 p-2 text-base-content"
                             placeholder="0"
+                            @change="capacityChanged = true"
                         />
+                        <div v-if="capacityChanged" class="flex flex-row gap-4">
                         <button
-                            class="max-w-max rounded-md border-primary bg-primary p-2 text-primary-content hover:bg-primary/50 active:bg-primary/30"
+                            class="max-w-max rounded-md  bg-success p-2 text-success-content hover:bg-success/30 active:bg-success/50"
                             @click="updateCapacity"
                         >
                             Update Capacity
                         </button>
+                        <button
+                            class="max-w-max rounded-md bg-error p-2 text-error-content hover:bg-error/30 active:bg-error/50"
+                            @click="
+                                capacityChanged = false;
+                                capacity = (page.props as any).capacity;
+                            ">Cancel</button>
+                        </div>
                     </div>
                 </div>
                 <Deliverables
@@ -74,13 +83,16 @@ import Deliverables from '@/components/Admin/Settings/Deliverables.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import { router, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import dayjs from 'dayjs';
 
 const page = usePage();
 const showModal = ref(false);
 const capacity = ref((page.props as any).capacity);
+const capacityChanged = ref(false);
 const updateCapacity = () => {
     router.post('/admin/settings', { capacity: capacity.value });
     router.reload({ only: ['capacity'] });
+    capacityChanged.value = false;
 };
 </script>
 

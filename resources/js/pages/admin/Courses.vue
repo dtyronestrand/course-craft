@@ -18,7 +18,7 @@
                     </button>
                 </div>
                 <button
-                    class="btn mb-6 self-end border border-primary bg-primary/30 text-primary-content hover:bg-primary/50 active:bg-primary"
+                    class="btn mb-6 self-end bg-primary text-primary-content hover:bg-primary/30 active:bg-primary/50"
                     @click="isCreateCourseModalOpen = true"
                 >
                     Create New Course

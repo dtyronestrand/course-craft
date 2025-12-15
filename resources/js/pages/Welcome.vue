@@ -28,12 +28,12 @@ const page = usePage();
                 >
                     <Link
                         :href="login()"
-                        class="mt-4 flex w-full items-center justify-center gap-1 rounded-2xl bg-info p-5 py-3 font-semibold text-info-content hover:bg-accent hover:text-accent-content"
+                        class="mt-4 flex w-full items-center justify-center gap-1 rounded-2xl bg-primary p-5 py-3 font-semibold text-primary-content hover:bg-primary/30 active:bg-primary/50"
                         >Login</Link
                     >
                     <Link
                         :href="register()"
-                        class="mt-4 flex w-full items-center justify-center gap-1 rounded-2xl bg-secondary p-5 py-3 font-semibold text-secondary-content hover:bg-accent hover:text-accent"
+                        class="mt-4 flex w-full items-center justify-center gap-1 rounded-2xl bg-secondary p-5 py-3 font-semibold text-secondary-content hover:bg-secondary/30 active:bg-secondary/50"
                     >
                         Register</Link
                     >

@@ -70,6 +70,7 @@ export interface Course {
     title: string;
     prefix: string;
     number: string;
+    notes: string | null;
     users: User[];
     objectives: [
         {

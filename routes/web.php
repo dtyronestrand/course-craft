@@ -87,7 +87,7 @@ Route::prefix('admin')->middleware([\App\Http\Middleware\isAdminMiddleWare::clas
 Route::post('/deliverables', [\App\Http\Controllers\DeliverableController::class, 'store'])->name('admin.deliverables.store');
 Route::post('/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableController::class, 'update'])->name('admin.deliverables.update');
 Route::delete('/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableController::class, 'destroy'])->name('admin.deliverables.destroy');
-
+Route::get('/course-details/{course}', [\App\Http\Controllers\AdminController::class, 'courseDetails'])->name('admin.course.details');
 });
 
 Route::post('/appointments', [\App\Http\Controllers\AppointmentController::class, 'store'])->name('appointments.store');

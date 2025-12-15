@@ -22,7 +22,7 @@
             </div>
 
             <div
-                class="overflow-hidden rounded-lg border border-primary bg-base-100 shadow"
+                class="overflow-hidden rounded-lg border border-primary bg-primary shadow"
             >
                 <div
                     class="grid grid-cols-7 border border-primary bg-primary py-2 font-semibold text-primary-content"
@@ -48,13 +48,13 @@
                     <div
                         v-for="n in paddingDays"
                         :key="'pad-' + n"
-                        class="h-32 border-r border-b border-primary bg-base-100"
+                        class="h-32 border-r border-b border-primary bg-primary"
                     ></div>
 
                     <div
                         v-for="day in daysInMonth"
                         :key="'day-' + day"
-                        class="group relative h-32 border-r border-b border-primary bg-base-200 p-2 text-base-content transition"
+                        class="group relative h-32 border-r border-b border-primary bg-base-100 p-2 text-base-content transition"
                     >
                         <div class="mb-1 font-bold">{{ day }}</div>
 
@@ -64,7 +64,7 @@
                                     appointment, index
                                 ) in getAppointmentsForDay(day)"
                                 :key="appointment.id"
-                                class="cursor-pointer truncate rounded p-1 text-xs"
+                                class="cursor-pointer  rounded p-1 text-xs"
                                 @click="viewAppointmentDetails(appointment)"
                                 :subject="appointment.subject"
                                 :class="
@@ -74,7 +74,7 @@
                                 "
                             >
                                 {{ appointment.subject }} -
-                                {{ appointment.start_time }}
+                                {{ dayjs(appointment.start_time).format('HH:mma') }}
                             </div>
                         </div>
 
@@ -110,6 +110,7 @@ import AppointmentModal from '@/components/Admin/Calendar/AppointmentModal.vue';
 import type { Appointment } from '@/types';
 import { computed, ref } from 'vue';
 import AdminLayout from '../../layouts/AdminLayout.vue';
+import dayjs from 'dayjs';
 const props = defineProps<{
     appointments: Appointment[];
     users: Array<any>;
