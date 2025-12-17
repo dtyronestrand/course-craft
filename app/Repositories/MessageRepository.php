@@ -2,24 +2,19 @@
 
 namespace App\Repositories;
 
-use Cmgmyr\Messenger\Models\Message;
-use Cmgmyr\Messenger\Models\Participant;
-use Cmgmyr\Messenger\Models\Thread;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Message;
 
-class MesageRepository {
-    public function getUserThreads($userId)
+class MessageRepository
+{
+    public function create(array $data)
     {
-
-        return Thread::forUser(Auth::id())->latest('updated_at')->get();
+        return Message::create($data);
     }
 
-    public function getThreadMessages($threadId)
+    public function markAsRead(Message $message, int $userId)
     {
-       
-       return  $thread = Thread::findOrFail($threadId);
-    
+$message->reads()->syncWithoutDetaching([
+    $userId => ['read_at' => now()]
+]);
     }
-    
 }

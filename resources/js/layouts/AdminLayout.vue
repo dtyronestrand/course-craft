@@ -46,6 +46,7 @@
             </header>
             <main class="flex w-full flex-1">
                 <slot />
+                    <ChatSidebar :open="chatOpen" @close="chatOpen = false" />
             </main>
             <label for="sidebar" class="drawer-button btn lg:hidden"
                 >Open Sidebar</label
@@ -78,6 +79,23 @@
                     >
                 </li>
                 <li>
+      <button
+        @click="chatOpen = true"
+        class="flex w-full items-center py-2 hover:bg-base-200 transition-colors"
+    >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+        <span class="px-4 text-left flex-1">Messages</span>
+        <span
+            v-if="unreadCount > 0"
+            class="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full min-w-[1.5rem] text-center ml-2"
+        >
+            {{ unreadCount > 99 ? '99+' : unreadCount }}
+        </span>
+    </button>
+                </li>
+                <li>
                     <Link href="/admin/courses"
                         ><Icon name="Folder" /><span class="px-4"
                             >Courses</span
@@ -108,6 +126,8 @@
             </ul>
         </div>
     </div>
+
+
 </template>
 
 <script setup lang="ts">
@@ -116,8 +136,13 @@ import Icon from '@/components/Icon.vue';
 import NotificationCenter from '@/components/NotificationCenter.vue';
 import { useInitials } from '@/composables/useInitials';
 import { Link, router, usePage } from '@inertiajs/vue3';
+import ChatSidebar from '@/components/Chat/ChatSidebar.vue';
+import { ref } from 'vue';
+import { useNotifications } from '@/composables/useNotifications';
 
 const { getInitials } = useInitials();
+const { unreadCount } = useNotifications()
+const chatOpen = ref(false);
 const page = usePage();
 const logout = () => {
     router.post('/logout');

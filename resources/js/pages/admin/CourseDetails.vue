@@ -225,7 +225,7 @@ const availableUsers = ref<any[]>([]);
 const developmentCycles = ref<any[]>([]);
 const needsAttention = computed(() => {
     return localCourse.value.deliverables.some(
-        (d) => !d.pivot.is_done,
+        (d: any) => !d.pivot.is_done,
     );
 });
 const getUserByRole = (users: any[], role: string) => {

@@ -35,21 +35,22 @@
             </tr>
         </thead>
         <tbody>
-        <Link         v-for="row in table.getRowModel().rows"
-                :key="row.id" :href="`/admin/course-details/${row.original.id}`">
+       
             <tr
-        
+        v-for="row in table.getRowModel().rows"
+                :key="row.id" 
                 class="cursor-pointer hover:bg-primary/5"
              
             >
                 <td v-for="cell in row.getVisibleCells()" :key="cell.id">
+             <Link         :href="`/admin/course-details/${row.original.id}`">
                     <FlexRender
                         :render="cell.column.columnDef.cell"
                         :props="cell.getContext()"
                     />
+                </Link>
                 </td>
             </tr>
-                </Link>
         </tbody>
     </table>
 

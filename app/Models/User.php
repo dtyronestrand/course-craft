@@ -72,15 +72,19 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Team::class)->withPivot('role')->withTimestamps();
     }
-    public function conversations()
-    {
-        return $this->belongsToMany(Conversation::class, 'participants')->using(Participant::class)->withTimestamps();
-    }
+
         public function hostedAppointments()
     {
         return $this->hasMany(Appointment::class, 'host_id');
     }
-
+    public function conversations()
+    {
+        return $this->belongsToManyy(Conversation::class, 'conversation_participants')->withPivot('last_read_at')->withTimestamps();
+    }
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
     // Appointments where this user is invited as a guest
     public function guestAppointments()
     {

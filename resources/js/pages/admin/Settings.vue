@@ -54,7 +54,7 @@
                         />
                         <div v-if="capacityChanged" class="flex flex-row gap-4">
                         <button
-                            class="max-w-max rounded-md  bg-success p-2 text-success-content hover:bg-success/30 active:bg-success/50"
+                            class="max-w-max rounded-md  bg-success p-2 text-success-content hover:bg-[oklch(from var(--color-primary) o k )]active:bg-success/50"
                             @click="updateCapacity"
                         >
                             Update Capacity

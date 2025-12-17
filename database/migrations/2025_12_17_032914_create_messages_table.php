@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('conversation_id')->constrained('conversations')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->text('body')->nullable();
-            $table->boolean('is_typing')->default(false);
-            $table->json('attachments')->nullable(); 
+            $table->foreignId('conversation_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->text('body');
+            $table->string('attachment_path')->nullable();
+            $table->string('attachment_name')->nullable();
             $table->timestamps();
         });
     }

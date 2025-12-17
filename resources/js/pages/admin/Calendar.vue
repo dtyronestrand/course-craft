@@ -74,7 +74,7 @@
                                 "
                             >
                                 {{ appointment.subject }} -
-                                {{ dayjs(appointment.start_time).format('HH:mma') }}
+                                {{ dayjs(appointment.start_time).format('hh:mma') }}
                             </div>
                         </div>
 

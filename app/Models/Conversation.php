@@ -3,22 +3,37 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Conversation extends Model
 {
-protected $fillable =['type', 'subject'];
+    protected $fillable = [
+        'type',
+        'name',
+        'course_id',
+    ];
 
-public function messages()
-{
-    return $this->hasMany(Message::class);  
-}
-public function participants()
-{
-    return $this->belongsToMany(User::class, 'participants');
-}
-public function participantsInConversation()
-{
-    return $this->participants()->where('user_id', '!=', Auth::id())->get();
-}
+    public function participants(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'conversation_participants')
+        ->withPivot('last_read_at')
+            ->withTimestamps();
+    }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function latestMessage(): HasMany
+    {
+        return $this->hasMany(Message::class)->latest();
+    }
+
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(Course::class);
+    }
 }
