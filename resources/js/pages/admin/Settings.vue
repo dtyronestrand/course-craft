@@ -31,8 +31,20 @@
                                     :key="cycle.id"
                                 >
                                     <td>{{ cycle.name }}</td>
-                                    <td>{{ dayjs(cycle.start_date).format('MM/DD/YYYY') }}</td>
-                                    <td>{{ dayjs(cycle.end_date).format('MM/DD/YYYY') }}</td>
+                                    <td>
+                                        {{
+                                            dayjs(cycle.start_date).format(
+                                                'MM/DD/YYYY',
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            dayjs(cycle.end_date).format(
+                                                'MM/DD/YYYY',
+                                            )
+                                        }}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -53,18 +65,21 @@
                             @change="capacityChanged = true"
                         />
                         <div v-if="capacityChanged" class="flex flex-row gap-4">
-                        <button
-                            class="max-w-max rounded-md  bg-success p-2 text-success-content hover:bg-[oklch(from var(--color-primary) o k )]active:bg-success/50"
-                            @click="updateCapacity"
-                        >
-                            Update Capacity
-                        </button>
-                        <button
-                            class="max-w-max rounded-md bg-error p-2 text-error-content hover:bg-error/30 active:bg-error/50"
-                            @click="
-                                capacityChanged = false;
-                                capacity = (page.props as any).capacity;
-                            ">Cancel</button>
+                            <button
+                                class="hover:bg-[oklch(from var(--color-primary) o k )]active:bg-success/50 max-w-max rounded-md bg-success p-2 text-success-content"
+                                @click="updateCapacity"
+                            >
+                                Update Capacity
+                            </button>
+                            <button
+                                class="max-w-max rounded-md bg-error p-2 text-error-content hover:bg-error/30 active:bg-error/50"
+                                @click="
+                                    capacityChanged = false;
+                                    capacity = (page.props as any).capacity;
+                                "
+                            >
+                                Cancel
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -82,8 +97,8 @@ import AddCycleModal from '@/components/Admin/Settings/AddCycleModal.vue';
 import Deliverables from '@/components/Admin/Settings/Deliverables.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import { router, usePage } from '@inertiajs/vue3';
-import { ref } from 'vue';
 import dayjs from 'dayjs';
+import { ref } from 'vue';
 
 const page = usePage();
 const showModal = ref(false);

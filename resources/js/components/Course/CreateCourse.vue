@@ -4,7 +4,7 @@
         @click.self="$emit('close')"
     >
         <div
-            class="bg-base-100 pointer-events-auto mx-4 w-full max-w-md rounded-lg border border-primary shadow shadow-primary p-6"
+            class="pointer-events-auto mx-4 w-full max-w-md rounded-lg border border-primary bg-base-100 p-6 shadow shadow-primary"
         >
             <div class="mb-4 flex items-center justify-between">
                 <h2 class="text-xl font-semibold text-base-content">
@@ -40,7 +40,7 @@
                         v-model="courseData.prefix"
                         type="text"
                         id="prefix"
-                        class=" mt-1 block w-full border border-primary bg-base-200 text-base-content p-2 "
+                        class="mt-1 block w-full border border-primary bg-base-200 p-2 text-base-content"
                         required
                     />
                 </div>
@@ -54,7 +54,7 @@
                         v-model="courseData.number"
                         type="text"
                         id="number"
-                     class=" mt-1 block w-full border border-primary bg-base-200 text-base-content p-2 "
+                        class="mt-1 block w-full border border-primary bg-base-200 p-2 text-base-content"
                         required
                     />
                 </div>
@@ -68,7 +68,7 @@
                         v-model="courseData.title"
                         type="text"
                         id="title"
-                       class=" mt-1 block w-full border border-primary bg-base-200 text-base-content p-2 "
+                        class="mt-1 block w-full border border-primary bg-base-200 p-2 text-base-content"
                         required
                     />
                 </div>
@@ -81,7 +81,7 @@
                     <select
                         v-model="courseData.development_cycle"
                         id="cycle"
-                        class=" mt-1 block w-full border border-primary bg-base-200 text-base-content p-2 "
+                        class="mt-1 block w-full border border-primary bg-base-200 p-2 text-base-content"
                     >
                         <option :value="null">Select a cycle</option>
                         <option
@@ -109,7 +109,7 @@
                             v-model="objective.objective"
                             type="text"
                             :id="'objective-' + index"
-                            class=" mt-1 block w-full border border-primary bg-base-200 text-base-content p-2 "
+                            class="mt-1 block w-full border border-primary bg-base-200 p-2 text-base-content"
                         />
                         <button
                             type="button"
@@ -134,7 +134,7 @@
                     <button
                         type="button"
                         @click="createObjective"
-                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-primary px-[1.5em] py-[0.25em] text-center font-bold text-primary-content duration-300 will-change-transform outline-none hover:bg-primary/30 active:bg-primary/50 active:translate-y-0 active:shadow-none disabled:pointer-events-none"
+                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-primary px-[1.5em] py-[0.25em] text-center font-bold text-primary-content duration-300 will-change-transform outline-none hover:bg-primary/30 active:translate-y-0 active:bg-primary/50 active:shadow-none disabled:pointer-events-none"
                     >
                         Add Objective
                     </button>
@@ -155,7 +155,7 @@
                         {{ user.first_name }} {{ user.last_name }}
                         <select
                             v-model="user.role"
-                             class=" mt-1 block w-full border border-primary bg-base-200 text-base-content p-2 "
+                            class="mt-1 block w-full border border-primary bg-base-200 p-2 text-base-content"
                         >
                             <option value="Designer">Designer</option>
                             <option value="SME">Subject Matter Expert</option>
@@ -169,7 +169,7 @@
                         @change="updateUsers"
                         v-model="selectedUserId"
                         id="users"
-                        class=" mt-1 block w-full border border-primary bg-base-200 text-base-content p-2 "
+                        class="mt-1 block w-full border border-primary bg-base-200 p-2 text-base-content"
                     >
                         <option
                             class="text-base-content"
@@ -183,7 +183,7 @@
                     <button
                         type="button"
                         @click="addUser"
-                class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-primary px-[1.5em] py-[0.25em] text-center font-bold text-primary-content duration-300 will-change-transform outline-none hover:bg-primary/30 active:bg-primary/50 active:translate-y-0 active:shadow-none disabled:pointer-events-none"
+                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-primary px-[1.5em] py-[0.25em] text-center font-bold text-primary-content duration-300 will-change-transform outline-none hover:bg-primary/30 active:translate-y-0 active:bg-primary/50 active:shadow-none disabled:pointer-events-none"
                     >
                         Add User
                     </button>
@@ -191,14 +191,14 @@
                 <div class="flex gap-2">
                     <button
                         @click="handleCreateCourse"
-               class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-success px-[1.5em] py-[0.25em] text-center font-bold text-success-content duration-300 will-change-transform outline-none hover:bg-success/30 active:bg-success/50 active:translate-y-0 active:shadow-none disabled:pointer-events-none"
+                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-success px-[1.5em] py-[0.25em] text-center font-bold text-success-content duration-300 will-change-transform outline-none hover:bg-success/30 active:translate-y-0 active:bg-success/50 active:shadow-none disabled:pointer-events-none"
                     >
                         Create Course
                     </button>
                     <button
                         type="button"
                         @click="$emit('close')"
-                     class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-error px-[1.5em] py-[0.25em] text-center font-bold text-error-content duration-300 will-change-transform outline-none hover:bg-error/30 active:bg-error/50 active:translate-y-0 active:shadow-none disabled:pointer-events-none"
+                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-error px-[1.5em] py-[0.25em] text-center font-bold text-error-content duration-300 will-change-transform outline-none hover:bg-error/30 active:translate-y-0 active:bg-error/50 active:shadow-none disabled:pointer-events-none"
                     >
                         Cancel
                     </button>

@@ -18,8 +18,12 @@
                             localAppointment = JSON.parse(
                                 JSON.stringify(props.appointment),
                             );
-                            editStartTime = dayjs(props.appointment?.start_time).format('YYYY-MM-DDTHH:mm');
-                            editEndTime = dayjs(props.appointment?.end_time).format('YYYY-MM-DDTHH:mm');
+                            editStartTime = dayjs(
+                                props.appointment?.start_time,
+                            ).format('YYYY-MM-DDTHH:mm');
+                            editEndTime = dayjs(
+                                props.appointment?.end_time,
+                            ).format('YYYY-MM-DDTHH:mm');
                             editAppointment = true;
                         }
                     "
@@ -35,7 +39,13 @@
                 >
                     Start Time
                 </h4>
-                <p>{{ dayjs(props.appointment.start_time).format('MM/DD/YYYY hh:mma') }}</p>
+                <p>
+                    {{
+                        dayjs(props.appointment.start_time).format(
+                            'MM/DD/YYYY hh:mma',
+                        )
+                    }}
+                </p>
             </div>
 
             <div>
@@ -45,7 +55,13 @@
                 >
                     End Time
                 </h4>
-                <p>{{ dayjs(props.appointment.end_time).format('MM/DD/YYYY hh:mma') }}</p>
+                <p>
+                    {{
+                        dayjs(props.appointment.end_time).format(
+                            'MM/DD/YYYY hh:mma',
+                        )
+                    }}
+                </p>
             </div>
             <div>
                 <h4 class="mb-2 block text-sm font-medium text-primary">
@@ -80,10 +96,7 @@
                 >
                     Start Time
                 </h4>
-                <input
-                    type="datetime-local"
-                    v-model="editStartTime"
-                />
+                <input type="datetime-local" v-model="editStartTime" />
             </div>
             <div>
                 <h4
@@ -92,10 +105,7 @@
                 >
                     End Time
                 </h4>
-                <input
-                    type="datetime-local"
-                    v-model="editEndTime"
-                />
+                <input type="datetime-local" v-model="editEndTime" />
             </div>
             <div class="mb-2 flex flex-wrap gap-2" v-if="editGuests.length">
                 <span
@@ -143,14 +153,13 @@
             <div class="flex flex-row gap-4">
                 <button
                     class="btn mt-4 text-success-content btn-success hover:bg-success/30 active:bg-success/50"
-                     @click="updateAppointment"
-             
+                    @click="updateAppointment"
                 >
                     Save
                 </button>
                 <button
                     class="btn mt-4 text-error-content btn-error hover:bg-error/30 active:bg-error/50"
-                          @click="
+                    @click="
                         editAppointment = false;
                         emit('close');
                     "
@@ -218,7 +227,7 @@ watch(editAppointment, (isEdit) => {
         editEndTime.value = dayjs(localAppointment.value.end_time).format(
             'YYYY-MM-DDTHH:mm',
         );
-}
+    }
 });
 
 const editGuests = computed(() => {
@@ -276,7 +285,9 @@ const updateAppointment = () => {
     if (!localAppointment.value) return;
     const form = useForm({
         subject: localAppointment.value.subject,
-        start_time: dayjs(editStartTime.value).utc().format('YYYY-MM-DD HH:mm:ss'),
+        start_time: dayjs(editStartTime.value)
+            .utc()
+            .format('YYYY-MM-DD HH:mm:ss'),
         end_time: dayjs(editEndTime.value).utc().format('YYYY-MM-DD HH:mm:ss'),
         guests: editGuests.value.map((g) => g.id),
     });

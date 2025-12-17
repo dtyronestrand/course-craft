@@ -64,7 +64,7 @@
                                     appointment, index
                                 ) in getAppointmentsForDay(day)"
                                 :key="appointment.id"
-                                class="cursor-pointer  rounded p-1 text-xs"
+                                class="cursor-pointer rounded p-1 text-xs"
                                 @click="viewAppointmentDetails(appointment)"
                                 :subject="appointment.subject"
                                 :class="
@@ -74,7 +74,11 @@
                                 "
                             >
                                 {{ appointment.subject }} -
-                                {{ dayjs(appointment.start_time).format('hh:mma') }}
+                                {{
+                                    dayjs(appointment.start_time).format(
+                                        'hh:mma',
+                                    )
+                                }}
                             </div>
                         </div>
 
@@ -108,9 +112,9 @@
 import ViewAppointmentDetails from '@/components/Admin/Calendar/AppointmentDetails.vue';
 import AppointmentModal from '@/components/Admin/Calendar/AppointmentModal.vue';
 import type { Appointment } from '@/types';
+import dayjs from 'dayjs';
 import { computed, ref } from 'vue';
 import AdminLayout from '../../layouts/AdminLayout.vue';
-import dayjs from 'dayjs';
 const props = defineProps<{
     appointments: Appointment[];
     users: Array<any>;

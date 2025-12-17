@@ -1,40 +1,71 @@
 <template>
     <AdminLayout>
-<div v-if="!editing" class="w-full mx-8 bg-base-100 p-16 rounded-xl border border-primary shadow shadow-primary mt-8">
-<div class="flex flex-row justify-between items-center">
-<div class="flex flex-row gap-4 items-center">
-    <h1 class="my-8 text-4xl font-bold">
-        Course Details: {{ course.prefix }} {{ course.number }} -
-        {{ course.title }}
-    </h1>
-    <TriangleAlert v-if="needsAttention" class="text-error size-15"/>
-</div>
-    <button class="btn btn-primary rounded-lg " @click="editing = true">
-        Edit Course
-    </button>
-</div>
+        <div
+            v-if="!editing"
+            class="mx-8 mt-8 w-full rounded-xl border border-primary bg-base-100 p-16 shadow shadow-primary"
+        >
+            <div class="flex flex-row items-center justify-between">
+                <div class="flex flex-row items-center gap-4">
+                    <h1 class="my-8 text-4xl font-bold">
+                        Course Details: {{ course.prefix }}
+                        {{ course.number }} -
+                        {{ course.title }}
+                    </h1>
+                    <TriangleAlert
+                        v-if="needsAttention"
+                        class="size-15 text-error"
+                    />
+                </div>
+                <button
+                    class="btn rounded-lg btn-primary"
+                    @click="editing = true"
+                >
+                    Edit Course
+                </button>
+            </div>
 
-    <h2 class="my-8 text-2xl font-semibold">Development Cycle: <span class="text-lg font-normal">{{ developmentCycles.find(c => c.id === course.development_cycle_id)?.name || 'Not assigned' }}</span></h2>
-    <h2 class="my-8 text-2xl font-semibold">Team:</h2>
-                        <div class="grid grid-cols-4 gap-2">
-                        <div v-for="role in ['Designer', 'SME', 'Builder', 'Manager']" :key="role">
-                            <div class="font-semibold">{{ role }}</div>
-                            <div>{{ getUserByRole(course.users, role) }}</div>
-                        </div>
-                    </div>
-              <h2 class="my-8 text-2xl font-semibold">Progress:</h2>
-              <div class="flex flex-row gap-4 items-center justify-center">
-              <div v-for="deliverable in course.deliverables" :key="deliverable.id" :class="deliverable.pivot.is_done
-                                ? 'tooltip bg-success rounded-full h-8 w-[25%] inline-block leading-8 text-center font-bold text-success-content shadow-md shadow-primary mr-1'
-                                : 'tooltip bg-neutral rounded-full h-8 w-[20%]  mr-1 text-center font-bold leading-8 shadow-md shadow-primary'" >{{ deliverable.name }}
-              </div>
-              </div>
-              <h2 class="my-8 text-2xl font-semibold">Notes:</h2>
-              <div class="whitespace-pre-wrap border border-primary shadow shadow-primary rounded-lg bg-base-200 p-4">
-              {{ course.notes || 'No notes available.' }}</div>
-</div>
-        <div v-if="editing"
-            class="pointer-events-auto w-full  rounded-lg border border-primary bg-base-100 p-16 m-8 shadow-lg shadow-primary"
+            <h2 class="my-8 text-2xl font-semibold">
+                Development Cycle:
+                <span class="text-lg font-normal">{{
+                    developmentCycles.find(
+                        (c) => c.id === course.development_cycle_id,
+                    )?.name || 'Not assigned'
+                }}</span>
+            </h2>
+            <h2 class="my-8 text-2xl font-semibold">Team:</h2>
+            <div class="grid grid-cols-4 gap-2">
+                <div
+                    v-for="role in ['Designer', 'SME', 'Builder', 'Manager']"
+                    :key="role"
+                >
+                    <div class="font-semibold">{{ role }}</div>
+                    <div>{{ getUserByRole(course.users, role) }}</div>
+                </div>
+            </div>
+            <h2 class="my-8 text-2xl font-semibold">Progress:</h2>
+            <div class="flex flex-row items-center justify-center gap-4">
+                <div
+                    v-for="deliverable in course.deliverables"
+                    :key="deliverable.id"
+                    :class="
+                        deliverable.pivot.is_done
+                            ? 'tooltip mr-1 inline-block h-8 w-[25%] rounded-full bg-success text-center leading-8 font-bold text-success-content shadow-md shadow-primary'
+                            : 'tooltip mr-1 h-8 w-[20%] rounded-full bg-neutral text-center leading-8 font-bold shadow-md shadow-primary'
+                    "
+                >
+                    {{ deliverable.name }}
+                </div>
+            </div>
+            <h2 class="my-8 text-2xl font-semibold">Notes:</h2>
+            <div
+                class="rounded-lg border border-primary bg-base-200 p-4 whitespace-pre-wrap shadow shadow-primary"
+            >
+                {{ course.notes || 'No notes available.' }}
+            </div>
+        </div>
+        <div
+            v-if="editing"
+            class="pointer-events-auto m-8 w-full rounded-lg border border-primary bg-base-100 p-16 shadow-lg shadow-primary"
             ref="target"
         >
             <h1 class="text-center text-3xl font-bold">Edit</h1>
@@ -70,14 +101,16 @@
                     v-model="localCourse.title"
                 />
                 <div class="mb-4">
-                <label for="notes"
-                class="block text-sm font-medium text-base-content"
-                >Notes</label>
-                <textarea
-                    v-model="localCourse.notes"
-                    id="notes"
-                    class="my-4 h-24 w-full border border-primary bg-base-200 px-4"
-                ></textarea>
+                    <label
+                        for="notes"
+                        class="block text-sm font-medium text-base-content"
+                        >Notes</label
+                    >
+                    <textarea
+                        v-model="localCourse.notes"
+                        id="notes"
+                        class="my-4 h-24 w-full border border-primary bg-base-200 px-4"
+                    ></textarea>
                 </div>
                 <div class="mb-4">
                     <label
@@ -189,10 +222,9 @@
                         Save Changes
                     </button>
                     <button
-                            @click="editing = false"
+                        @click="editing = false"
                         type="button"
                         class="text-success-error btn btn-error hover:bg-error/30 active:bg-error/50"
-                  
                     >
                         Cancel
                     </button>
@@ -200,22 +232,20 @@
             </form>
         </div>
     </AdminLayout>
- 
 </template>
 <script setup lang="ts">
 import { useInitials } from '@/composables/useInitials';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import type { Course } from '@/types';
-import {TriangleAlert} from 'lucide-vue-next';
 import { router } from '@inertiajs/vue3';
 import axios from 'axios';
-import { onMounted, ref, computed } from 'vue';
+import { TriangleAlert } from 'lucide-vue-next';
+import { computed, onMounted, ref } from 'vue';
 const { getInitials } = useInitials();
 const props = defineProps<{
     course: Course;
 }>();
 const localCourse = ref<Course>(props.course);
-
 
 const editing = ref(false);
 const showAddUser = ref(false);
@@ -224,12 +254,10 @@ const selectedRole = ref('Designer');
 const availableUsers = ref<any[]>([]);
 const developmentCycles = ref<any[]>([]);
 const needsAttention = computed(() => {
-    return localCourse.value.deliverables.some(
-        (d: any) => !d.pivot.is_done,
-    );
+    return localCourse.value.deliverables.some((d: any) => !d.pivot.is_done);
 });
 const getUserByRole = (users: any[], role: string) => {
-    const user = users.find(u => u.pivot.role === role);
+    const user = users.find((u) => u.pivot.role === role);
     return user ? `${user.first_name} ${user.last_name}` : 'Not Assigned';
 };
 const addUser = () => {
@@ -274,10 +302,8 @@ const handleShowAddUser = async () => {
     showAddUser.value = true;
 };
 
-
 const updateCourse = () => {
     router.post(`/courses/${localCourse.value.id}/update`, localCourse.value);
-  
 };
 </script>
 

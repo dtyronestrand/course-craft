@@ -35,20 +35,18 @@
             </tr>
         </thead>
         <tbody>
-       
             <tr
-        v-for="row in table.getRowModel().rows"
-                :key="row.id" 
+                v-for="row in table.getRowModel().rows"
+                :key="row.id"
                 class="cursor-pointer hover:bg-primary/5"
-             
             >
                 <td v-for="cell in row.getVisibleCells()" :key="cell.id">
-             <Link         :href="`/admin/course-details/${row.original.id}`">
-                    <FlexRender
-                        :render="cell.column.columnDef.cell"
-                        :props="cell.getContext()"
-                    />
-                </Link>
+                    <Link :href="`/admin/course-details/${row.original.id}`">
+                        <FlexRender
+                            :render="cell.column.columnDef.cell"
+                            :props="cell.getContext()"
+                        />
+                    </Link>
                 </td>
             </tr>
         </tbody>
@@ -65,6 +63,7 @@
 
 <script setup lang="ts">
 import type { Course } from '@/types';
+import { Link } from '@inertiajs/vue3';
 import {
     createColumnHelper,
     FlexRender,
@@ -74,7 +73,6 @@ import {
     useVueTable,
 } from '@tanstack/vue-table';
 import { computed, h, ref } from 'vue';
-import {Link} from '@inertiajs/vue3';
 import CourseDetailsModal from './CourseDetailsModal.vue';
 
 interface Props {

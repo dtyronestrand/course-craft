@@ -37,7 +37,6 @@
                                 class="text-sm font-semibold text-primary uppercase"
                             >
                                 Project Status Distribution
-                              
                             </h2>
                             <ChartColumnBig class="h-10 w-10 text-primary" />
                         </div>
@@ -130,6 +129,7 @@ import CourseStatusChart from '@/components/Admin/Dashboard/CourseStatusChart.vu
 import ProjectPipelineTable from '@/components/Admin/Dashboard/ProjectPipelineTable.vue';
 import TeamCapacityChart from '@/components/Admin/Dashboard/TeamCapacityChart.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
+import type { Course } from '@/types';
 import type { PageProps } from '@inertiajs/core';
 import { usePage } from '@inertiajs/vue3';
 import {
@@ -139,7 +139,6 @@ import {
     Users,
 } from 'lucide-vue-next';
 import { ref } from 'vue';
-import type { Course } from '@/types';
 interface Activity {
     id: number;
     user: { name: string; initials: string };
@@ -153,7 +152,7 @@ const page = usePage<
     PageProps & {
         activeCoursesCount: number;
         courseStatusCounts: Record<string, number>;
-    
+
         recentActivities: Activity[];
         statusCounts: Record<string, number>;
 

@@ -33,8 +33,17 @@
                     v-model="cycleEnd"
                 />
                 <div class="flex gap-2">
-                    <button type="submit" class="btn btn-success text-success-content hover:bg-succes/30 active:bg-success/50">Save</button>
-                    <button type="button" class="btn btn-error text-error-content hover:bg-error/30 active:bg-error/50"   @click="close">
+                    <button
+                        type="submit"
+                        class="hover:bg-succes/30 btn text-success-content btn-success active:bg-success/50"
+                    >
+                        Save
+                    </button>
+                    <button
+                        type="button"
+                        class="btn text-error-content btn-error hover:bg-error/30 active:bg-error/50"
+                        @click="close"
+                    >
                         Cancel
                     </button>
                 </div>
