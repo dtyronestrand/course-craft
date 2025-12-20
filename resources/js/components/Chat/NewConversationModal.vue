@@ -17,8 +17,9 @@ const searchQuery = ref('');
 const searchResults = ref([]);
 const isSearching = ref(false);
 const conversationName = ref('');
+const selectedCourse = ref(null);
 const selectedProject = ref(null);
-const projects = ref([]);
+const courses = ref([]);
 
 const searchUsers = async () => {
     if (searchQuery.value.length < 2) {
@@ -39,12 +40,12 @@ const searchUsers = async () => {
     }
 };
 
-const fetchProjects = async () => {
+const fetchCourses = async () => {
     try {
-        const response = await axios.get('/api/projects');
-        projects.value = response.data;
+        const response = await axios.get('/api/courses');
+        courses.value = response.data;
     } catch (error) {
-        console.error('Failed to fetch projects:', error);
+        console.error('Failed to fetch courses:', error);
     }
 };
 
@@ -112,8 +113,8 @@ const resetForm = () => {
 };
 
 const handleTypeChange = () => {
-    if (conversationType.value === 'project') {
-        fetchProjects();
+    if (conversationType.value === 'course') {
+    fetchCourses();
     }
 };
 
@@ -192,17 +193,17 @@ defineExpose({ resetForm });
                         </button>
                         <button
                             @click="
-                                conversationType = 'project';
+                                conversationType = 'course';
                                 handleTypeChange();
                             "
                             :class="[
                                 'flex-1 rounded-lg border px-4 py-2 transition-colors',
-                                conversationType === 'project'
+                                conversationType === 'course'
                                     ? 'border-blue-600 bg-blue-50 text-blue-600'
                                     : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50',
                             ]"
                         >
-                            Project
+                            Course
                         </button>
                     </div>
                 </div>
@@ -221,27 +222,27 @@ defineExpose({ resetForm });
                 </div>
 
                 <!-- Project Selection -->
-                <div v-if="conversationType === 'project'">
+                <div v-if="conversationType === 'course'">
                     <label class="mb-2 block text-sm font-medium text-gray-700"
-                        >Select Project</label
+                        >Select Course</label
                     >
                     <select
-                        v-model="selectedProject"
+                        v-model="selectedCourse"
                         class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                     >
-                        <option :value="null">Choose a project</option>
+                        <option :value="null">Choose a course</option>
                         <option
-                            v-for="project in projects"
-                            :key="project.id"
-                            :value="project.id"
+                            v-for="course in courses"
+                            :key="course.id"
+                            :value="course.id"
                         >
-                            {{ project.name }}
+                            {{ course.prefix }} {{ course.number }}
                         </option>
                     </select>
                 </div>
 
                 <!-- User Search (for direct and group) -->
-                <div v-if="conversationType !== 'project'">
+                <div v-if="conversationType !== 'course'">
                     <label class="mb-2 block text-sm font-medium text-gray-700">
                         {{
                             conversationType === 'direct'
@@ -295,7 +296,7 @@ defineExpose({ resetForm });
                             :key="user.id"
                             class="flex items-center gap-1 rounded-full bg-blue-100 px-2 py-1 text-sm text-blue-800"
                         >
-                            <span>{{ user.name }}</span>
+                            <span>{{ user.first_name }} {{ user.last_name }}</span>
                             <button
                                 @click="toggleUser(user)"
                                 class="rounded-full p-0.5 hover:bg-blue-200"
@@ -335,11 +336,11 @@ defineExpose({ resetForm });
                                 <div
                                     class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-blue-600 text-sm font-semibold text-white"
                                 >
-                                    {{ user.name.charAt(0).toUpperCase() }}
+                                    {{ (user.first_name || '').charAt(0).toUpperCase() }}
                                 </div>
                                 <div>
                                     <p class="font-medium text-gray-900">
-                                        {{ user.name }}
+                                        {{ user.first_name }} {{ user.last_name }}
                                     </p>
                                     <p class="text-sm text-gray-500">
                                         {{ user.email }}

@@ -11,5 +11,5 @@ Broadcast::channel('conversation.{conversationId}', function ($user, $conversati
     if(! $conversation) {
         return false;
     }
-    return $conversation->participats()->where('user_id', $user->id)->exists() ? ['id' => $user->id, 'name' => $user->first_name] : false;
+    return $conversation->participants()->where('user_id', $user->id)->exists() ? ['id' => $user->id, 'name' => $user->first_name] : false;
 });

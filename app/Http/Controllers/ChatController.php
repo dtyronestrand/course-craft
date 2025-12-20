@@ -30,7 +30,7 @@ public function store(Request $request)
         'user_ids' => 'required_if:type,direct,group|array',
         'user_ids.*' => 'exists:users,id',
         'course_id' => 'required_if:type,course|exists:courses,id',
-        'name' => 'nullablee|string|max:255',
+        'name' => 'nullable|string|max:255',
    
     ]);
 
@@ -43,6 +43,7 @@ public function show(Conversation $conversation, Request $request)
 {
 $this->authorize('view', $conversation);
 
+$conversation->load('participants');
 $messages = $this->chatService->getConversationMessages($conversation);
 
 return response()->json([

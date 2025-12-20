@@ -12,7 +12,7 @@ use App\Events\UserTyping;
 
 class MessageService
 {
-    private function __construct(
+    public function __construct(
         private SendMessageAction $sendMessageAction,
         private MarkMessageAsReadAction $markMessageAsReadAction
     ){}

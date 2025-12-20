@@ -4,19 +4,17 @@ namespace App\Repositories;
 
 use App\Models\Conversation;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class ConversationRepository
 {
     public function getUserConversations(User $user)
     {
-        return $user->conversations()->with(['latestMessage', 'participants'])
+        return $user->conversations()
+        ->with(['latestMessage', 'participants'])
         ->withCount(['messages as unread_count' => function($query) use ($user) {
-            $query->wher('messages.created_at', '>', function($subQuery) use ($user) {
-                $subQuery->select('last_read_at')
-                ->from('conversation_participants')
-                ->whereColumn('conversation_id', 'conversations.id')
-                ->where('user_id', $user->id);
-            })->where('user_id', '!=', $user->id);
+            $query->where('user_id', '!=', $user->id)
+            ->whereRaw('created_at > COALESCE((SELECT read_at FROM conversation_participants WHERE conversation_id = messages.conversation_id AND user_id = ?), "1970-01-01")', [$user->id]);
         }])
         ->latest('updated_at')
         ->get();

@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+
         <div class="min-h-screen w-full p-6">
             <div class="mb-6 flex items-center justify-between">
                 <h1 class="text-3xl font-bold text-base-content">
@@ -105,7 +105,7 @@
                 </div>
             </div>
         </div>
-    </AdminLayout>
+
 </template>
 
 <script setup lang="ts">
@@ -115,6 +115,7 @@ import type { Appointment } from '@/types';
 import dayjs from 'dayjs';
 import { computed, ref } from 'vue';
 import AdminLayout from '../../layouts/AdminLayout.vue';
+defineOptions({layout: AdminLayout});
 const props = defineProps<{
     appointments: Appointment[];
     users: Array<any>;

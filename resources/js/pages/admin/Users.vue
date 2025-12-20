@@ -1,7 +1,7 @@
 <template>
-    <AdminLayout>
+
         <UsersTable :users="page.props.users" />
-    </AdminLayout>
+
 </template>
 
 <script setup lang="ts">
@@ -10,7 +10,7 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
 import { Course } from '@/types';
 import type { PageProps as InertiaPageProps } from '@inertiajs/core';
 import { usePage } from '@inertiajs/vue3';
-
+defineOptions({ layout: AdminLayout });
 interface User {
     id: number;
     first_name: string;

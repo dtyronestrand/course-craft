@@ -17,9 +17,12 @@ class MessageResource extends JsonResource
         return [
             'id' => $this->id,
             'body' => $this->body,
-            'is_typing' => $this->is_typing,
-            'user' =>  UserResource::make($this->whenLoaded('user')),
-            'attachments' => $this->attachments,
+            'user_id' => $this->user_id,
+            'user' => UserResource::make($this->whenLoaded('user')),
+            'attachment_path' => $this->attachment_path,
+            'attachment_name' => $this->attachment_name,
+            'created_at' => $this->created_at,
+            'reads' => $this->whenLoaded('reads'),
         ];
     }
 }

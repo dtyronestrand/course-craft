@@ -12,10 +12,11 @@ class ConversationsController extends Controller
 {
 public function show(Conversation $conversation)
     {
+        $conversation->load('participants');
         $messages = $conversation->messages()->with('user')->latest()->get();
-        return Inertia::render('conversations/Show', [
-            'conversations' => ConversationResource::make($conversation),
-            'messages' => MessageResource::collection($messages)
+        return response()->json([
+            'conversation' => $conversation,
+            'messages' => $messages
         ]);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services;
-
+use App\Models\User;
 use App\Repositories\UserRepository;
 
 class UserService
@@ -26,5 +26,10 @@ class UserService
     public function getUserProfile($user)
     {
         return $this->userRepository->getUserProfile($user);
+    }
+
+    public function searchUsers(string $query, User $currentUser, int $limit =10)
+    {
+        return $this->userRepository->searchUsers($query, $currentUser->id, $limit);
     }
 }

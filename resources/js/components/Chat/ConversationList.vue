@@ -21,7 +21,7 @@ const getConversationName = (conversation) => {
         const otherUser = conversation.participants.find(
             (p) => p.id !== authUser.value?.id,
         );
-        return otherUser?.name || 'Unknown User';
+        return otherUser?.first_name || 'Unknown User';
     }
 
     return 'Conversation';
@@ -97,9 +97,9 @@ const getLastMessage = (conversation) => {
                 class="flex w-full items-start gap-3 p-4 text-left transition-colors hover:bg-gray-50"
             >
                 <!-- Avatar -->
-                <div class="flex-shrink-0">
+                <div class="shrink-0">
                     <div
-                        class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-blue-600 font-semibold text-white"
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-br from-blue-400 to-blue-600 font-semibold text-white"
                     >
                         {{
                             getConversationName(conversation)
@@ -115,7 +115,7 @@ const getLastMessage = (conversation) => {
                         <h3 class="truncate font-semibold text-gray-900">
                             {{ getConversationName(conversation) }}
                         </h3>
-                        <span class="ml-2 flex-shrink-0 text-xs text-gray-500">
+                        <span class="ml-2 shrink-0 text-xs text-gray-500">
                             {{
                                 formatTime(
                                     conversation.latest_message?.[0]
@@ -133,7 +133,7 @@ const getLastMessage = (conversation) => {
                         <!-- Unread badge -->
                         <span
                             v-if="conversation.unread_count > 0"
-                            class="ml-2 min-w-[1.5rem] flex-shrink-0 rounded-full bg-blue-600 px-2 py-1 text-center text-xs font-semibold text-white"
+                            class="ml-2 min-w-6 shrink-0 rounded-full bg-blue-600 px-2 py-1 text-center text-xs font-semibold text-white"
                         >
                             {{
                                 conversation.unread_count > 99

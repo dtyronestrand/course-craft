@@ -12,7 +12,7 @@ Route::middleware('auth')->group(function() {
 
     Route::post('/conversations/{conversation}/messages', [MessageController::class, 'store'])->name('messages.store');
     Route::post('/messages/{message}/read', [MessageController::class, 'markAsRead'])->name('messages.read');
-    Route::post('/conversatons/{conversation}/typing', [MessageController::class, 'typing'])->name('messages.typing');
+    Route::post('/conversations/{conversation}/typing', [MessageController::class, 'typing'])->name('messages.typing');
     Route::get('/notifications', function (Request $request) {
         return $request->user()
             ->notifications()

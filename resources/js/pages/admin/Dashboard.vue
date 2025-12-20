@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+  
         <div class="flex grow flex-col">
             <div class="wrapper frosted-backdrop h-full p-2">
                 <div class="mb-6 grid grid-cols-4 gap-6">
@@ -119,7 +119,7 @@
             :course="selectedCourse"
             @modal-close="closeModal"
         />
-    </AdminLayout>
+  
 </template>
 
 <script setup lang="ts">
@@ -139,6 +139,7 @@ import {
     Users,
 } from 'lucide-vue-next';
 import { ref } from 'vue';
+defineOptions({layout: AdminLayout});
 interface Activity {
     id: number;
     user: { name: string; initials: string };

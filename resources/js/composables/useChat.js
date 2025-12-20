@@ -17,7 +17,8 @@ export function useChat() {
 
     const fetchMessages = async (conversationId) => {
         const response = await axios.get(`/conversations/${conversationId}`);
-        messages.value = response.data.data.reverse();
+        const msgs = response.data.messages?.data || [];
+        messages.value = [...msgs].reverse();
         return response.data;
     };
 

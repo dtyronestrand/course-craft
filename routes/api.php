@@ -2,8 +2,10 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\AdminSettingsController;
 use App\Http\Controllers\DevelopmentCycleController;
+use App\Http\Controllers\Api\NotificationController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 
@@ -21,8 +23,11 @@ Route::middleware('auth:sanctum')->get('/development-cycles', [DevelopmentCycleC
 
 Route::middleware(['auth'])->group(function () {
     // Existing routes...
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
     
-    Route::get('/api/users/search', function (Request $request) {
+    Route::get('/users/search', function (Request $request) {
         $query = $request->input('q');
         
         return User::where('id', '!=', $request->user()->id)
@@ -35,10 +40,5 @@ Route::middleware(['auth'])->group(function () {
             ->get(['id', 'first_name', 'last_name', 'email']);
     });
     
-    Route::get('/api/courses', function (Request $request) {
-        // Adjust this based on your project authorization logic
-        return $request->user()
-            ->courses()
-            ->get(['id', 'prefix','number']);
-    });
+Route::get('/courses', [CourseController::class, 'userCourses']);
 });

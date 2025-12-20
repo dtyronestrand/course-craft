@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+
         <div
             v-if="!editing"
             class="mx-8 mt-8 w-full rounded-xl border border-primary bg-base-100 p-16 shadow shadow-primary"
@@ -231,7 +231,7 @@
                 </div>
             </form>
         </div>
-    </AdminLayout>
+
 </template>
 <script setup lang="ts">
 import { useInitials } from '@/composables/useInitials';
@@ -241,6 +241,7 @@ import { router } from '@inertiajs/vue3';
 import axios from 'axios';
 import { TriangleAlert } from 'lucide-vue-next';
 import { computed, onMounted, ref } from 'vue';
+defineOptions({ layout: AdminLayout });
 const { getInitials } = useInitials();
 const props = defineProps<{
     course: Course;

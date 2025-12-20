@@ -95,6 +95,11 @@ const isMessageRead = (message) => {
     return false;
 };
 
+const getUserName = (user) => {
+    if (!user) return 'Unknown';
+    return user.name || `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'Unknown';
+};
+
 const setupIntersectionObserver = () => {
     observer.value = new IntersectionObserver(
         (entries) => {
@@ -192,7 +197,7 @@ onMounted(() => {
                         <div
                             class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-gray-400 to-gray-600 text-sm font-semibold text-white"
                         >
-                            {{ message.user.name.charAt(0).toUpperCase() }}
+                            {{ getUserName(message.user).charAt(0).toUpperCase() }}
                         </div>
                     </div>
 
@@ -203,7 +208,7 @@ onMounted(() => {
                             v-if="!isMyMessage(message)"
                             class="mb-1 px-1 text-xs text-gray-600"
                         >
-                            {{ message.user.name }}
+                            {{ getUserName(message.user) }}
                         </div>
 
                         <!-- Message bubble -->
@@ -217,26 +222,31 @@ onMounted(() => {
                         >
                             <!-- Attachment -->
                             <div v-if="message.attachment_path" class="mb-2">
-                                :href="`/storage/${message.attachment_path}`"
-                                target="_blank" :class="[ 'flex items-center
-                                gap-2 p-2 rounded', isMyMessage(message) ?
-                                'bg-blue-700' : 'bg-gray-100' ]" >
-                                <svg
-                                    class="h-5 w-5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
+                                <a
+                                    :href="`/storage/${message.attachment_path}`"
+                                    target="_blank"
+                                    :class="[
+                                        'flex items-center gap-2 p-2 rounded',
+                                        isMyMessage(message) ? 'bg-blue-700' : 'bg-gray-100'
+                                    ]"
                                 >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
-                                    />
-                                </svg>
-                                <span class="truncate text-sm">{{
-                                    message.attachment_name
-                                }}</span>
+                                    <svg
+                                        class="h-5 w-5"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
+                                        />
+                                    </svg>
+                                    <span class="truncate text-sm">{{
+                                        message.attachment_name
+                                    }}</span>
+                                </a>
                             </div>
 
                             <!-- Message text -->
@@ -254,55 +264,20 @@ onMounted(() => {
                                     : 'justify-start',
                             ]"
                         >
-                            <span class="text-gray-500">{{
-                                formatTime(message.created_at)
-                            }}</span>
+                            <span class="text-gray-500">{{ formatTime(message.created_at) }}</span>
 
                             <!-- Read receipts (only for my messages) -->
-                            <div
-                                v-if="isMyMessage(message)"
-                                class="flex items-center"
-                                :title="
-                                    isMessageRead(message)
-                                        ? `Read by ${getReadByUsers(message).join(', ')}`
-                                        : 'Sent'
-                                "
-                            >
-                                <!-- Double check for read -->
+                            <div v-if="isMyMessage(message)" class="flex items-center gap-1">
                                 <svg
                                     v-if="isMessageRead(message)"
-                                    class="h-4 w-4 text-blue-400"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
+                                    class="h-3 w-3 text-blue-500"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
                                 >
                                     <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M5 13l4 4L19 7"
-                                    />
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M9 13l4 4L23 7"
-                                        transform="translate(-2, 0)"
-                                    />
-                                </svg>
-                                <!-- Single check for sent but not read -->
-                                <svg
-                                    v-else
-                                    class="h-4 w-4 text-gray-400"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M5 13l4 4L19 7"
+                                        fill-rule="evenodd"
+                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                        clip-rule="evenodd"
                                     />
                                 </svg>
                             </div>
@@ -322,27 +297,15 @@ onMounted(() => {
                         {{ typingUsers[0].name.charAt(0).toUpperCase() }}
                     </div>
                 </div>
-
                 <div>
                     <div class="mb-1 px-1 text-xs text-gray-600">
                         {{ typingUsers[0].name }}
                     </div>
-                    <div
-                        class="rounded-lg border border-gray-200 bg-white px-4 py-3"
-                    >
+                    <div class="rounded-lg border border-gray-200 bg-white px-4 py-2">
                         <div class="flex gap-1">
-                            <div
-                                class="h-2 w-2 animate-bounce rounded-full bg-gray-400"
-                                style="animation-delay: 0ms"
-                            ></div>
-                            <div
-                                class="h-2 w-2 animate-bounce rounded-full bg-gray-400"
-                                style="animation-delay: 150ms"
-                            ></div>
-                            <div
-                                class="h-2 w-2 rounded-full bg-gray-400"
-                                style="animation-delay: 300ms"
-                            ></div>
+                            <span class="h-2 w-2 animate-bounce rounded-full bg-gray-400" style="animation-delay: 0ms"></span>
+                            <span class="h-2 w-2 animate-bounce rounded-full bg-gray-400" style="animation-delay: 150ms"></span>
+                            <span class="h-2 w-2 animate-bounce rounded-full bg-gray-400" style="animation-delay: 300ms"></span>
                         </div>
                     </div>
                 </div>
@@ -350,19 +313,3 @@ onMounted(() => {
         </div>
     </div>
 </template>
-
-<style scoped>
-@keyframes bounce {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-0.5rem);
-    }
-}
-
-.animate-bounce {
-    animation: bounce 1s infinite;
-}
-</style>

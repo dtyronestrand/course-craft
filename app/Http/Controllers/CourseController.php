@@ -26,7 +26,11 @@ class CourseController extends Controller
 
         return Inertia::render('Dashboard', ['courses' => $courses]);
     }
-
+ 
+    public function userCourses(Request $request){
+        $courses = $this->courseService->getCoursesForUser($request->user());
+        return response()->json($courses);
+    }
     public function store(Request $request)
     {
         $request->validate([

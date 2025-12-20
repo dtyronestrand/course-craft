@@ -25,4 +25,15 @@ class UserRepository
     {
         return $user->load('profile');
     }
+
+    public function searchUsers(string $query, int $excludeUserId, int $limit =10)
+    {
+        return User::where('id', '!=', $excludeUserId)
+            ->where(function ($q) use ($query) {
+                $q->where('first_name', 'like', "%{$query}%")
+                    ->orWhere('last_name', 'like', "%{$query}%");
+            })
+            ->limit($limit)
+            ->get(['id', 'first_name', 'last_name']);
+    }
 }

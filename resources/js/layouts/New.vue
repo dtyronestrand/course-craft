@@ -18,6 +18,33 @@
                     />
                 </Link>
                 <div class="ml-auto flex items-center space-x-2">
+                   
+                    <button
+                        @click="chatOpen = true"
+                        class="flex w-full items-center py-2 transition-colors hover:bg-base-200"
+                    >
+                        <svg
+                            class="h-6 w-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                            />
+                        </svg>
+                        <span class="flex-1 px-4 text-left">Messages</span>
+                        <span
+                            v-if="unreadCount > 0"
+                            class="ml-2 min-w-[1.5rem] rounded-full bg-red-600 px-2 py-1 text-center text-xs font-bold text-white"
+                        >
+                            {{ unreadCount > 99 ? '99+' : unreadCount }}
+                        </span>
+                    </button>
+                
                     <div class="relative flex items-center space-x-1">
                         <Button
                             variant="ghost"
@@ -99,6 +126,7 @@
             <!-- Main content -->
             <div class="min-h-64 rounded-lg bg-base-100 p-4">
                 <slot />
+                        <ChatSidebar :open="chatOpen" @close="chatOpen = false" />
             </div>
         </div>
     </div>
@@ -123,10 +151,13 @@ import { toUrl } from '@/lib/utils';
 import type { NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import { Search } from 'lucide-vue-next';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import ChatSidebar from '@/components/Chat/ChatSidebar.vue';
+import { useNotifications } from '@/composables/useNotifications';
 
 const page = usePage();
-
+const { unreadCount } = useNotifications();
+const chatOpen = ref(false);
 const auth = computed(() => {
     return page.props.auth;
 });

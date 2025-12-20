@@ -1,10 +1,10 @@
 <template>
-    <div
-        v-for="user in usersWorkloads"
-        :key="user.last_name"
-        class="flex items-center justify-between gap-4 rounded-lg shadow-sm shadow-base-200/20"
-        v-bind="$attrs"
-    >
+    <div v-bind="$attrs">
+        <div
+            v-for="user in usersWorkloads"
+            :key="user.last_name"
+            class="flex items-center justify-between gap-4 rounded-lg shadow-sm shadow-base-200/20"
+        >
         <div class="flex justify-evenly">
             <div class="placeholder avatar">
                 <div
@@ -23,12 +23,15 @@
             <p class="place-self-center text-xs">{{ user.workload }}%</p>
         </div>
     </div>
+    </div>
 </template>
 
 <script setup lang="ts">
 import { getInitials } from '@/composables/useInitials';
 import axios from 'axios';
 import { computed, onMounted, ref } from 'vue';
+
+defineOptions({ inheritAttrs: false });
 
 const users = ref([]);
 const capacity = ref(0);

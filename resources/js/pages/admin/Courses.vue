@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+
         <div class="align-center flex w-full flex-col p-8">
             <h1 class="my-8 block text-center text-7xl">All Courses</h1>
             <div class="flex flex-row justify-between">
@@ -34,7 +34,7 @@
                 <CoursesGrid :courses="page.props.courses as any[]" />
             </div>
         </div>
-    </AdminLayout>
+  
     <CreateCourse
         v-if="isCreateCourseModalOpen"
         @create-course="saveCourse"
@@ -50,6 +50,7 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
 import { router, usePage } from '@inertiajs/vue3';
 import { Grid2x2, List } from 'lucide-vue-next';
 import { ref } from 'vue';
+defineOptions({layout: AdminLayout});
 
 const page = usePage();
 
