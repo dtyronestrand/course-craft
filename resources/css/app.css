@@ -204,7 +204,8 @@
   color utility to any element that depends on these defaults.
 */
 html {
-    background-color: var(--color-base-300);
+
+    background-image: linear-gradient(in oklch,  var(--color-secondary), var(--color-accent));
     box-sizing: border-box;
 }
 

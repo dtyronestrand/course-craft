@@ -91,11 +91,11 @@ const close = () => {
 
 const handleSubmit = () => {
     const form = useForm({
-        cycle_name: cycleName.value,
-        cycle_start: cycleStart.value,
-        cycle_end: cycleEnd.value,
+        name: cycleName.value,
+        start_date: cycleStart.value,
+        end_date: cycleEnd.value,
     });
-    form.post('/admin/settings', {
+    form.post('/admin/development-cycles', {
         onSuccess: () => {
             close();
             router.reload();

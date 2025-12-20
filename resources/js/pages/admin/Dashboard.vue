@@ -4,7 +4,7 @@
             <div class="wrapper frosted-backdrop h-full p-2">
                 <div class="mb-6 grid grid-cols-4 gap-6">
                     <div
-                        class="frosted-background rounded-xl border border-error/70 bg-base-100 p-6 text-error shadow-lg shadow-error/20"
+                        class=" rounded-xl border border-error/70 bg-base-100/15 backdrop-blur-3xl p-6 text-error shadow-lg shadow-error/20"
                     >
                         <div class="flex items-start justify-between">
                             <h2
@@ -30,7 +30,7 @@
                         </ul>
                     </div>
                     <div
-                        class="frosted-backdrop rounded-xl border border-primary/70 bg-base-100 p-6 text-primary shadow-lg shadow-primary/20"
+                        class="frosted-backdrop rounded-xl border border-primary/70 bg-base-100/15 p-6 text-primary shadow-lg shadow-primary/20"
                     >
                         <div class="flex items-start justify-between">
                             <h2
@@ -113,7 +113,7 @@
                 </div>
             </div>
         </div>
-        <CourseDetailsModal
+        <CourseNeedsAttentionDetails
             v-if="isModalOpened && selectedCourse"
             :isOpen="isModalOpened"
             :course="selectedCourse"
@@ -123,7 +123,7 @@
 </template>
 
 <script setup lang="ts">
-import CourseDetailsModal from '@/components/Admin/Courses/CourseDetailsModal.vue';
+import CourseNeedsAttentionDetails from '@/components/Admin/Courses/CourseNeedsAttentionDetails.vue';
 import ActivityFeed from '@/components/Admin/Dashboard/ActivityFeed.vue';
 import CourseStatusChart from '@/components/Admin/Dashboard/CourseStatusChart.vue';
 import ProjectPipelineTable from '@/components/Admin/Dashboard/ProjectPipelineTable.vue';

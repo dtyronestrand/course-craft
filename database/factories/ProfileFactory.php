@@ -18,6 +18,7 @@ class ProfileFactory extends Factory
     public function definition(): array
     {
         return [
+            
          'title' => fake()->randomElement(Titles::cases())->value
         ];
     }
