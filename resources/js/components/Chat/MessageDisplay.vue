@@ -97,7 +97,11 @@ const isMessageRead = (message) => {
 
 const getUserName = (user) => {
     if (!user) return 'Unknown';
-    return user.name || `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'Unknown';
+    return (
+        user.name ||
+        `${user.first_name || ''} ${user.last_name || ''}`.trim() ||
+        'Unknown'
+    );
 };
 
 const setupIntersectionObserver = () => {
@@ -197,7 +201,11 @@ onMounted(() => {
                         <div
                             class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-gray-400 to-gray-600 text-sm font-semibold text-white"
                         >
-                            {{ getUserName(message.user).charAt(0).toUpperCase() }}
+                            {{
+                                getUserName(message.user)
+                                    .charAt(0)
+                                    .toUpperCase()
+                            }}
                         </div>
                     </div>
 
@@ -226,8 +234,10 @@ onMounted(() => {
                                     :href="`/storage/${message.attachment_path}`"
                                     target="_blank"
                                     :class="[
-                                        'flex items-center gap-2 p-2 rounded',
-                                        isMyMessage(message) ? 'bg-blue-700' : 'bg-gray-100'
+                                        'flex items-center gap-2 rounded p-2',
+                                        isMyMessage(message)
+                                            ? 'bg-blue-700'
+                                            : 'bg-gray-100',
                                     ]"
                                 >
                                     <svg
@@ -264,10 +274,15 @@ onMounted(() => {
                                     : 'justify-start',
                             ]"
                         >
-                            <span class="text-gray-500">{{ formatTime(message.created_at) }}</span>
+                            <span class="text-gray-500">{{
+                                formatTime(message.created_at)
+                            }}</span>
 
                             <!-- Read receipts (only for my messages) -->
-                            <div v-if="isMyMessage(message)" class="flex items-center gap-1">
+                            <div
+                                v-if="isMyMessage(message)"
+                                class="flex items-center gap-1"
+                            >
                                 <svg
                                     v-if="isMessageRead(message)"
                                     class="h-3 w-3 text-blue-500"
@@ -301,11 +316,22 @@ onMounted(() => {
                     <div class="mb-1 px-1 text-xs text-gray-600">
                         {{ typingUsers[0].name }}
                     </div>
-                    <div class="rounded-lg border border-gray-200 bg-white px-4 py-2">
+                    <div
+                        class="rounded-lg border border-gray-200 bg-white px-4 py-2"
+                    >
                         <div class="flex gap-1">
-                            <span class="h-2 w-2 animate-bounce rounded-full bg-gray-400" style="animation-delay: 0ms"></span>
-                            <span class="h-2 w-2 animate-bounce rounded-full bg-gray-400" style="animation-delay: 150ms"></span>
-                            <span class="h-2 w-2 animate-bounce rounded-full bg-gray-400" style="animation-delay: 300ms"></span>
+                            <span
+                                class="h-2 w-2 animate-bounce rounded-full bg-gray-400"
+                                style="animation-delay: 0ms"
+                            ></span>
+                            <span
+                                class="h-2 w-2 animate-bounce rounded-full bg-gray-400"
+                                style="animation-delay: 150ms"
+                            ></span>
+                            <span
+                                class="h-2 w-2 animate-bounce rounded-full bg-gray-400"
+                                style="animation-delay: 300ms"
+                            ></span>
                         </div>
                     </div>
                 </div>

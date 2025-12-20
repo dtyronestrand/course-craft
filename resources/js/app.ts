@@ -2,12 +2,12 @@ import axios from 'axios';
 import '../css/app.css';
 
 import { createInertiaApp } from '@inertiajs/vue3';
+import { configureEcho } from '@laravel/echo-vue';
+import Echo from 'laravel-echo';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import Pusher from 'pusher-js';
 import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
-import { configureEcho } from '@laravel/echo-vue';
 
 declare global {
     interface Window {

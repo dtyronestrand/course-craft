@@ -8,7 +8,11 @@
         >
             <div class="grow space-y-5 overflow-auto pb-24">
                 <Messages v-if="props.messages?.length">
-                    <Message v-for="message in props.messages" :key="message.id" :message="message" />
+                    <Message
+                        v-for="message in props.messages"
+                        :key="message.id"
+                        :message="message"
+                    />
                 </Messages>
                 <div v-else>No messages.</div>
             </div>

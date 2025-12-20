@@ -1,40 +1,39 @@
 <template>
-
-        <div class="align-center flex w-full flex-col p-8">
-            <h1 class="my-8 block text-center text-7xl">All Courses</h1>
-            <div class="flex flex-row justify-between">
-                <div class="flex flex-row items-center gap-2">
-                    <p>View:</p>
-                    <button
-                        class="btn btn-sm hover:bg-neutral"
-                        @click="view = 'list'"
-                    >
-                        <List /></button
-                    ><button
-                        class="btn btn-sm hover:bg-neutral"
-                        @click="view = 'grid'"
-                    >
-                        <Grid2x2 />
-                    </button>
-                </div>
+    <div class="align-center flex w-full flex-col p-8">
+        <h1 class="my-8 block text-center text-7xl">All Courses</h1>
+        <div class="flex flex-row justify-between">
+            <div class="flex flex-row items-center gap-2">
+                <p>View:</p>
                 <button
-                    class="btn mb-6 self-end bg-primary text-primary-content hover:bg-primary/30 active:bg-primary/50"
-                    @click="isCreateCourseModalOpen = true"
+                    class="btn btn-sm hover:bg-neutral"
+                    @click="view = 'list'"
                 >
-                    Create New Course
+                    <List /></button
+                ><button
+                    class="btn btn-sm hover:bg-neutral"
+                    @click="view = 'grid'"
+                >
+                    <Grid2x2 />
                 </button>
             </div>
-            <div v-if="view === 'list'">
-                <CoursesTable
-                    :developmentCycles="page.props.developmentCycles as any"
-                    :courses="page.props.courses as any[]"
-                />
-            </div>
-            <div v-else class="grid grid-cols-3 gap-4">
-                <CoursesGrid :courses="page.props.courses as any[]" />
-            </div>
+            <button
+                class="btn mb-6 self-end bg-primary text-primary-content hover:bg-primary/30 active:bg-primary/50"
+                @click="isCreateCourseModalOpen = true"
+            >
+                Create New Course
+            </button>
         </div>
-  
+        <div v-if="view === 'list'">
+            <CoursesTable
+                :developmentCycles="page.props.developmentCycles as any"
+                :courses="page.props.courses as any[]"
+            />
+        </div>
+        <div v-else class="grid grid-cols-3 gap-4">
+            <CoursesGrid :courses="page.props.courses as any[]" />
+        </div>
+    </div>
+
     <CreateCourse
         v-if="isCreateCourseModalOpen"
         @create-course="saveCourse"
@@ -50,7 +49,7 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
 import { router, usePage } from '@inertiajs/vue3';
 import { Grid2x2, List } from 'lucide-vue-next';
 import { ref } from 'vue';
-defineOptions({layout: AdminLayout});
+defineOptions({ layout: AdminLayout });
 
 const page = usePage();
 

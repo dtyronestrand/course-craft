@@ -18,7 +18,6 @@
                     />
                 </Link>
                 <div class="ml-auto flex items-center space-x-2">
-                   
                     <button
                         @click="chatOpen = true"
                         class="flex w-full items-center py-2 transition-colors hover:bg-base-200"
@@ -44,7 +43,7 @@
                             {{ unreadCount > 99 ? '99+' : unreadCount }}
                         </span>
                     </button>
-                
+
                     <div class="relative flex items-center space-x-1">
                         <Button
                             variant="ghost"
@@ -126,13 +125,14 @@
             <!-- Main content -->
             <div class="min-h-64 rounded-lg bg-base-100 p-4">
                 <slot />
-                        <ChatSidebar :open="chatOpen" @close="chatOpen = false" />
+                <ChatSidebar :open="chatOpen" @close="chatOpen = false" />
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import ChatSidebar from '@/components/Chat/ChatSidebar.vue';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -147,13 +147,12 @@ import {
     TooltipTrigger,
 } from '@/components/ui/tooltip';
 import UserMenuContent from '@/components/UserMenuContent.vue';
+import { useNotifications } from '@/composables/useNotifications';
 import { toUrl } from '@/lib/utils';
 import type { NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import { Search } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
-import ChatSidebar from '@/components/Chat/ChatSidebar.vue';
-import { useNotifications } from '@/composables/useNotifications';
 
 const page = usePage();
 const { unreadCount } = useNotifications();

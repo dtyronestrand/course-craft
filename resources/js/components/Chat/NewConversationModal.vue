@@ -114,7 +114,7 @@ const resetForm = () => {
 
 const handleTypeChange = () => {
     if (conversationType.value === 'course') {
-    fetchCourses();
+        fetchCourses();
     }
 };
 
@@ -296,7 +296,10 @@ defineExpose({ resetForm });
                             :key="user.id"
                             class="flex items-center gap-1 rounded-full bg-blue-100 px-2 py-1 text-sm text-blue-800"
                         >
-                            <span>{{ user.first_name }} {{ user.last_name }}</span>
+                            <span
+                                >{{ user.first_name }}
+                                {{ user.last_name }}</span
+                            >
                             <button
                                 @click="toggleUser(user)"
                                 class="rounded-full p-0.5 hover:bg-blue-200"
@@ -336,11 +339,16 @@ defineExpose({ resetForm });
                                 <div
                                     class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-blue-600 text-sm font-semibold text-white"
                                 >
-                                    {{ (user.first_name || '').charAt(0).toUpperCase() }}
+                                    {{
+                                        (user.first_name || '')
+                                            .charAt(0)
+                                            .toUpperCase()
+                                    }}
                                 </div>
                                 <div>
                                     <p class="font-medium text-gray-900">
-                                        {{ user.first_name }} {{ user.last_name }}
+                                        {{ user.first_name }}
+                                        {{ user.last_name }}
                                     </p>
                                     <p class="text-sm text-gray-500">
                                         {{ user.email }}

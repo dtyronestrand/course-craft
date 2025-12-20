@@ -75,16 +75,12 @@ init();
 
 <template>
     <!-- Overlay -->
-    <div
-        v-if="props.open"
-        class="z-40"
-        @click="emit('close')"
-    ></div>
+    <div v-if="props.open" class="z-40" @click="emit('close')"></div>
 
     <!-- Sidebar -->
     <div
         :class="[
-            'fixed top-0 right-0 z-50 flex max-h-dvh h-full w-full transform flex-col bg-white shadow-2xl transition-transform duration-300 ease-in-out md:w-96',
+            'fixed top-0 right-0 z-50 flex h-full max-h-dvh w-full transform flex-col bg-white shadow-2xl transition-transform duration-300 ease-in-out md:w-96',
             open ? 'translate-x-0' : 'translate-x-full',
         ]"
     >
@@ -119,10 +115,7 @@ init();
             </h2>
 
             <!-- Unread badge -->
-            <div
-                v-if="!activeConversation && unreadCount > 0"
-                class="mr-2"
-            >
+            <div v-if="!activeConversation && unreadCount > 0" class="mr-2">
                 <span
                     class="rounded-full bg-red-600 px-2 py-1 text-xs font-semibold text-white"
                 >

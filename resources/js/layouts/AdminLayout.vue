@@ -19,7 +19,7 @@
                     </div>
                     <details class="dropdown">
                         <summary
-                            class="flex h-8 w-8 items-center cursor-pointer justify-center rounded-full bg-accent text-center font-bold text-accent-content"
+                            class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-accent text-center font-bold text-accent-content"
                         >
                             {{
                                 getInitials(
@@ -29,7 +29,7 @@
                             }}
                         </summary>
                         <ul
-                            class="dropdown-content menu -left-20 z-1 w-42 text-base-content rounded-box bg-base-100 p-2 shadow-sm"
+                            class="dropdown-content menu -left-20 z-1 w-42 rounded-box bg-base-100 p-2 text-base-content shadow-sm"
                         >
                             <li><a>Profile</a></li>
                             <li>

@@ -1,7 +1,5 @@
 <template>
-
-        <UsersTable :users="page.props.users" />
-
+    <UsersTable :users="page.props.users" />
 </template>
 
 <script setup lang="ts">

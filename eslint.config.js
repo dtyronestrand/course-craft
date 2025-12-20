@@ -1,5 +1,7 @@
 import prettier from 'eslint-config-prettier/flat';
 import vue from 'eslint-plugin-vue';
+import css from "@eslint/css";
+import { tailwind4 } from "tailwind-csstree";
 
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
 
@@ -14,6 +16,8 @@ export default defineConfigWithVueTs(
             'vue/multi-word-component-names': 'off',
             '@typescript-eslint/no-explicit-any': 'off',
         },
+
     },
+
     prettier,
 );
